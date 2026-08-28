@@ -55,15 +55,67 @@ function rejectUnauthorized(res) {
   res.end(JSON.stringify({ error: 'unauthorized' }));
 }
 
-const server = http.createServer((req, res) => {
+
+function parseRequestBody(req) {
+  return new Promise((resolve) => {
+    if (req.body !== undefined && req.body !== null) {
+      return resolve(typeof req.body === 'object' ? req.body : req.body);
+    }
+    let body = '';
+    let sz = 0;
+    req.on('data', c => {
+      sz += c.length;
+      if (sz > BODY_SIZE_LIMIT) {
+        req.destroy();
+        return;
+      }
+      body += c;
+    });
+    req.on('end', () => {
+      resolve(body);
+    });
+    req.on('error', () => resolve(''));
+    // Fallback if stream was already closed
+    setTimeout(() => {
+      if (body.length > 0 || req.complete) resolve(body);
+    }, 50);
+  });
+}
+
+const server = http.createServer(async (req, res) => {
   const parsedUrl = req.url.split('?')[0];
   Object.entries(SECURITY_HEADERS).forEach(([k,v]) => res.setHeader(k,v));
   if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
 
   // API Route: Inbound Telephony Webhook (Twilio) â€” Phase 5 Media Streams
   if (req.method === 'POST' && parsedUrl === '/v1/telephony/inbound') {
-    let body = ''; let sz = 0;
-    req.on('data', c => { sz += c.length; if(sz > BODY_SIZE_LIMIT) { req.destroy(); return; } body += c; });
+    const rawBody = await parseRequestBody(req);
+    let params = {};
+    if (typeof rawBody === 'object' && rawBody !== null) {
+      params = rawBody;
+    } else {
+      const bodyStr = String(rawBody || '');
+      const ct = req.headers['content-type'] || '';
+      if (ct.includes('json')) {
+        try { params = JSON.parse(bodyStr); } catch(e) {}
+      } else {
+        try {
+          const urlParams = new URLSearchParams(bodyStr);
+          urlParams.forEach((v, k) => { params[k] = v; });
+        } catch(e) {}
+      }
+    }
+    try {
+      const twiml = await handleInboundCall(params);
+      res.writeHead(200, { 'Content-Type': 'text/xml' });
+      res.end(twiml);
+    } catch (err) {
+      console.error('[Telephony Error]:', err.message);
+      res.writeHead(200, { 'Content-Type': 'text/xml' });
+      res.end('<Response><Say>Thank you for calling. Our receptionist is currently on another line.</Say></Response>');
+    }
+    return;
+  } body += c; });
     req.on('end', async () => {
       let params = {};
       // Support both JSON and URL-encoded (Twilio sends application/x-www-form-urlencoded)
@@ -179,8 +231,10 @@ const server = http.createServer((req, res) => {
 
   // API Route: LLM Chat Engine (Phase 4)
   if (req.method === 'POST' && parsedUrl === '/v1/chat') {
-    let body = ''; let sz = 0;
-    req.on('data', c => { sz += c.length; if(sz > BODY_SIZE_LIMIT) { req.destroy(); return; } body += c; });
+    const rawBody = await parseRequestBody(req);
+    handleChat(req, res, rawBody);
+    return;
+  } body += c; });
     req.on('end', () => handleChat(req, res, body));
     return;
   }

@@ -19,7 +19,11 @@ function primaryOffer(tenant) {
 
 async function handleChat(req, res, body) {
   let data = {};
-  try { data = JSON.parse(body); } catch (e) {}
+  if (typeof body === 'object' && body !== null) {
+    data = body;
+  } else if (typeof body === 'string') {
+    try { data = JSON.parse(body); } catch (e) {}
+  }
 
   const { message, language, industry, tenantId, bizName, ownerName, city, personaName, history, callerPhone: reqCallerPhone } = data;
   if (!tenantId) console.warn('[Vocalis] Warning: tenantId not provided in request — falling back to default tenant');

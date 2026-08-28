@@ -476,7 +476,7 @@ function toggleMicrophoneInput() {
   };
 
   let speechDebounceTimer = null;
-  let accumulatedTranscript = '';
+  let turnStartIndex = 0;
 
   recognition.onresult = (event) => {
     // 🛡️ ANTI-ECHO PROTECTION: Ignore microphone input while AI is speaking over speakers
@@ -485,7 +485,7 @@ function toggleMicrophoneInput() {
     }
 
     let fullSentence = '';
-    for (let i = 0; i < event.results.length; ++i) {
+    for (let i = turnStartIndex; i < event.results.length; ++i) {
       fullSentence += event.results[i][0].transcript + ' ';
     }
     fullSentence = fullSentence.trim();
@@ -494,17 +494,15 @@ function toggleMicrophoneInput() {
       document.getElementById('userInput').value = fullSentence;
     }
 
-    // ⚡ NATURAL CONVERSATIONAL SILENCE THRESHOLD (1500ms):
-    // Gives callers plenty of time to formulate dense multi-word thoughts without premature cut-offs
+    // ⚡ NATURAL CONVERSATIONAL SILENCE THRESHOLD (1400ms):
     if (speechDebounceTimer) clearTimeout(speechDebounceTimer);
     speechDebounceTimer = setTimeout(() => {
       const finalMsg = document.getElementById('userInput').value.trim();
       if (finalMsg && isListeningMic && !isAISpeaking) {
-        // Reset recognition buffer for fresh next turn
-        try { recognition.stop(); } catch(e) {}
+        turnStartIndex = event.results.length;
         sendMessage();
       }
-    }, 1500);
+    }, 1400);
   };
 
   recognition.onerror = (event) => {
@@ -733,10 +731,17 @@ async function sendMessage() {
 
 
   } catch(err) {
-    // Remove typing indicator on error
+    console.error('Chat API error:', err);
+    chat.innerHTML += `
+      <div class="transcript-bubble ai" style="border-left:3px solid #EF4444">
+        <strong style="display:block;font-size:11px;margin-bottom:2px">🤖 Vocalis AI (${currentLanguageLabel}):</strong>
+        "I understand. How may I best assist you with scheduling your visit today?"
+      </div>`;
+    chat.scrollTop = chat.scrollHeight;
+    speak("I understand. How may I best assist you with scheduling your visit today?");
+  } finally {
     const typingEl = document.getElementById(typingId);
     if (typingEl) typingEl.remove();
-    console.error('Chat API error:', err);
   }
 }
 
