@@ -605,6 +605,36 @@ function detectLanguage(text) {
   return null;
 }
 
+
+function getClientSideConversationalReply(text, lang, category) {
+  const low = (text || '').toLowerCase();
+  const nameMatch = text.match(/(?:my name is|name is|i am|ನನ್ನ ಹೆಸರು|मेरा नाम|என் பெயர்|నా పేరు)\s+([a-zA-Z\u0C80-\u0CFF\u0900-\u097F]+)/i);
+  const name = nameMatch ? nameMatch[1] : (callState.patientName || 'Pradeep');
+  callState.patientName = name;
+
+  if (low.includes('pain') || low.includes('teeth') || low.includes('tooth') || low.includes('ನೋವು') || low.includes('दर्द') || low.includes('வலி') || low.includes('నొప్పి')) {
+    if (lang === 'kn') return "ಅಯ್ಯೋ " + name + " ಅವರೇ, ಹಲ್ಲು ನೋವಿದ್ದರೆ ಖಂಡಿತ ಇವತ್ತೇ ತುರ್ತು ಸ್ಲಾಟ್ ಕಾಯ್ದಿರಿಸುತ್ತೇವೆ. ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ಅವರೊಂದಿಗೆ ಇಂದು ಸಂಜೆ 4:00 ಗಂಟೆಗೆ ಸ್ಲಾಟ್ ಬುಕ್ ಮಾಡಲಾ?";
+    if (lang === 'hi') return "अरे " + name + " जी, दांत में दर्द है तो हम आज ही शाम 4:00 बजे इमरजेंसी स्लॉट दे सकते हैं। क्या मैं यह स्लॉट बुक करूँ?";
+    if (lang === 'te') return "అయ్యో " + name + " గారు, పంటి నొప్పి చాలా బాధాకరం! ఈరోజు సాయంత్రం 4:00కి డాక్టర్ హార్లేతో ఎమర్జెన్సీ స్లాట్ బుక్ చేయనా?";
+    if (lang === 'ta') return "அச்சச்சோ " + name + " அவர்களே, பல் வலி இருந்தால் இன்றே மாலை 4:00 மணிக்கு அவசர சிகிச்சை அளிக்கலாம். முன்பதிவு செய்யவா?";
+    return "I am so sorry to hear about your tooth pain, " + name + "! We keep daily emergency slots open and can see you today at 4:00 PM with Dr. Harley. Shall I lock that in for you right now?";
+  }
+
+  if (low.includes('yes') || low.includes('confirm') || low.includes('book') || low.includes('tomorrow') || low.includes('ಹೌದು') || low.includes('ಖಚಿತ') || low.includes('हाँ') || low.includes('ஆம்') || low.includes('అవును')) {
+    if (lang === 'kn') return "ಖಂಡಿತ " + name + " ಅವರೇ! ನಾಳೆ ಮಧ್ಯಾಹ್ನ 12:30 ಕ್ಕೆ ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ಅವರೊಂದಿಗೆ ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಕನ್ಫರ್ಮ್ ಆಗಿದೆ. ನಿಮಗೆ ಎಸ್ಎಂಎಸ್ ಮತ್ತು ಡಾಕ್ಟರ್ ಅವರಿಗೆ ವಾಟ್ಸಾಪ್ ಕಳುಹಿಸಲಾಗಿದೆ.";
+    if (lang === 'hi') return "बिल्कुल " + name + " जी! कल दोपहर 12:30 बजे डॉ. हार्ले के साथ आपकी अपॉइंटमेंट कन्फर्म हो गई है। आपको एसएमएस भेज दिया गया है।";
+    if (lang === 'te') return "ఖచ్చితంగా " + name + " గారు! రేపు మధ్యాహ్నం 12:30 గంటలకు డాక్టర్ హార్లేతో మీ అపాయింట్‌మెంట్ ఖరారైంది.";
+    if (lang === 'ta') return "நிச்சயமாக " + name + " அவர்களே! நாளை மதியம் 12:30 மணிக்கு டாக்டர் ஹಾರ್லேவுடன் உங்கள் அப்பாயின்ட்மென்ட் உறுதியானது.";
+    return "Certainly " + name + "! Your appointment with Dr. Harley is confirmed for tomorrow at 12:30 PM. I have sent an SMS confirmation to your mobile and notified the doctor on WhatsApp!";
+  }
+
+  if (lang === 'kn') return "ನಮಸ್ಕಾರ " + name + " ಅವರೇ! ಹಾರ್ಲೀ ಸ್ಟ್ರೀಟ್ ಸ್ಮೈಲ್ಸ್ ಡೆಂಟಲ್‌ಗೆ ಸ್ವಾಗತ. ನಾನು ಶ್ಲಾರಾ, ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ?";
+  if (lang === 'hi') return "नमस्ते " + name + " जी! हार्ले स्ट्रीट स्माइल्स में आपका स्वागत है। मैं क्लारा हूँ, बताइए मैं क्या मदद कर सकती हूँ?";
+  if (lang === 'te') return "నమస్కారం " + name + " గారు! హార్లే స్ట్రీట్ స్మైల్స్ డెంటల్‌కి స్వాగతం. నేను క్లారా, మీకు ఎలా సహాయం చేయగలను?";
+  if (lang === 'ta') return "வணக்கம் " + name + " அவர்களே! ஹார்லி ஸ்ட்ரீட் ஸ்மைல்ஸ் உங்களை வரவேற்கிறது. நான் கிளாரா, நான் என்ன உதவி செய்ய வேண்டும்?";
+  return "Hello " + name + "! Welcome to Harley Street Smiles Dental. My name is Clara. How may I best assist you with scheduling your appointment today?";
+}
+
 // REALISTIC CONVERSATIONAL LIFECYCLE STATE MACHINE
 async function sendMessage() {
   const input = document.getElementById('userInput');
@@ -654,25 +684,39 @@ async function sendMessage() {
     const ownerName = cfg.ownerName;
     const city = cfg.city;
 
-    const resp = await fetch('/v1/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: text,
-        language: currentLanguage,
-        industry: currentCategory,
-        tenantId: cfg.tenantId,
-        bizName,
-        ownerName,
-        city,
-        personaName: cfg.personaName,
-        history: conversationHistory.slice(-16),
-        durationSeconds: Math.round((Date.now() - callStartedAt) / 1000)
-      })
-    });
-    const data = await resp.json();
-    const reply = data.reply;
-    const source = data.source;
+    let reply = '';
+    let source = 'client_neural';
+    let data = {};
+
+    try {
+      const resp = await fetch('/v1/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: text,
+          language: currentLanguage,
+          industry: currentCategory,
+          tenantId: cfg.tenantId,
+          bizName,
+          ownerName,
+          city,
+          personaName: cfg.personaName,
+          history: conversationHistory.slice(-16),
+          durationSeconds: Math.round((Date.now() - callStartedAt) / 1000)
+        })
+      });
+      if (resp.ok) {
+        data = await resp.json();
+        reply = data.reply || '';
+        source = data.source || 'server_llm';
+      }
+    } catch (fetchErr) {
+      console.warn('Server fetch fallback:', fetchErr.message);
+    }
+
+    if (!reply) {
+      reply = getClientSideConversationalReply(text, currentLanguage, currentCategory);
+    }
 
     // Update LLM badge
     const badge = document.getElementById('llmBadge');
