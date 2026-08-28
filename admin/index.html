@@ -24,7 +24,7 @@
       <a href="trials.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Trial Management <span class="nav-badge warning" id="sideBadgeTrials">8</span></a>
       <div class="nav-section-title">Voice AI</div>
       <a href="demo.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Live Demo Center</a>
-      <a href="client-detail.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call Logs & AI</a>
+      <a href="client-detail.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.72 6.72l.61-1.76a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call Logs & AI</a>
       <div class="nav-section-title">Business</div>
       <a href="billing.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Billing & Revenue</a>
       <a href="settings.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>Platform Settings</a>
@@ -141,7 +141,7 @@
             <div class="card-title">High-Currency International Clients</div>
             <div class="card-subtitle">Tenants active in US, UK, UAE, EU, Canada & Australia</div>
           </div>
-          <a href="clients.html" class="btn btn-secondary btn-sm">View All 47 Clients ↗</a>
+          <a href="clients.html" class="btn btn-secondary btn-sm">View All Clients ↗</a>
         </div>
         <div class="card-body no-pad">
           <table class="data-table">
@@ -179,18 +179,22 @@ const demoData = {
   appt: '318',
   chartData: [497, 994, 2982, 4971, 7455, 9938, 13412, 16389, 18372, 20847, 22335, 22832, 23359],
   clientsList: [
-    {name:'Harley Street Smiles Dental',market:'🇬🇧 UK (£395 GBP ≈ $500)',rule:'WhatsApp + Script on Confirmed Patient',status:'live',calls:62,mrr:497},
-    {name:'Apex Heating & Air Services',market:'🇺🇸 USA ($497 USD)',rule:'WhatsApp on Emergency Tech Dispatch',status:'live',calls:84,mrr:497},
-    {name:'Royal Mirage MedSpa & Laser',market:'🇦🇪 UAE (1,825 AED ≈ $497)',rule:'WhatsApp + Script on VIP Consultation',status:'live',calls:47,mrr:697},
-    {name:'Zurich Aesthetic Clinic',market:'🇨🇭 Switzerland (440 CHF ≈ $500)',rule:'WhatsApp + Script on Confirmed Surgery',status:'live',calls:34,mrr:997},
-    {name:'Sydney Orthodontics & Physio',market:'🇦🇺 Australia ($760 AUD ≈ $497)',rule:'WhatsApp + Script on OPD Booking',status:'live',calls:58,mrr:497},
-    {name:'Toronto Injury Law Group',market:'🇨🇦 Canada ($675 CAD ≈ $497)',rule:'WhatsApp on Qualified Retainer Lead',status:'trial',calls:31,mrr:0}
+    {id:'TNT-001', name:'Harley Street Smiles Dental',market:'🇬🇧 UK (£395 GBP ≈ $500)',rule:'WhatsApp + Script on Confirmed Patient',status:'live',calls:62,mrr:497},
+    {id:'TNT-002', name:'Prestige Nature Farmland & Estates',market:'🇮🇳 India (₹24,999 INR)',rule:'WhatsApp on Site Visit Booking',status:'live',calls:54,mrr:300},
+    {id:'TNT-003', name:'Apex Heating & Air Services',market:'🇺🇸 USA ($497 USD)',rule:'WhatsApp on Emergency Tech Dispatch',status:'live',calls:84,mrr:497},
+    {id:'TNT-004', name:'Sterling & Partners Trial Attorneys',market:'🇺🇸 USA ($795 USD)',rule:'WhatsApp on Case Intake Qualification',status:'live',calls:39,mrr:795},
+    {id:'TNT-005', name:'Gourmet Haven Ristorante & Lounge',market:'🇺🇸 USA ($295 USD)',rule:'WhatsApp on Table Reservation',status:'live',calls:71,mrr:295},
+    {id:'TNT-006', name:'Royal Mirage MedSpa & Laser',market:'🇦🇪 UAE (1,825 AED ≈ $497)',rule:'WhatsApp + Script on VIP Consultation',status:'live',calls:47,mrr:697},
+    {id:'TNT-007', name:'Zurich Aesthetic Clinic',market:'🇨🇭 Switzerland (440 CHF ≈ $500)',rule:'WhatsApp + Script on Confirmed Surgery',status:'live',calls:34,mrr:997},
+    {id:'TNT-008', name:'Sydney Orthodontics & Physio',market:'🇦🇺 Australia ($760 AUD ≈ $497)',rule:'WhatsApp + Script on OPD Booking',status:'live',calls:58,mrr:497},
+    {id:'TNT-009', name:'Toronto Injury Law Group',market:'🇨🇦 Canada ($675 CAD ≈ $497)',rule:'WhatsApp on Qualified Retainer Lead',status:'trial',calls:31,mrr:0}
   ],
   activities: [
-    {type:'booking',text:'<span>Harley Street Dental</span> WhatsApp + Full Script sent to Dr. Harley — Confirmed patient Maria Johnson (£140 Cleaning)',time:'Just now'},
-    {type:'call',text:'<span>Apex HVAC</span> WhatsApp sent to On-Call Tech — Emergency AC failure Plano TX dispatched',time:'2 min ago'},
-    {type:'booking',text:'<span>Royal Mirage MedSpa</span> WhatsApp + Full Script sent to Doctor — VIP Laser Consultation Friday',time:'6 min ago'},
-    {type:'trial',text:'<span>Toronto Law Group</span> Trial: 31 calls saved, $6,200 in qualified cases captured',time:'12 min ago'}
+    {text:'<span>Harley Street Dental</span>: WhatsApp + Full Script sent to Dr. Harley — Confirmed patient Maria Johnson (£140 Cleaning)',time:'Just now'},
+    {text:'<span>Apex HVAC</span>: WhatsApp sent to On-Call Tech — Emergency AC failure Plano TX dispatched',time:'2 min ago'},
+    {text:'<span>Prestige Farmlands</span>: WhatsApp site visit alert sent to Agent Vikram (₹75L plot)',time:'4 min ago'},
+    {text:'<span>Royal Mirage MedSpa</span>: WhatsApp + Full Script sent to Doctor — VIP Laser Consultation Friday',time:'6 min ago'},
+    {text:'<span>Toronto Law Group</span>: Trial: 31 calls saved, $6,200 in qualified cases captured',time:'12 min ago'}
   ]
 };
 
@@ -204,7 +208,7 @@ const zeroData = {
   chartData: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   clientsList: [],
   activities: [
-    {type:'call',text:'Platform ready. Onboard your first client using the <strong>Add Client</strong> wizard.',time:'System ready'}
+    {text:'Platform ready. Onboard your first client using the <strong>Add Client</strong> wizard.',time:'System ready'}
   ]
 };
 
@@ -220,7 +224,7 @@ function renderDashboard(data) {
 
   const tbody = document.getElementById('clientsTable');
   tbody.innerHTML = '';
-  if(data.clientsList.length === 0) {
+  if(!data.clientsList || data.clientsList.length === 0) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:36px;color:var(--text-muted)">No live clients yet. Click <strong>Add Client</strong> to deploy your first client tenant.</td></tr>`;
   } else {
     data.clientsList.forEach(c => {
@@ -236,7 +240,7 @@ function renderDashboard(data) {
           <td><strong style="color:var(--brand-accent)">${c.calls}</strong></td>
           <td>${c.mrr > 0 ? '<strong style="color:var(--text-primary)">$'+c.mrr+'</strong>/mo' : '<span style="color:var(--text-muted)">Trial</span>'}</td>
           <td>
-            <a href="client-detail.html" class="btn btn-secondary btn-sm" style="padding:4px 8px;font-size:11.5px">Manage</a>
+            <a href="client-detail.html?id=${c.id || 'TNT-001'}" class="btn btn-secondary btn-sm" style="padding:4px 8px;font-size:11.5px">Manage</a>
           </td>
         </tr>`;
     });
@@ -257,37 +261,40 @@ function renderDashboard(data) {
       </div>`;
   });
 
-  const ctx = document.getElementById('revenueChart').getContext('2d');
-  if(revenueChartInstance) revenueChartInstance.destroy();
+  const chartEl = document.getElementById('revenueChart');
+  if (chartEl) {
+    const ctx = chartEl.getContext('2d');
+    if(revenueChartInstance) revenueChartInstance.destroy();
 
-  const gradient = ctx.createLinearGradient(0, 0, 0, 210);
-  gradient.addColorStop(0, 'rgba(79, 70, 229, 0.2)');
-  gradient.addColorStop(1, 'rgba(79, 70, 229, 0)');
+    const gradient = ctx.createLinearGradient(0, 0, 0, 210);
+    gradient.addColorStop(0, 'rgba(79, 70, 229, 0.2)');
+    gradient.addColorStop(1, 'rgba(79, 70, 229, 0)');
 
-  revenueChartInstance = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],
-      datasets: [{
-        data: data.chartData,
-        borderColor: '#4F46E5',
-        borderWidth: 2.5,
-        backgroundColor: gradient,
-        fill: true,
-        tension: 0.35,
-        pointBackgroundColor: '#4F46E5',
-        pointRadius: 4
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { grid: { color: '#F1F5F9' }, ticks: { color: '#64748B', font: { size: 11 }}},
-        y: { grid: { color: '#F1F5F9' }, ticks: { color: '#64748B', font: { size: 11 }, callback: v => '$' + (v >= 1000 ? (v/1000).toFixed(0)+'k' : v)}}
+    revenueChartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],
+        datasets: [{
+          data: data.chartData,
+          borderColor: '#4F46E5',
+          borderWidth: 2.5,
+          backgroundColor: gradient,
+          fill: true,
+          tension: 0.35,
+          pointBackgroundColor: '#4F46E5',
+          pointRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { color: '#F1F5F9' }, ticks: { color: '#64748B', font: { size: 11 }}},
+          y: { grid: { color: '#F1F5F9' }, ticks: { color: '#64748B', font: { size: 11 }, callback: v => '$' + (v >= 1000 ? (v/1000).toFixed(0)+'k' : v)}}
+        }
       }
-    }
-  });
+    });
+  }
 }
 
 function toggleDataMode(mode) {
@@ -295,101 +302,17 @@ function toggleDataMode(mode) {
   if(mode === 'demo') {
     document.getElementById('btnDemoMode').className = 'btn btn-primary btn-sm';
     document.getElementById('btnZeroMode').className = 'btn btn-ghost btn-sm';
-    document.getElementById('sideBadgeClients').innerText = '47';
-    document.getElementById('sideBadgeTrials').innerText = '8';
-    
-let allTenants = [];
-let allBookings = [];
-
-async function loadRealDashboardData() {
-  try {
-    const [tRes, bRes] = await Promise.all([
-      fetch('/v1/tenants').then(r => r.json()).catch(() => []),
-      fetch('/v1/bookings').then(r => r.json()).catch(() => [])
-    ]);
-
-    allTenants = Array.isArray(tRes) && tRes.length ? tRes : [];
-    allBookings = Array.isArray(bRes) && bRes.length ? bRes : [];
-
-    // Update KPI Cards with Real Dynamic Numbers
-    const liveTenants = allTenants.filter(t => t.status !== 'SUSPENDED');
-    document.getElementById('kpiClients').innerText = liveTenants.length;
-    document.getElementById('kpiClientsSub').innerText = liveTenants.length + ' active business tenants';
-    if(document.getElementById('sideBadgeClients')) {
-      document.getElementById('sideBadgeClients').innerText = liveTenants.length;
-    }
-
-    // Calculate Real Total MRR
-    const totalMrr = liveTenants.reduce((acc, t) => {
-      const price = t.subscriptionTier === 'ENTERPRISE' ? 795 : (t.subscriptionTier === 'PRO' ? 495 : 350);
-      return acc + price;
-    }, 0);
-    document.getElementById('kpiMrr').innerText = '
-</body>
-</html>
- + totalMrr.toLocaleString();
-    document.getElementById('kpiMrrSub').innerText = '≈ ₹' + ((totalMrr * 84)/100000).toFixed(1) + ' Lakhs / month';
-
-    // Real Calls and Bookings
-    const totalBookingsCount = allBookings.length;
-    document.getElementById('kpiCalls').innerText = (totalBookingsCount * 4 + 12).toString();
-    if(document.getElementById('kpiBookings')) {
-      document.getElementById('kpiBookings').innerText = totalBookingsCount;
-    }
-
-    // Render Real Clients Table
-    const tbody = document.getElementById('clientsTable');
-    tbody.innerHTML = '';
-    if(liveTenants.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:36px;color:var(--text-muted)">No live clients yet. Click <strong>Add Client</strong> to deploy your first client tenant.</td></tr>';
-    } else {
-      liveTenants.forEach(c => {
-        const badge = c.status === 'ACTIVE'
-          ? '<span class="badge badge-live"><span class="badge-dot"></span>Live</span>'
-          : '<span class="badge badge-trial"><span class="badge-dot"></span>Trial</span>';
-        const fee = c.subscriptionTier === 'ENTERPRISE' ? '$795' : (c.subscriptionTier === 'PRO' ? '$495' : '$350');
-        tbody.innerHTML += `
-          <tr>
-            <td><strong style="color:var(--text-primary)">${c.businessName}</strong></td>
-            <td><span style="font-weight:600;color:var(--text-primary)">${c.city || 'Global'}</span></td>
-            <td><span style="font-size:12px;color:var(--brand-primary);font-weight:600">${c.industry ? c.industry.toUpperCase() : 'GENERAL'}</span></td>
-            <td>${badge}</td>
-            <td><strong style="color:var(--brand-accent)">${(c.totalCalls || 14)}</strong></td>
-            <td><strong style="color:var(--text-primary)">${fee}</strong>/mo</td>
-            <td>
-              <a href="client-detail.html?id=${c.id}" class="btn btn-secondary btn-sm" style="padding:4px 8px;font-size:11.5px">Manage</a>
-            </td>
-          </tr>`;
-      });
-    }
-
-    // Render Real Live Activity Feed from Bookings & Calls
-    const feed = document.getElementById('activityFeed');
-    feed.innerHTML = '';
-    if(allBookings.length === 0) {
-      feed.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text-muted);font-size:12px">No recent call activities.</div>';
-    } else {
-      allBookings.slice(0, 5).forEach(b => {
-        feed.innerHTML += `
-          <div class="activity-item" style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #F1F5F9">
-            <div style="width:28px;height:28px;border-radius:6px;background:var(--brand-primary-light);color:var(--brand-primary);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.72 6.72l.61-1.76a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </div>
-            <div style="flex:1;min-width:0">
-              <div style="font-size:12px;color:var(--text-primary)"><strong>${b.clinicName}</strong>: Confirmed booking for ${b.patientName} (${b.slotTime})</div>
-              <div style="font-size:10.5px;color:var(--text-dim)">${new Date(b.bookedAt || Date.now()).toLocaleTimeString()}</div>
-            </div>
-          </div>`;
-      });
-    }
-  } catch(e) {
-    console.warn('Live dashboard sync:', e.message);
+    renderDashboard(demoData);
+  } else {
+    document.getElementById('btnDemoMode').className = 'btn btn-ghost btn-sm';
+    document.getElementById('btnZeroMode').className = 'btn btn-primary btn-sm';
+    renderDashboard(zeroData);
   }
 }
 
-// Load real data immediately
-loadRealDashboardData();
-
+document.addEventListener('DOMContentLoaded', () => {
+  renderDashboard(demoData);
+});
 </script>
 </body>
 </html>
