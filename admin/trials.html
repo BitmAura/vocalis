@@ -230,7 +230,7 @@ function openRoiModal(name, rev, details, plan) {
       <div>• <strong>Plan Rate:</strong> ${plan}</div>
       <div>• <strong>Calculated Client ROI:</strong> <span style="color:#0284C7;font-weight:700">8.4x return on subscription</span></div>
     </div>
-    <p>This will instantly dispatch the branded PDF ROI sheet and Stripe one-click payment link to the business owner's verified WhatsApp number.</p>
+    <p>This app cannot send a Stripe invoice until STRIPE_SECRET_KEY exists. Confirm does nothing on the network.</p>
   `;
   document.getElementById('roiModal').classList.add('active');
 }
@@ -258,11 +258,11 @@ function openPreviewModal(name, rev, details, calls) {
 
 function confirmSendBill() {
   closeModal();
-  showToast('✅ ROI Dossier & Stripe Invoice dispatched to owner on WhatsApp & Email!');
+  showToast('Not sent. Stripe and WhatsApp invoice dispatch are not wired.');
 }
 
 function sendMidTrialWhatsApp(name) {
-  showToast('💬 Mid-trial check-in dispatched to ' + name + ' owner via WhatsApp!');
+  showToast('Not sent. No WhatsApp API call from this button.');
 }
 </script>
 </body>

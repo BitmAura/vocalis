@@ -4,14 +4,13 @@ const fs = require('fs');
 const path = require('path');
 const { handleInboundCall } = require('./routes/telephony');
 const { handleChat } = require('./routes/chat');
-const { attachMediaStreamServer, generateMediaStreamTwiML } = require('./routes/voice-stream');
 const callRecorder = require('./services/call-recorder');
 const tenantStore = require('./services/tenant-store');
 const bookingEngine = require('./services/booking-engine');
 const callLogsStore = require('./services/call-logs-store');
 const outboundAutoCall = require('./services/outbound-autocall');
 const WhatsAppDispatcher = require('./services/whatsapp-dispatcher');
-const VoiceAgentSession = require('./services/voice-agent');
+const { configured } = require('./services/integrations');
 
 const PORT = process.env.PORT || 3300;
 const ROOT_DIR = path.join(__dirname, '..');
@@ -42,8 +41,13 @@ const SECURITY_HEADERS = {
 };
 const BODY_SIZE_LIMIT = 100 * 1024;
 
+function isProductionLock() {
+  return !!(process.env.VERCEL || process.env.NODE_ENV === 'production');
+}
+
 function isAdminAuthorized(req) {
   const key = process.env.ADMIN_API_KEY;
+  if (isProductionLock() && !key) return false;
   if (!key) return true;
   const header = req.headers.authorization || '';
   const sent = header.replace(/^Bearer\s+/i, '').trim();
@@ -81,8 +85,8 @@ function parseRequestBody(req) {
     });
     req.on('end', () => done(body));
     req.on('error', () => done(''));
-    // Unconditional safety timeout for serverless environments (never hangs)
-    setTimeout(() => done(body), 250);
+    const waitMs = process.env.VERCEL ? 8000 : 250;
+    setTimeout(() => done(body), waitMs);
   });
 }
 
@@ -290,6 +294,7 @@ async function requestHandler(req, res) {
       trials: trials.length,
       mrr: 0,
       mrrNote: 'No Stripe yet. Plan fees are not billed.',
+      integrations: configured(),
       callsToday: logs.filter((l) => isToday(l.timestamp)).length,
       callsAll: logs.length,
       bookingsToday: bookings.filter((b) => isToday(b.bookedAt)).length,
@@ -464,6 +469,16 @@ async function requestHandler(req, res) {
           return;
         }
 
+        if (process.env.VERCEL) {
+          process.env.GEMINI_API_KEY = apiKey.trim();
+          const llmEngine = require('./services/llm-engine');
+          llmEngine.apiKey = apiKey.trim();
+          llmEngine.available = true;
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, message: 'Gemini key set in process only (Vercel has no writable .env)' }));
+          return;
+        }
+
         // 1. Update .env file
         const envPath = path.join(__dirname, '.env');
         let envContent = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf8') : '';
@@ -531,19 +546,30 @@ async function requestHandler(req, res) {
           'GOOGLE_TTS_API_KEY=' + (keys.googleTtsKey || '')
         ].join('\n');
 
-        fs.writeFileSync(backendEnv, envText, 'utf8');
-        fs.writeFileSync(rootEnv, envText, 'utf8');
+        process.env.GEMINI_API_KEY = keys.geminiKey || process.env.GEMINI_API_KEY;
+        process.env.NVIDIA_API_KEY = keys.nvidiaKey || process.env.NVIDIA_API_KEY;
+        process.env.OPENROUTER_API_KEY = keys.openRouterKey || process.env.OPENROUTER_API_KEY;
+        process.env.TWILIO_ACCOUNT_SID = keys.twilioSid || process.env.TWILIO_ACCOUNT_SID;
+        process.env.TWILIO_AUTH_TOKEN = keys.twilioToken || process.env.TWILIO_AUTH_TOKEN;
+        process.env.TWILIO_PHONE_NUMBER = keys.twilioPhone || process.env.TWILIO_PHONE_NUMBER;
+        process.env.GUPSHUP_API_KEY = keys.gupshupKey || process.env.GUPSHUP_API_KEY;
+        process.env.GUPSHUP_APP_NAME = keys.gupshupApp || process.env.GUPSHUP_APP_NAME;
+        process.env.DEEPGRAM_API_KEY = keys.deepgramKey || process.env.DEEPGRAM_API_KEY;
+        process.env.ELEVENLABS_API_KEY = keys.elevenLabsKey || process.env.ELEVENLABS_API_KEY;
 
-        // Update runtime process.env
-        process.env.GEMINI_API_KEY = keys.geminiKey || '';
-        process.env.NVIDIA_API_KEY = keys.nvidiaKey || '';
-        process.env.OPENROUTER_API_KEY = keys.openRouterKey || '';
+        if (!process.env.VERCEL) {
+          fs.writeFileSync(backendEnv, envText, 'utf8');
+          fs.writeFileSync(rootEnv, envText, 'utf8');
+        }
 
         const llmEngine = require('./services/llm-engine');
         llmEngine.refreshKeys();
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: true, message: 'All platform keys saved and active!' }));
+        res.end(JSON.stringify({
+          success: true,
+          message: process.env.VERCEL ? 'Keys set in process only (no .env on Vercel)' : 'Keys saved to .env'
+        }));
       } catch(e) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: e.message }));
@@ -570,45 +596,9 @@ async function requestHandler(req, res) {
     return;
   }
 
-
-  // API Route: High-Fidelity Neural Speech Stream (Zero-Cost / 100% Free / All Languages)
-  if (req.method === 'GET' && parsedUrl === '/v1/tts') {
-    const queryParams = new URLSearchParams(req.url.split('?')[1] || '');
-    const text = queryParams.get('text') || '';
-    const lang = queryParams.get('lang') || 'en';
-    if (!text) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'text parameter required' }));
-      return;
-    }
-
-    const langCodeMap = {
-      'ta': 'ta', 'kn': 'kn', 'te': 'te', 'hi': 'hi',
-      'en-IN': 'en-IN', 'en-GB': 'en-GB', 'en-US': 'en-US',
-      'ar': 'ar', 'fr': 'fr', 'en': 'en'
-    };
-    const tl = langCodeMap[lang] || 'en';
-    const cleanText = text.replace(/[*_#`]/g, '').trim();
-    const encoded = encodeURIComponent(cleanText.slice(0, 350));
-    const url = 'https://translate.google.com/translate_tts?ie=UTF-8&tl=' + tl + '&client=tw-ob&q=' + encoded;
-
-    const https = require('https');
-    https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } }, (tRes) => {
-      if (tRes.statusCode === 200) {
-        res.writeHead(200, {
-          'Content-Type': 'audio/mpeg',
-          'Cache-Control': 'public, max-age=86400',
-          'Access-Control-Allow-Origin': '*'
-        });
-        tRes.pipe(res);
-      } else {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: 'TTS stream failed' }));
-      }
-    }).on('error', (e) => {
-      res.writeHead(500, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: e.message }));
-    });
+  if (req.method === 'GET' && parsedUrl === '/v1/integrations/status') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(configured()));
     return;
   }
 
@@ -645,32 +635,19 @@ async function requestHandler(req, res) {
   });
 }
 
-const server = http.createServer(requestHandler);
-
-// Upgrade HTTP server to support WebSocket for Twilio Media Streams (Phase 5)
-const { WebSocketServer } = require('ws');
-// attachMediaStreamServer is called after server.listen below
+module.exports = requestHandler;
 
 if (require.main === module && !process.env.VERCEL) {
-server.listen(PORT, () => {
-  console.log(`\n===========================================================`);
-  console.log(`Ã°Å¸Å¡â‚¬ Vocalis AI Production Server Live at http://localhost:${PORT}`);
-  console.log(`Ã¢â‚¬Â¢ Admin Super-Panel: http://localhost:${PORT}/index.html`);
-  console.log(`Ã¢â‚¬Â¢ Client Reception Portal: http://localhost:${PORT}/client-portal/index.html`);
-  console.log(`Ã¢â‚¬Â¢ Inbound Telephony Webhook: POST http://localhost:${PORT}/v1/telephony/inbound`);
-  console.log(`Ã¢â‚¬Â¢ Verified WhatsApp Dispatcher: POST http://localhost:${PORT}/v1/test/whatsapp`);
-  console.log(`Ã¢â‚¬Â¢ Twilio Media Stream: wss://localhost:${PORT}/v1/stream`);
-  console.log(`Ã¢â‚¬Â¢ Recording Callback: POST http://localhost:${PORT}/v1/telephony/recording`);
-  console.log(`Ã¢â‚¬Â¢ Phase 5 Phone: ${process.env.TWILIO_PHONE_NUMBER || 'Not configured (add TWILIO_PHONE_NUMBER to .env)'}`);
-  console.log(`===========================================================\n`);
-  
-  // Attach WebSocket server for Twilio Media Streams
-  attachMediaStreamServer(server);
-});
+  const { attachMediaStreamServer } = require('./routes/voice-stream');
+  const server = http.createServer(requestHandler);
+  server.listen(PORT, () => {
+    console.log(`Vocalis listening http://localhost:${PORT}`);
+    console.log('Admin: http://localhost:' + PORT + '/index.html');
+    console.log('Inbound TwiML: POST /v1/telephony/inbound');
+    console.log('Phone: ' + (process.env.TWILIO_PHONE_NUMBER || 'not set'));
+    attachMediaStreamServer(server);
+  });
 }
-
-
-module.exports = requestHandler;
 
 
 

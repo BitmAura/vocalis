@@ -322,11 +322,11 @@
                 <div class="grid-2">
                   <div class="form-group">
                     <label class="form-label">Cal.com Booking URL</label>
-                    <input type="text" class="form-control" value="cal.com/harley-smiles/consultation">
+                    <input type="text" class="form-control" id="calBookingUrl" placeholder="cal.com/your-event (not auto-connected)">
                   </div>
                   <div class="form-group">
                     <label class="form-label">Doctor WhatsApp Mobile Number</label>
-                    <input type="text" class="form-control" value="+44 7911 123456">
+                    <input type="text" class="form-control" id="doctorWhatsApp" value="+44 7911 123456">
                   </div>
                 </div>
               </div>
@@ -363,7 +363,7 @@
       <div class="wizard-panel" id="stepPanel5">
         <div class="card">
           <div class="card-header">
-            <div><div class="card-title">Step 5: Review & Go Live! 🚀</div><div class="card-subtitle">Dedicated phone number will be provisioned instantly with 3-ring forwarding code</div></div>
+            <div><div class="card-title">Step 5: Save tenant</div><div class="card-subtitle">Saves a JSON tenant. Does not buy a phone number or connect Cal.com by itself.</div></div>
           </div>
           <div class="card-body">
             <div class="grid-2" style="margin-bottom:18px">
@@ -371,7 +371,7 @@
                 <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;font-weight:700;letter-spacing:0.8px">Client Summary</div>
                 <div id="step5BizName" style="font-size:17px;font-weight:700;color:var(--text-primary);margin-top:4px">Kumar's Dental Clinic</div>
                 <div id="step5MarketPlan" style="font-size:12.5px;color:var(--text-secondary);margin-top:2px">🇮🇳 India &nbsp;·&nbsp; ₹14,999 INR / mo</div>
-                <div style="font-size:12px;color:var(--brand-primary);margin-top:6px;font-weight:600">WhatsApp Gateway: Verified Gupshup / Twilio Enterprise</div>
+                <div style="font-size:12px;color:var(--brand-primary);margin-top:6px;font-weight:600">WhatsApp sends only if Gupshup or Twilio WhatsApp env is set</div>
               </div>
 
               <div style="background:#F8FAFC;border:1px solid var(--glass-border);padding:16px;border-radius:10px">
@@ -396,6 +396,7 @@
   </main>
 </div>
 
+<script src="assets/js/live-stats.js"></script>
 <script>
 function goToStep(step) {
   for(let i=1; i<=5; i++) {
@@ -421,10 +422,37 @@ function updateCurrencyTier() {
   document.getElementById('planPriceDisplay').value = 'Standard Pro Plan: ' + price;
 }
 
-function launchTenant() {
+async function launchTenant() {
   const name = document.getElementById('bizName').value || 'New Client';
-  alert('🎉 Tenant Successfully Deployed for ' + name + '!\n\n• Dedicated Phone Number Provisioned\n• Doctor WhatsApp Alert Configured with Full Call Script & Audio Link\n• Gupshup / Twilio Enterprise Verified Gateway Connected (Zero Blocking Risk)\n• Cal.com Calendar Connected\n• Ready to handle 24/7 calls!');
-  window.location.href = 'clients.html';
+  const wa = (document.getElementById('doctorWhatsApp') || {}).value || '';
+  try {
+    const headers = { 'Content-Type': 'application/json' };
+    try {
+      const k = localStorage.getItem('vocalisAdminKey');
+      if (k) headers.Authorization = 'Bearer ' + k;
+    } catch (e) {}
+    const res = await fetch('/v1/tenants', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        businessName: name,
+        industry: 'dental',
+        language: 'en-GB',
+        doctorWhatsApp: wa,
+        personaName: 'Clara',
+        calBookingUrl: (document.getElementById('calBookingUrl') || {}).value || ''
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      alert('Could not save tenant: ' + (data.error || res.status) + (res.status === 401 ? '\nSet ADMIN_API_KEY and localStorage vocalisAdminKey' : ''));
+      return;
+    }
+    alert('Tenant saved as ' + (data.tenant && data.tenant.id) + '.\nNo phone number was purchased.\nCal.com / WhatsApp stay off until those API keys are in .env.');
+    window.location.href = 'clients.html';
+  } catch (e) {
+    alert('Save failed: ' + e.message);
+  }
 }
 </script>
 
@@ -446,7 +474,7 @@ function launchTenant() {
       </div>
       <div style="display:flex;justify-content:space-between">
         <span style="color:#64748B">WhatsApp Notification:</span>
-        <strong style="color:#0F172A">Active (Gupshup / Twilio)</strong>
+        <strong style="color:#0F172A">Uses env keys if set; otherwise not sent</strong>
       </div>
     </div>
 

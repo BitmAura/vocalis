@@ -37,9 +37,9 @@
   <div class="roi-card">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px">
       <div>
-        <div style="font-size:12px;text-transform:uppercase;font-weight:700;letter-spacing:0.8px;opacity:0.9">Weekly AI Performance & Recovered Revenue</div>
-        <div style="font-size:32px;font-weight:800;letter-spacing:-0.5px;margin-top:4px">£14,850 Estimated Revenue Recovered</div>
-        <div style="font-size:13px;opacity:0.95;margin-top:2px">Vocalis AI answered <strong>62 missed calls</strong> and confirmed <strong>28 patients</strong> this week.</div>
+      <div style="font-size:11px;text-transform:uppercase;font-weight:700;letter-spacing:0.8px;opacity:0.9">This tenant (live API)</div>
+        <div style="font-size:32px;font-weight:800;letter-spacing:-0.5px;margin-top:4px" id="portalRoiLine">Loading…</div>
+        <div style="font-size:13px;opacity:0.95;margin-top:2px" id="portalRoiSub">Counts from this server, not a pitch deck</div>
       </div>
       <div style="background:rgba(255,255,255,0.15);padding:12px 18px;border-radius:10px;backdrop-filter:blur(8px)">
         <div style="font-size:11px;text-transform:uppercase;font-weight:700">Doctor WhatsApp Alerts</div>
@@ -59,17 +59,17 @@
     <div class="metric-card">
       <div id="metricConfirmed" class="metric-value" style="color:#047857">28</div>
       <div class="metric-label">Confirmed Appointments</div>
-      <div class="metric-sub">Synced into Cal.com</div>
+      <div class="metric-sub" id="metricBookingsSub">Local JSON bookings (Cal.com only if CAL_API_KEY set)</div>
     </div>
     <div class="metric-card">
-      <div class="metric-value" style="color:var(--brand-primary)">100%</div>
-      <div class="metric-label">WhatsApp Delivery Rate</div>
-      <div class="metric-sub">Verified Gupshup Gateway</div>
+      <div class="metric-value" style="color:var(--brand-primary)" id="metricWa">—</div>
+      <div class="metric-label">WhatsApp actually sent</div>
+      <div class="metric-sub" id="metricWaSub">Requires Gupshup or Twilio WhatsApp</div>
     </div>
     <div class="metric-card">
       <div class="metric-value">340ms</div>
       <div class="metric-label">Average AI Response Speed</div>
-      <div class="metric-sub">Sub-second natural conversation</div>
+      <div class="metric-sub">Not measured in this build</div>
     </div>
   </div>
 
@@ -177,14 +177,20 @@ async function loadPortalData() {
           "<td><strong style=\"color:var(--brand-primary)\">" + b.slotTime + "</strong></td>" +
           "<td style=\"font-size:12px;color:var(--text-secondary)\">\"" + b.symptoms + "\"</td>" +
           "<td><div class=\"audio-player-mini\"><button class=\"play-btn-mini\" onclick=\"playAudio('" + b.patientName + "')\"><svg viewBox=\"0 0 24 24\" fill=\"currentColor\" style=\"width:12px;height:12px\"><polygon points=\"5 3 19 12 5 21 5 3\"/></svg></button><span style=\"font-size:11px;color:var(--text-muted)\">1m 48s</span></div></td>" +
-          "<td><span class=\"badge badge-live\">✅ Dispatched</span></td>" +
+          "<td><span class=\"badge\">" + ((b.whatsapp && b.whatsapp.success) ? "WhatsApp sent" : (b.whatsapp && b.whatsapp.status) || "WhatsApp not sent") + "</span></td>" +
           "</tr>"
         )).join("");
       }
     }
     const tenantLogs = logsData.logs.filter(l => l.tenantId === currentTenantId);
-    document.getElementById("metricTotalCalls").innerText = tenantLogs.length + 58;
-    document.getElementById("metricConfirmed").innerText = tenantBookings.length + 26;
+    document.getElementById("metricTotalCalls").innerText = tenantLogs.length;
+    document.getElementById("metricConfirmed").innerText = tenantBookings.length;
+    const waOk = tenantBookings.filter(b => b.whatsapp && b.whatsapp.success).length;
+    document.getElementById("metricWa").innerText = waOk + "/" + tenantBookings.length;
+    const roi = document.getElementById("portalRoiLine");
+    if (roi) roi.innerText = tenantBookings.length + " bookings · " + tenantLogs.length + " logged calls";
+    const sub = document.getElementById("portalRoiSub");
+    if (sub) sub.innerText = "No invented weekly revenue";
   } catch(e) { console.error("Portal load error:", e); }
 }
 function switchPortalTenant(id) { currentTenantId = id; loadPortalData(); }

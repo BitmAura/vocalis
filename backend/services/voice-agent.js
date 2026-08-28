@@ -1,32 +1,24 @@
-/**
- * Voice session — tenant + language aware, no hardcoded Maria Johnson.
- */
 const dialog = require('./dialog-engine');
-const WhatsAppDispatcher = require('./whatsapp-dispatcher');
-const CalendarSyncService = require('./calendar-sync');
+const bookingEngine = require('./booking-engine');
 
 class VoiceAgentSession {
   constructor(tenantConfig = {}) {
     this.tenantId = tenantConfig.tenantId || 'TNT-001';
-    this.businessName = tenantConfig.businessName || 'Harley Street Smiles Dental';
+    this.businessName = tenantConfig.businessName || '';
     this.industry = tenantConfig.industry || 'dental';
-    this.endingGoal = tenantConfig.endingGoal || 'booking';
     this.doctorPhone = tenantConfig.doctorPhone || '';
     this.personaName = tenantConfig.personaName || 'Clara';
     this.language = dialog.normalizeLanguage(tenantConfig.language || 'en-GB');
     this.address = tenantConfig.address || '';
     this.ownerName = tenantConfig.ownerName || tenantConfig.doctorName || '';
     this.workingHours = tenantConfig.workingHours || '';
-
-    this.whatsApp = new WhatsAppDispatcher();
-    this.calendar = new CalendarSyncService();
     this.callTranscript = [];
     this.history = [];
     this.state = {
       stage: 1,
       callerName: '',
       callerPhone: tenantConfig.callerPhone || '',
-      slot: 'Tomorrow at 12:30 PM'
+      slot: ''
     };
   }
 
@@ -70,24 +62,18 @@ class VoiceAgentSession {
     let actionTriggered = null;
     if (turn.isBookingConfirm) {
       this.state.stage = 4;
-      await this.calendar.bookSlot(
-        this.state.callerName,
-        '',
-        this.state.callerPhone,
-        this.state.slot,
-        this.industry
-      );
-      await this.whatsApp.sendConfirmedBookingAlert(this.doctorPhone, {
+      const created = await bookingEngine.createBooking({
+        tenantId: this.tenantId,
+        clinicName: this.businessName,
         patientName: this.state.callerName,
         patientPhone: this.state.callerPhone,
         treatment: this.industry,
-        treatmentFee: '',
         slotTime: this.state.slot,
-        clinicName: this.businessName,
-        conversationScript: callerText,
-        audioUrl: ''
+        doctorName: this.ownerName,
+        doctorPhone: this.doctorPhone,
+        symptoms: callerText
       });
-      actionTriggered = 'BOOKING_LIFECYCLE_COMPLETED_AND_WHATSAPP_DISPATCHED';
+      actionTriggered = created.success ? 'BOOKING_SAVED' : 'BOOKING_FAILED';
     }
 
     this.callTranscript.push({ speaker: 'ai', text: turn.reply, timestamp: new Date() });

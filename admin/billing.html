@@ -32,87 +32,60 @@
   <main class="main-content">
     <header class="topbar">
       <div class="topbar-title">
-        <h1>Billing, Subscriptions & Gross Profit</h1>
-        <p>Real-time Stripe recurring revenue in GBP, USD, AED, EUR and 98.4% profit margins</p>
+        <h1>Billing</h1>
+        <p>Stripe is not connected. Figures below are $0 until STRIPE_SECRET_KEY is set.</p>
       </div>
       <div class="topbar-actions">
-        <span class="badge badge-live"><span class="badge-dot"></span>Stripe Live Connected</span>
+        <span class="badge" id="stripeBadge">Stripe not connected</span>
       </div>
     </header>
 
     <div class="page-content">
       <div class="metrics-grid">
         <div class="metric-card">
-          <div class="metric-value">$23,359</div>
-          <div class="metric-label">Total Monthly Revenue (MRR)</div>
-          <div class="metric-sub">≈ ₹19.6 Lakhs / month</div>
+          <div class="metric-value" id="billMrr">$0</div>
+          <div class="metric-label">Monthly revenue billed</div>
+          <div class="metric-sub">Not collected in this app</div>
         </div>
         <div class="metric-card">
-          <div class="metric-value" style="color:var(--brand-danger)">$372.40</div>
-          <div class="metric-label">Total Cloud & AI Overhead</div>
-          <div class="metric-sub">Hetzner + Deepgram + Fish Audio</div>
+          <div class="metric-value" id="billClients">—</div>
+          <div class="metric-label">Tenants on file</div>
+          <div class="metric-sub">From /v1/admin/stats</div>
         </div>
         <div class="metric-card">
-          <div class="metric-value" style="color:#047857">$22,986.60</div>
-          <div class="metric-label">Net Monthly Profit</div>
-          <div class="metric-sub">≈ ₹19.3 Lakhs Net / month</div>
+          <div class="metric-value" id="billStripe">No</div>
+          <div class="metric-label">Stripe configured</div>
+          <div class="metric-sub">Needs STRIPE_SECRET_KEY</div>
         </div>
         <div class="metric-card">
-          <div class="metric-value" style="color:var(--brand-secondary)">98.4%</div>
-          <div class="metric-label">Gross Margin</div>
-          <div class="metric-sub">Global highest SaaS margin</div>
+          <div class="metric-value">—</div>
+          <div class="metric-label">Gross margin</div>
+          <div class="metric-sub">Unknown until real invoices exist</div>
         </div>
       </div>
 
       <div class="card full-width">
-        <div class="card-header"><div class="card-title">Client Subscription Invoices (Stripe Direct)</div></div>
-        <div class="card-body no-pad">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Client Business</th>
-                <th>Target Market</th>
-                <th>Billed Amount & Currency</th>
-                <th>USD Converted</th>
-                <th>Stripe Status</th>
-                <th>Next Billing Date</th>
-                <th>Invoice</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Harley Street Smiles Dental</strong></td>
-                <td>🇬🇧 United Kingdom</td>
-                <td><strong>£395.00 GBP</strong></td>
-                <td>$497.00</td>
-                <td><span class="badge badge-live"><span class="badge-dot"></span>Paid</span></td>
-                <td>18 Sep 2026</td>
-                <td><button class="btn btn-secondary btn-sm" onclick="alert('Downloading invoice PDF...')">PDF ↗</button></td>
-              </tr>
-              <tr>
-                <td><strong>Apex Heating & Air</strong></td>
-                <td>🇺🇸 United States</td>
-                <td><strong>$497.00 USD</strong></td>
-                <td>$497.00</td>
-                <td><span class="badge badge-live"><span class="badge-dot"></span>Paid</span></td>
-                <td>12 Sep 2026</td>
-                <td><button class="btn btn-secondary btn-sm" onclick="alert('Downloading invoice PDF...')">PDF ↗</button></td>
-              </tr>
-              <tr>
-                <td><strong>Royal Mirage MedSpa</strong></td>
-                <td>🇦🇪 UAE / Dubai</td>
-                <td><strong>1,825.00 AED</strong></td>
-                <td>$497.00</td>
-                <td><span class="badge badge-live"><span class="badge-dot"></span>Paid</span></td>
-                <td>22 Sep 2026</td>
-                <td><button class="btn btn-secondary btn-sm" onclick="alert('Downloading invoice PDF...')">PDF ↗</button></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="card-header"><div class="card-title">Invoices</div></div>
+        <div class="card-body">
+          <p id="billEmpty" style="color:var(--text-muted);font-size:14px">No Stripe invoices. Tenant monthlyFee fields are labels only.</p>
         </div>
       </div>
     </div>
   </main>
 </div>
+<script src="assets/js/live-stats.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const s = await vocalisLiveStats();
+    vocalisApplyNavCounts(s);
+    document.getElementById('billMrr').innerText = '$' + (s.mrr || 0);
+    document.getElementById('billClients').innerText = s.clients;
+    const stripe = s.integrations && s.integrations.stripe;
+    document.getElementById('billStripe').innerText = stripe ? 'Yes' : 'No';
+    document.getElementById('stripeBadge').innerText = stripe ? 'Stripe key present' : 'Stripe not connected';
+  } catch (e) {}
+});
+</script>
 </body>
 </html>

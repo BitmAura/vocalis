@@ -1,5 +1,10 @@
 async function vocalisLiveStats() {
-  const res = await fetch('/v1/admin/stats');
+  const headers = {};
+  try {
+    const k = localStorage.getItem('vocalisAdminKey');
+    if (k) headers.Authorization = 'Bearer ' + k;
+  } catch (e) {}
+  const res = await fetch('/v1/admin/stats', { headers });
   if (!res.ok) throw new Error('stats ' + res.status);
   return res.json();
 }

@@ -7,9 +7,7 @@ const dialog = require('../services/dialog-engine');
 const llm = require('../services/llm-engine');
 const tenantStore = require('../services/tenant-store');
 const bookingEngine = require('../services/booking-engine');
-const WhatsAppDispatcher = require('../services/whatsapp-dispatcher');
 
-const whatsApp = new WhatsAppDispatcher();
 const callHistories = new Map(); // CallSid -> { history, tenant, lang, callerName }
 
 const VOICE_MAP = {
@@ -70,12 +68,7 @@ async function handleInboundCall(reqBody) {
 
     session.history.push({ role: 'ai', text: greeting });
 
-    return `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Say voice="${vConfig.voice}" language="${vConfig.lang}">${escapeXml(greeting)}</Say>
-  <Gather input="speech" action="/v1/telephony/inbound" method="POST" speechTimeout="auto" speechModel="phone_call" language="${vConfig.lang}">
-  </Gather>
-</Response>`;
+    return twimlSayGather(vConfig, greeting);
   }
 
   // SUBSEQUENT TURNS: Process Caller Speech
@@ -127,20 +120,8 @@ async function handleInboundCall(reqBody) {
       patientPhone: fromNumber,
       treatment: session.tenant.industry === 'realestate' ? 'Weekend Farmland Site Visit' : 'Dental Consultation & Cleaning',
       slotTime: finalSlot,
-      doctorName: session.tenant.ownerName || 'Dr. Harley',
-      doctorPhone: session.tenant.doctorPhone || '+44 7911 123456'
-    });
-
-    await whatsApp.sendConfirmedBookingAlert(session.tenant.doctorPhone || '+44 7911 123456', {
-      patientName: finalName,
-      patientPhone: fromNumber,
-      treatment: session.tenant.industry === 'realestate' ? 'Farmland Site Visit' : 'Dental Appointment',
-      slotTime: finalSlot,
-      clinicName: session.tenant.businessName,
-      conversationSummary: `Direct cellular phone call from ${fromNumber}. Confirmed for ${finalSlot}.`,
-      transcript: session.history,
-      audioUrl: '/assets/recordings/live_call.mp3',
-      language: session.lang
+      doctorName: session.tenant.ownerName || '',
+      doctorPhone: session.tenant.doctorWhatsApp || session.tenant.doctorPhone || ''
     });
   }
 
@@ -158,10 +139,20 @@ async function handleInboundCall(reqBody) {
   }
 
   // Continue Conversation
+  return twimlSayGather(turnVConfig, reply);
+}
+
+function inboundActionUrl() {
+  const base = (process.env.PUBLIC_BASE_URL || '').replace(/\/$/, '');
+  return (base || '') + '/v1/telephony/inbound';
+}
+
+function twimlSayGather(vConfig, text) {
+  const action = inboundActionUrl();
   return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say voice="${turnVConfig.voice}" language="${turnVConfig.lang}">${escapeXml(reply)}</Say>
-  <Gather input="speech" action="/v1/telephony/inbound" method="POST" speechTimeout="auto" speechModel="phone_call" language="${turnVConfig.lang}">
+  <Say voice="${vConfig.voice}" language="${vConfig.lang}">${escapeXml(text)}</Say>
+  <Gather input="speech" action="${escapeXml(action)}" method="POST" speechTimeout="auto" speechModel="phone_call" language="${vConfig.lang}">
   </Gather>
 </Response>`;
 }

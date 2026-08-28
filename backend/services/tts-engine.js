@@ -54,7 +54,7 @@ class TTSEngine {
     // Ensure audio output directory exists
     this.audioDir = path.join(__dirname, '..', '..', 'admin', 'assets', 'audio');
     if (!fs.existsSync(this.audioDir)) {
-      fs.mkdirSync(this.audioDir, { recursive: true });
+      try { fs.mkdirSync(this.audioDir, { recursive: true }); } catch (e) {}
     }
   }
 

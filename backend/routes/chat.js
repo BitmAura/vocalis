@@ -1,4 +1,3 @@
-const whatsAppDispatcher = require('../services/whatsapp-dispatcher');
 /**
  * Vocalis chat API — LLM first, multilingual dialog-engine fallback.
  */
@@ -86,20 +85,6 @@ async function handleChat(req, res, body) {
     const name = localTurn.callerName || callerName;
     const slot = localTurn.requestedSlot || requestedSlot;
     
-    // Instant WhatsApp Alert to Doctor/Owner with Complete Transcript
-    await whatsAppDispatcher.sendConfirmedBookingAlert(tenant.doctorWhatsApp || '+44 7911 123456', {
-      patientName: name,
-      patientPhone: reqCallerPhone || data.callerPhone || '+Unknown',
-      treatment: offer.treatment,
-      treatmentFee: offer.treatmentFee,
-      slotTime: slot,
-      clinicName: config.bizName,
-      conversationSummary: 'Patient ' + name + ' confirmed appointment for ' + offer.treatment + ' on ' + slot + '.',
-      transcript: (history || []).concat([{ role: 'user', text: message }, { role: 'ai', text: reply }]),
-      audioUrl: '/assets/recordings/demo_rec.mp3',
-      language: activeLang
-    });
-
     bookingCreated = await bookingEngine.createBooking({
       tenantId: tenant.id,
       clinicName: config.bizName,
@@ -111,7 +96,8 @@ async function handleChat(req, res, body) {
       doctorName: config.ownerName,
       doctorPhone: tenant.doctorWhatsApp || '',
       symptoms: `Appointment confirmed for ${name} on ${slot}.`,
-      audioUrl: '/assets/recordings/demo_rec.mp3'
+      audioUrl: '/assets/recordings/demo_rec.mp3',
+      transcript: (history || []).concat([{ role: 'user', text: message }, { role: 'ai', text: reply }])
     });
 
     callLogsStore.logCall({

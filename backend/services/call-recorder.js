@@ -15,7 +15,7 @@ class CallRecorder {
     this.storageDir = path.join(__dirname, '..', '..', 'admin', 'assets', 'recordings');
     
     if (!fs.existsSync(this.storageDir)) {
-      fs.mkdirSync(this.storageDir, { recursive: true });
+      try { fs.mkdirSync(this.storageDir, { recursive: true }); } catch (e) {}
     }
     
     if (this.twilioSid && this.twilioToken) {
