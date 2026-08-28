@@ -97,7 +97,7 @@
       <div class="nav-section-title">Clients</div>
       <a href="clients.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>All Clients</a>
       <a href="onboarding.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add New Client</a>
-      <a href="trials.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Trial Management <span class="nav-badge warning">8</span></a>
+      <a href="trials.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Trial Management <span class="nav-badge warning" id="sideBadgeTrials">0</span></a>
       <div class="nav-section-title">Voice AI</div>
       <a href="demo.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Live Demo Center</a>
       <a href="client-detail.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.72 6.72l.61-1.76a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call Logs & AI</a>
@@ -111,7 +111,7 @@
     <header class="topbar">
       <div class="topbar-title">
         <h1>7-Day Free Trial Pipeline</h1>
-        <p>Convert pilot prospects into high-ticket paid subscribers with verified revenue proof</p>
+        <p>Tenants marked trial on this server. Conversion % is real only after paid plans exist.</p>
       </div>
       <div class="topbar-actions">
         <a href="onboarding.html" class="btn btn-primary btn-sm">+ Launch New 7-Day Trial</a>
@@ -121,24 +121,24 @@
     <div class="page-content">
       <div class="metrics-grid">
         <div class="metric-card">
-          <div class="metric-value">8</div>
+          <div class="metric-value" id="trialCount">0</div>
           <div class="metric-label">Active 7-Day Trials</div>
-          <div class="metric-sub">Potential +$3,976 MRR</div>
+          <div class="metric-sub" id="trialSub">No invented pipeline</div>
         </div>
         <div class="metric-card">
-          <div class="metric-value" style="color:#047857">74.2%</div>
+          <div class="metric-value" style="color:#047857" id="trialConv">—</div>
           <div class="metric-label">Conversion Rate</div>
-          <div class="metric-sub">From trial to paid plan</div>
+          <div class="metric-sub">No paid conversions logged yet</div>
         </div>
         <div class="metric-card">
-          <div class="metric-value" style="color:#0284C7">$18,400</div>
-          <div class="metric-label">Revenue Recovered for Trials</div>
-          <div class="metric-sub">Confirmed bookings & leads</div>
+          <div class="metric-value" style="color:#0284C7" id="trialRev">$0</div>
+          <div class="metric-label">Billed from trials</div>
+          <div class="metric-sub">Stripe not connected</div>
         </div>
         <div class="metric-card">
-          <div class="metric-value" style="color:#D97706">3</div>
-          <div class="metric-label">Trials Expiring in &lt;48h</div>
-          <div class="metric-sub">Action: Send ROI Report</div>
+          <div class="metric-value" style="color:#D97706" id="trialExp">0</div>
+          <div class="metric-label">Expiring in &lt;48h</div>
+          <div class="metric-sub">Set trialDaysLeft on a tenant to track</div>
         </div>
       </div>
 
@@ -157,40 +157,7 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><strong>Johnson Roofing Co</strong></td>
-                <td>🇺🇸 USA ($497 USD)</td>
-                <td><span class="badge badge-trial"><span class="badge-dot"></span>1 Day Left (Expiring)</span></td>
-                <td><strong>31</strong></td>
-                <td><strong style="color:var(--brand-accent)">$4,200</strong> (3 inspections)</td>
-                <td><strong style="color:var(--brand-accent)">92% (High)</strong></td>
-                <td>
-                  <button class="btn btn-primary btn-sm" onclick="openRoiModal('Johnson Roofing Co', '$4,200', '3 roof inspections', '$497/mo')">Send ROI Sheet & Bill</button>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Melbourne AutoCare</strong></td>
-                <td>🇦🇺 Australia ($760 AUD)</td>
-                <td><span class="badge badge-trial"><span class="badge-dot"></span>2 Days Left</span></td>
-                <td><strong>22</strong></td>
-                <td><strong style="color:var(--brand-accent)">$2,100</strong> (7 bookings)</td>
-                <td><strong style="color:var(--brand-accent)">85% (High)</strong></td>
-                <td>
-                  <button class="btn btn-secondary btn-sm" onclick="openPreviewModal('Melbourne AutoCare', '$2,100', '7 service bookings', '22 calls')">Preview ROI Sheet</button>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Dubai Global Yacht Rentals</strong></td>
-                <td>🇦🇪 UAE (1,825 AED)</td>
-                <td><span class="badge badge-trial"><span class="badge-dot"></span>4 Days Left</span></td>
-                <td><strong>18</strong></td>
-                <td><strong style="color:var(--brand-accent)">$6,800</strong> (2 charters)</td>
-                <td><strong style="color:var(--brand-accent)">95% (VIP)</strong></td>
-                <td>
-                  <button class="btn btn-secondary btn-sm" onclick="sendMidTrialWhatsApp('Dubai Global Yacht Rentals')">Send Mid-Trial Checkin</button>
-                </td>
-              </tr>
+            <tbody id="trialTableBody">
             </tbody>
           </table>
         </div>
@@ -218,7 +185,31 @@
 
 <div class="toast-msg" id="toastMsg"></div>
 
+<script src="assets/js/live-stats.js"></script>
 <script>
+async function loadTrials() {
+  try {
+    const s = await vocalisLiveStats();
+    vocalisApplyNavCounts(s);
+    document.getElementById('trialCount').innerText = s.trials;
+    document.getElementById('trialSub').innerText = s.clients + ' tenants total · $0 billed';
+    document.getElementById('trialConv').innerText = '—';
+    document.getElementById('trialRev').innerText = '$0';
+    document.getElementById('trialExp').innerText = '0';
+    const body = document.getElementById('trialTableBody');
+    if (!s.trialRows.length) {
+      body.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:28px;color:#64748B">No trial tenants. Demo clinics are live sample files, not 7-day trials. Add a tenant with status trial to see them here.</td></tr>';
+      return;
+    }
+    body.innerHTML = s.trialRows.map((r) =>
+      '<tr><td><strong>' + r.name + '</strong></td><td>' + r.market + '</td><td>' + r.daysLeft + '</td><td>' + r.calls + '</td><td>$0</td><td>—</td><td><a class="btn btn-secondary btn-sm" href="client-detail.html?id=' + r.id + '">Open</a></td></tr>'
+    ).join('');
+  } catch (e) {
+    document.getElementById('trialTableBody').innerHTML = '<tr><td colspan="7">Could not load stats. Is the Node server running?</td></tr>';
+  }
+}
+document.addEventListener('DOMContentLoaded', loadTrials);
+
 function showToast(msg) {
   const t = document.getElementById('toastMsg');
   t.innerText = msg;

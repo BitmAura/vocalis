@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vocalis AI — All Clients Directory (47 Active Tenants)</title>
+<title>Vocalis AI — All Clients</title>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -17,7 +17,7 @@
       <div class="nav-section-title">Overview</div>
       <a href="index.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
       <div class="nav-section-title">Clients</div>
-      <a href="clients.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>All Clients <span class="badge" style="background:var(--brand-primary);color:white;margin-left:auto;font-size:10px">47</span></a>
+      <a href="clients.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>All Clients <span class="badge" style="background:var(--brand-primary);color:white;margin-left:auto;font-size:10px" id="sideBadgeClients">—</span></a>
       <a href="onboarding.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add New Client</a>
       <a href="trials.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Trial Management</a>
       <div class="nav-section-title">Voice AI</div>
@@ -33,7 +33,7 @@
     <header class="topbar">
       <div class="topbar-title">
         <h1>All Clients Directory</h1>
-        <p><strong id="totalCountHeader">47 Total Clients</strong> · High-Currency Global Markets (UK, USA, India, UAE, EU, AUS)</p>
+        <p><strong id="totalCountHeader">Loading…</strong> · Tenants stored on this server</p>
       </div>
       <div class="topbar-actions">
         <a href="onboarding.html" class="btn btn-primary">
@@ -55,14 +55,14 @@
             </div>
             <div style="display:flex;gap:10px;flex-wrap:wrap">
               <select class="form-control" id="countryFilter" style="width:190px;padding:7px 10px;font-size:13px" onchange="filterClients()">
-                <option value="all">🌍 All Global Markets (47)</option>
-                <option value="UK">🇬🇧 United Kingdom (£395)</option>
-                <option value="India">🇮🇳 India (₹35,000)</option>
-                <option value="USA">🇺🇸 United States ($497)</option>
-                <option value="UAE">🇦🇪 UAE / Dubai (1,825 AED)</option>
-                <option value="EU">🇪🇺 Eurozone (€460)</option>
-                <option value="AUS">🇦🇺 Australia ($760 AUD)</option>
-                <option value="CA">🇨🇦 Canada ($675 CAD)</option>
+                <option value="all">All markets</option>
+                <option value="UK">United Kingdom</option>
+                <option value="India">India</option>
+                <option value="USA">United States</option>
+                <option value="UAE">UAE / Dubai</option>
+                <option value="EU">Eurozone</option>
+                <option value="AUS">Australia</option>
+                <option value="CA">Canada</option>
               </select>
             </div>
           </div>
@@ -95,6 +95,7 @@
   </main>
 </div>
 
+<script src="assets/js/live-stats.js"></script>
 <script>
 let allClientsData = [];
 
@@ -249,55 +250,35 @@ async function executeClientDelete() {
 
 
 
-const EMBEDDED_CLIENTS = [
-  { id: "TNT-001", businessName: "Harley Street Smiles Dental", ownerName: "Dr. Harley", industry: "dental", currency: "GBP", currencySymbol: "£", city: "London", country: "UK", phone: "+44 20 7946 0912", monthlyFee: "395", doctorWhatsApp: "+44 7911 123456", personaName: "Clara", suspended: false },
-  { id: "TNT-002", businessName: "Prestige Nature Farmland & Estates", ownerName: "Agent Vikram", industry: "realestate", currency: "INR", currencySymbol: "₹", city: "Bangalore", country: "India", phone: "+91 80 4710 9999", monthlyFee: "24,999", doctorWhatsApp: "+91 98450 12345", personaName: "Maya", suspended: false },
-  { id: "TNT-003", businessName: "Apex 24/7 HVAC & Emergency Heating", ownerName: "Mike Thornton", industry: "hvac", currency: "USD", currencySymbol: "$", city: "Austin", country: "USA", phone: "+1 512 555 0198", monthlyFee: "497", doctorWhatsApp: "+1 512 555 0199", personaName: "Sarah", suspended: false },
-  { id: "TNT-004", businessName: "Sterling & Partners Trial Attorneys", ownerName: "Robert Sterling", industry: "legal", currency: "USD", currencySymbol: "$", city: "New York", country: "USA", phone: "+1 212 555 0144", monthlyFee: "795", doctorWhatsApp: "+1 212 555 0145", personaName: "Marcus", suspended: false },
-  { id: "TNT-005", businessName: "Gourmet Haven Ristorante & Lounge", ownerName: "Chef Marco Rossi", industry: "restaurant", currency: "USD", currencySymbol: "$", city: "Chicago", country: "USA", phone: "+1 312 555 0177", monthlyFee: "295", doctorWhatsApp: "+1 312 555 0178", personaName: "Marco", suspended: false },
-  { id: "TNT-006", businessName: "Kumar's Microscopic Dental & Implant Center", ownerName: "Dr. Pradeep Kumar", industry: "dental", currency: "INR", currencySymbol: "₹", city: "Bellary", country: "India", phone: "+91 8392 270001", monthlyFee: "14,999", doctorWhatsApp: "+91 98450 99999", personaName: "Maya", suspended: false },
-  { id: "TNT-007", businessName: "Dubai Royal Yacht & Luxury Charters", ownerName: "Tariq Al-Mansoor", industry: "restaurant", currency: "AED", currencySymbol: "AED ", city: "Dubai", country: "UAE", phone: "+971 4 399 8877", monthlyFee: "1,825", doctorWhatsApp: "+971 50 123 4567", personaName: "Layla", suspended: false },
-  { id: "TNT-008", businessName: "Sydney Harbourside Cosmetic Dentistry", ownerName: "Dr. Lachlan Vance", industry: "dental", currency: "AUD", currencySymbol: "A$", city: "Sydney", country: "AUS", phone: "+61 2 9234 5678", monthlyFee: "760", doctorWhatsApp: "+61 400 123 456", personaName: "Olivia", suspended: false },
-  { id: "TNT-009", businessName: "Toronto North Injury Law Group", ownerName: "Elena Bouchard", industry: "legal", currency: "CAD", currencySymbol: "C$", city: "Toronto", country: "CA", phone: "+1 416 555 0192", monthlyFee: "650", doctorWhatsApp: "+1 416 555 0193", personaName: "Sophie", suspended: false },
-  { id: "TNT-010", businessName: "Munich Ortho & Spine Praxis", ownerName: "Dr. Klaus Schneider", industry: "dental", currency: "EUR", currencySymbol: "€", city: "Munich", country: "EU", phone: "+49 89 2345 6789", monthlyFee: "450", doctorWhatsApp: "+49 170 1234567", personaName: "Hannah", suspended: false }
-];
-
 async function loadClients() {
-  let fetchedData = null;
   try {
     const res = await fetch('/v1/tenants');
-    if (res.ok) {
-      const json = await res.json();
-      if (Array.isArray(json) && json.length > 0) fetchedData = json;
-    }
-  } catch(e) {
-    console.warn('Backend fetch failed, using local & embedded directory:', e.message);
+    allClientsData = res.ok ? await res.json() : [];
+    if (!Array.isArray(allClientsData)) allClientsData = [];
+  } catch (e) {
+    allClientsData = [];
   }
-
-  // Merge any locally added tenants from localStorage
-  let localTenants = [];
   try {
-    localTenants = JSON.parse(localStorage.getItem('vocalis_local_tenants') || '[]');
-  } catch(e) {}
-
-  if (fetchedData && fetchedData.length > 0) {
-    allClientsData = fetchedData;
-  } else {
-    // Deduplicate merged data
-    const map = new Map();
-    EMBEDDED_CLIENTS.forEach(c => map.set(c.id, c));
-    localTenants.forEach(c => map.set(c.id, c));
-    let deletedIds = [];
-    try { deletedIds = JSON.parse(localStorage.getItem('vocalis_deleted_ids') || '[]'); } catch(e) {}
-    allClientsData = Array.from(map.values()).filter(c => !deletedIds.includes(c.id));
-  }
-
-  // Update nav badge count
-  const badge = document.querySelector('.nav-item.active .badge');
-  if (badge) badge.textContent = allClientsData.length;
-  // Update country filter totals
+    const s = await vocalisLiveStats();
+    vocalisApplyNavCounts(s);
+  } catch (e) {}
+  const counts = { GBP: 0, INR: 0, USD: 0, AED: 0, EUR: 0, AUD: 0, CAD: 0 };
+  allClientsData.forEach((c) => {
+    if (counts[c.currency] != null) counts[c.currency] += 1;
+  });
   const allOpt = document.querySelector('#countryFilter option[value="all"]');
-  if (allOpt) allOpt.text = '🌍 All Global Markets (' + allClientsData.length + ')';
+  if (allOpt) allOpt.text = 'All markets (' + allClientsData.length + ')';
+  const setOpt = (val, label, n) => {
+    const o = document.querySelector('#countryFilter option[value="' + val + '"]');
+    if (o) o.text = label + (n ? ' (' + n + ')' : '');
+  };
+  setOpt('UK', 'United Kingdom', counts.GBP);
+  setOpt('India', 'India', counts.INR);
+  setOpt('USA', 'United States', counts.USD);
+  setOpt('UAE', 'UAE / Dubai', counts.AED);
+  setOpt('EU', 'Eurozone', counts.EUR);
+  setOpt('AUS', 'Australia', counts.AUD);
+  setOpt('CA', 'Canada', counts.CAD);
   renderTable(allClientsData);
 }
 

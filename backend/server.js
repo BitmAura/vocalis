@@ -251,8 +251,76 @@ async function requestHandler(req, res) {
   }
 
 
+  if (req.method === 'GET' && parsedUrl === '/v1/admin/stats') {
+    const tenants = tenantStore.getAllTenants();
+    const bookings = bookingEngine.getAllBookings().filter((b) => !String(b.id || '').startsWith('BKG-880'));
+    const logs = callLogsStore.getAllLogs().filter((l) => !String(l.id || '').startsWith('CAL-990'));
+    const day = new Date().toISOString().slice(0, 10);
+    const isToday = (iso) => String(iso || '').startsWith(day);
+    const trials = tenants.filter((t) => t.status === 'trial' || t.plan === 'trial');
+    const live = tenants.filter((t) => !t.suspended && t.status !== 'trial' && t.plan !== 'trial');
+    const rule = {
+      dental: 'WhatsApp on confirmed booking',
+      realestate: 'WhatsApp on site visit',
+      hvac: 'WhatsApp on dispatch',
+      legal: 'WhatsApp on intake',
+      restaurant: 'WhatsApp on reservation'
+    };
+    const market = (t) => {
+      const map = {
+        GBP: 'UK · GBP',
+        INR: 'India · INR',
+        USD: 'US · USD',
+        AED: 'UAE / Dubai · AED',
+        EUR: 'Eurozone · EUR',
+        AUD: 'Australia · AUD',
+        CAD: 'Canada · CAD'
+      };
+      return (map[t.currency] || (t.city || '—')) + (t.city ? ' · ' + t.city : '');
+    };
+    const byCurrency = {};
+    tenants.forEach((t) => {
+      const c = t.currency || 'other';
+      byCurrency[c] = (byCurrency[c] || 0) + 1;
+    });
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      clients: tenants.length,
+      live: live.length,
+      trials: trials.length,
+      mrr: 0,
+      mrrNote: 'No Stripe yet. Plan fees are not billed.',
+      callsToday: logs.filter((l) => isToday(l.timestamp)).length,
+      callsAll: logs.length,
+      bookingsToday: bookings.filter((b) => isToday(b.bookedAt)).length,
+      bookingsAll: bookings.length,
+      markets: byCurrency,
+      clientsList: tenants.map((t) => ({
+        id: t.id,
+        name: t.businessName,
+        market: market(t),
+        rule: rule[t.industry] || 'WhatsApp on booking',
+        status: t.suspended ? 'suspended' : (t.status === 'trial' || t.plan === 'trial' ? 'trial' : 'live'),
+        calls: logs.filter((l) => l.tenantId === t.id).length,
+        mrr: parseFloat(String(t.monthlyFee || '0').replace(/,/g, '')) || 0
+      })),
+      activities: [...bookings].reverse().slice(0, 8).map((b) => ({
+        text: (b.clinicName || b.tenantId) + ': booked ' + (b.patientName || 'caller') + ' · ' + (b.slotTime || ''),
+        time: b.bookedAt ? new Date(b.bookedAt).toLocaleString() : ''
+      })),
+      trialRows: trials.map((t) => ({
+        id: t.id,
+        name: t.businessName,
+        market: market(t),
+        daysLeft: t.trialDaysLeft != null ? t.trialDaysLeft : '—',
+        calls: logs.filter((l) => l.tenantId === t.id).length
+      }))
+    }));
+    return;
+  }
+
   // API Route: Get All Tenants
-  if (req.method === 'GET' && (parsedUrl === '/v1/tenants' || parsedUrl.includes('/tenants') || req.url.includes('/tenants'))) {
+  if (req.method === 'GET' && parsedUrl === '/v1/tenants') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(tenantStore.getAllTenants()));
     return;
