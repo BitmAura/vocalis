@@ -59,26 +59,30 @@ function rejectUnauthorized(res) {
 function parseRequestBody(req) {
   return new Promise((resolve) => {
     if (req.body !== undefined && req.body !== null) {
-      return resolve(typeof req.body === 'object' ? req.body : req.body);
+      return resolve(req.body);
     }
     let body = '';
     let sz = 0;
+    let resolved = false;
+
+    function done(val) {
+      if (resolved) return;
+      resolved = true;
+      resolve(val);
+    }
+
     req.on('data', c => {
       sz += c.length;
       if (sz > BODY_SIZE_LIMIT) {
         req.destroy();
-        return;
+        return done('');
       }
       body += c;
     });
-    req.on('end', () => {
-      resolve(body);
-    });
-    req.on('error', () => resolve(''));
-    // Fallback if stream was already closed
-    setTimeout(() => {
-      if (body.length > 0 || req.complete) resolve(body);
-    }, 50);
+    req.on('end', () => done(body));
+    req.on('error', () => done(''));
+    // Unconditional safety timeout for serverless environments (never hangs)
+    setTimeout(() => done(body), 250);
   });
 }
 
