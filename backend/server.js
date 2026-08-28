@@ -1,4 +1,4 @@
-require('dotenv').config({ path: __dirname + '/.env' });
+﻿require('dotenv').config({ path: __dirname + '/.env' });
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -87,7 +87,7 @@ const server = http.createServer(async (req, res) => {
   Object.entries(SECURITY_HEADERS).forEach(([k,v]) => res.setHeader(k,v));
   if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
 
-  // API Route: Inbound Telephony Webhook (Twilio) â€” Phase 5 Media Streams
+  // API Route: Inbound Telephony Webhook (Twilio) Ã¢â‚¬â€ Phase 5 Media Streams
   if (req.method === 'POST' && parsedUrl === '/v1/telephony/inbound') {
     const rawBody = await parseRequestBody(req);
     let params = {};
@@ -114,32 +114,6 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': 'text/xml' });
       res.end('<Response><Say>Thank you for calling. Our receptionist is currently on another line.</Say></Response>');
     }
-    return;
-  } body += c; });
-    req.on('end', async () => {
-      let params = {};
-      // Support both JSON and URL-encoded (Twilio sends application/x-www-form-urlencoded)
-      const ct = req.headers['content-type'] || '';
-      if (ct.includes('json')) {
-        try { params = JSON.parse(body); } catch(e) {}
-      } else {
-        // Parse URL-encoded Twilio params
-        try {
-          const urlParams = new URLSearchParams(body);
-          urlParams.forEach((v, k) => { params[k] = v; });
-        } catch(e) {}
-      }
-      
-      try {
-        const twiml = await handleInboundCall(params);
-        res.writeHead(200, { 'Content-Type': 'text/xml' });
-        res.end(twiml);
-      } catch (err) {
-        console.error('[Telephony Error]:', err.message);
-        res.writeHead(200, { 'Content-Type': 'text/xml' });
-        res.end('<Response><Say>Thank you for calling. Our receptionist is currently on another line.</Say></Response>');
-      }
-    });
     return;
   }
 
@@ -178,7 +152,7 @@ const server = http.createServer(async (req, res) => {
           patientName: "Maria Johnson",
           patientPhone: "+44 7700 900123",
           treatment: "Dental Hygiene & Polish",
-          treatmentFee: "Â£140",
+          treatmentFee: "Ã‚Â£140",
           slotTime: "Friday, 28 Aug at 2:30 PM",
           clinicName: "Harley Street Smiles Dental",
           conversationScript: "Patient booked Friday 2:30 PM slot for teeth cleaning; mentioned mild tooth sensitivity.",
@@ -233,9 +207,6 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'POST' && parsedUrl === '/v1/chat') {
     const rawBody = await parseRequestBody(req);
     handleChat(req, res, rawBody);
-    return;
-  } body += c; });
-    req.on('end', () => handleChat(req, res, body));
     return;
   }
 
@@ -435,7 +406,7 @@ const server = http.createServer(async (req, res) => {
         llmEngine.apiKey = apiKey.trim();
         llmEngine.available = true;
 
-        console.log('âœ… Gemini API Key saved and LLM Brain activated dynamically!');
+        console.log('Ã¢Å“â€¦ Gemini API Key saved and LLM Brain activated dynamically!');
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, message: 'Gemini Brain is now ACTIVE' }));
       } catch(e) {
@@ -459,7 +430,7 @@ const server = http.createServer(async (req, res) => {
         const rootEnv = path.join(__dirname, '..', '.env');
 
         const envText = [
-          '# Vocalis AI â€” Multi-Provider LLM Brain & Voice Telephony',
+          '# Vocalis AI Ã¢â‚¬â€ Multi-Provider LLM Brain & Voice Telephony',
           '# =========================================================',
           '',
           '# 1. Primary LLM Brain: Google Gemini',
@@ -606,14 +577,14 @@ const { WebSocketServer } = require('ws');
 
 server.listen(PORT, () => {
   console.log(`\n===========================================================`);
-  console.log(`ðŸš€ Vocalis AI Production Server Live at http://localhost:${PORT}`);
-  console.log(`â€¢ Admin Super-Panel: http://localhost:${PORT}/index.html`);
-  console.log(`â€¢ Client Reception Portal: http://localhost:${PORT}/client-portal/index.html`);
-  console.log(`â€¢ Inbound Telephony Webhook: POST http://localhost:${PORT}/v1/telephony/inbound`);
-  console.log(`â€¢ Verified WhatsApp Dispatcher: POST http://localhost:${PORT}/v1/test/whatsapp`);
-  console.log(`â€¢ Twilio Media Stream: wss://localhost:${PORT}/v1/stream`);
-  console.log(`â€¢ Recording Callback: POST http://localhost:${PORT}/v1/telephony/recording`);
-  console.log(`â€¢ Phase 5 Phone: ${process.env.TWILIO_PHONE_NUMBER || 'Not configured (add TWILIO_PHONE_NUMBER to .env)'}`);
+  console.log(`Ã°Å¸Å¡â‚¬ Vocalis AI Production Server Live at http://localhost:${PORT}`);
+  console.log(`Ã¢â‚¬Â¢ Admin Super-Panel: http://localhost:${PORT}/index.html`);
+  console.log(`Ã¢â‚¬Â¢ Client Reception Portal: http://localhost:${PORT}/client-portal/index.html`);
+  console.log(`Ã¢â‚¬Â¢ Inbound Telephony Webhook: POST http://localhost:${PORT}/v1/telephony/inbound`);
+  console.log(`Ã¢â‚¬Â¢ Verified WhatsApp Dispatcher: POST http://localhost:${PORT}/v1/test/whatsapp`);
+  console.log(`Ã¢â‚¬Â¢ Twilio Media Stream: wss://localhost:${PORT}/v1/stream`);
+  console.log(`Ã¢â‚¬Â¢ Recording Callback: POST http://localhost:${PORT}/v1/telephony/recording`);
+  console.log(`Ã¢â‚¬Â¢ Phase 5 Phone: ${process.env.TWILIO_PHONE_NUMBER || 'Not configured (add TWILIO_PHONE_NUMBER to .env)'}`);
   console.log(`===========================================================\n`);
   
   // Attach WebSocket server for Twilio Media Streams
@@ -622,4 +593,6 @@ server.listen(PORT, () => {
 
 
 module.exports = server;
+
+
 
