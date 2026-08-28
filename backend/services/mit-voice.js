@@ -1,5 +1,5 @@
-/**
- * Child of server.js only — no extra HTTP port.
+﻿/**
+ * Child of server.js only â€” no extra HTTP port.
  * IndicF5 (ta/te/kn/hi) + Piper (ar UAE, fr, en).
  */
 const { spawn } = require('child_process');
@@ -17,7 +17,7 @@ let waiters = [];
 let workerDead = false;
 
 function startWorker() {
-  if (proc || workerDead) return;
+  if (proc || workerDead || process.env.VERCEL) return;
   const bin = process.env.PYTHON || 'py';
   const args = bin === 'py' ? ['-3', '-u', WORKER] : ['-u', WORKER];
   try {
@@ -108,3 +108,4 @@ async function transcribeWav(audioBuffer, language) {
 }
 
 module.exports = { synthesizeWav, transcribeWav };
+

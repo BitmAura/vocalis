@@ -1,5 +1,5 @@
-/**
- * Vocalis AI — Phase 5: Twilio Media Streams WebSocket Handler
+﻿/**
+ * Vocalis AI â€” Phase 5: Twilio Media Streams WebSocket Handler
  * 
  * Flow:
  * 1. Inbound call arrives at Twilio number
@@ -100,7 +100,7 @@ class CallSession {
 
   async _triggerWhatsAppAlert(aiReply) {
     try {
-      const script = this.history.map(t => `${t.role === 'user' ? '👤' : '🤖'}: ${t.text}`).join('\n');
+      const script = this.history.map(t => `${t.role === 'user' ? 'ðŸ‘¤' : 'ðŸ¤–'}: ${t.text}`).join('\n');
       await this.whatsApp.sendConfirmedBookingAlert(this.tenant.doctorPhone, {
         patientName: this.callerName || 'New Patient',
         patientPhone: this.callerPhone || 'Via Phone',
@@ -138,7 +138,7 @@ function attachMediaStreamServer(httpServer) {
 
       switch(data.event) {
         case 'connected':
-          console.log('[Voice Stream] Twilio connected — ready for media');
+          console.log('[Voice Stream] Twilio connected â€” ready for media');
           break;
 
         case 'start': {
@@ -265,3 +265,4 @@ function generateMediaStreamTwiML(config) {
 }
 
 module.exports = { attachMediaStreamServer, generateMediaStreamTwiML, activeSessions };
+
