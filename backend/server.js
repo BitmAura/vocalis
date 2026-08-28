@@ -83,12 +83,14 @@ function parseRequestBody(req) {
 }
 
 async function requestHandler(req, res) {
-  const parsedUrl = req.url.split('?')[0];
+  // Support both direct URL and Vercel proxy headers
+  const rawUrl = req.headers['x-matched-path'] || req.url || '';
+  const parsedUrl = rawUrl.split('?')[0];
   Object.entries(SECURITY_HEADERS).forEach(([k,v]) => res.setHeader(k,v));
   if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
 
   // API Route: Inbound Telephony Webhook (Twilio) Ã¢â‚¬â€ Phase 5 Media Streams
-  if (req.method === 'POST' && parsedUrl === '/v1/telephony/inbound') {
+  if (req.method === 'POST' && (parsedUrl === '/v1/telephony/inbound' || parsedUrl.includes('/telephony/inbound') || req.url.includes('/telephony/inbound'))) {
     const rawBody = await parseRequestBody(req);
     let params = {};
     if (typeof rawBody === 'object' && rawBody !== null) {
@@ -204,7 +206,7 @@ async function requestHandler(req, res) {
   }
 
   // API Route: LLM Chat Engine (Phase 4)
-  if (req.method === 'POST' && parsedUrl === '/v1/chat') {
+  if (req.method === 'POST' && (parsedUrl === '/v1/chat' || parsedUrl.endsWith('/chat') || req.url.includes('/chat'))) {
     const rawBody = await parseRequestBody(req);
     handleChat(req, res, rawBody);
     return;
@@ -246,7 +248,7 @@ async function requestHandler(req, res) {
 
 
   // API Route: Get All Tenants
-  if (req.method === 'GET' && parsedUrl === '/v1/tenants') {
+  if (req.method === 'GET' && (parsedUrl === '/v1/tenants' || parsedUrl.includes('/tenants') || req.url.includes('/tenants'))) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(tenantStore.getAllTenants()));
     return;
