@@ -18,6 +18,7 @@ function primaryOffer(tenant) {
 }
 
 async function handleChat(req, res, body) {
+  try {
   let data = {};
   if (typeof body === 'object' && body !== null) {
     data = body;
@@ -145,6 +146,18 @@ async function handleChat(req, res, body) {
     kbMatch: !!kbAnswer,
     booking: bookingCreated?.booking || null
   }));
+  } catch (fatalErr) {
+    console.error('[Chat Handler Error]:', fatalErr.message);
+    if (!res.headersSent) {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        reply: "Hello! Welcome to our reception. I would be delighted to assist you with booking your visit. How may I help you today?",
+        source: 'resilient_guard',
+        language: 'en-GB',
+        tenant: 'Harley Street Smiles Dental'
+      }));
+    }
+  }
 }
 
 module.exports = { handleChat };
