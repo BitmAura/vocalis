@@ -1,0 +1,43 @@
+﻿{
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "admin/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "client-portal/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/v1/(.*)",
+      "dest": "backend/server.js"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "admin/assets/$1"
+    },
+    {
+      "src": "/client-portal/(.*)",
+      "dest": "client-portal/$1"
+    },
+    {
+      "src": "/(.*\\.(html|css|js|png|jpg|svg|json))",
+      "dest": "admin/$1"
+    },
+    {
+      "src": "/",
+      "dest": "admin/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "backend/server.js"
+    }
+  ]
+}

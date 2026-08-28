@@ -1,11 +1,10 @@
 ﻿{
-  "name": "vocalis-ai-receptionist",
+  "name": "vocalis-ai",
   "version": "1.0.0",
   "description": "Vocalis AI — Production AI Voice Receptionist & Sales Engine",
   "main": "backend/server.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "postinstall": "pip install -r requirements.txt || true"
+    "start": "node backend/server.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

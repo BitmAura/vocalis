@@ -1,5 +1,5 @@
-require('dotenv').config({ path: __dirname + '/.env' });
-﻿const http = require('http');
+﻿require('dotenv').config({ path: __dirname + '/.env' });
+ï»¿const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const { handleInboundCall } = require('./routes/telephony');
@@ -60,7 +60,7 @@ const server = http.createServer((req, res) => {
   Object.entries(SECURITY_HEADERS).forEach(([k,v]) => res.setHeader(k,v));
   if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
 
-  // API Route: Inbound Telephony Webhook (Twilio) — Phase 5 Media Streams
+  // API Route: Inbound Telephony Webhook (Twilio) â€” Phase 5 Media Streams
   if (req.method === 'POST' && parsedUrl === '/v1/telephony/inbound') {
     let body = ''; let sz = 0;
     req.on('data', c => { sz += c.length; if(sz > BODY_SIZE_LIMIT) { req.destroy(); return; } body += c; });
@@ -126,7 +126,7 @@ const server = http.createServer((req, res) => {
           patientName: "Maria Johnson",
           patientPhone: "+44 7700 900123",
           treatment: "Dental Hygiene & Polish",
-          treatmentFee: "£140",
+          treatmentFee: "Â£140",
           slotTime: "Friday, 28 Aug at 2:30 PM",
           clinicName: "Harley Street Smiles Dental",
           conversationScript: "Patient booked Friday 2:30 PM slot for teeth cleaning; mentioned mild tooth sensitivity.",
@@ -357,7 +357,7 @@ const server = http.createServer((req, res) => {
         llmEngine.apiKey = apiKey.trim();
         llmEngine.available = true;
 
-        console.log('✅ Gemini API Key saved and LLM Brain activated dynamically!');
+        console.log('âœ… Gemini API Key saved and LLM Brain activated dynamically!');
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, message: 'Gemini Brain is now ACTIVE' }));
       } catch(e) {
@@ -381,7 +381,7 @@ const server = http.createServer((req, res) => {
         const rootEnv = path.join(__dirname, '..', '.env');
 
         const envText = [
-          '# Vocalis AI — Multi-Provider LLM Brain & Voice Telephony',
+          '# Vocalis AI â€” Multi-Provider LLM Brain & Voice Telephony',
           '# =========================================================',
           '',
           '# 1. Primary LLM Brain: Google Gemini',
@@ -528,16 +528,20 @@ const { WebSocketServer } = require('ws');
 
 server.listen(PORT, () => {
   console.log(`\n===========================================================`);
-  console.log(`🚀 Vocalis AI Production Server Live at http://localhost:${PORT}`);
-  console.log(`• Admin Super-Panel: http://localhost:${PORT}/index.html`);
-  console.log(`• Client Reception Portal: http://localhost:${PORT}/client-portal/index.html`);
-  console.log(`• Inbound Telephony Webhook: POST http://localhost:${PORT}/v1/telephony/inbound`);
-  console.log(`• Verified WhatsApp Dispatcher: POST http://localhost:${PORT}/v1/test/whatsapp`);
-  console.log(`• Twilio Media Stream: wss://localhost:${PORT}/v1/stream`);
-  console.log(`• Recording Callback: POST http://localhost:${PORT}/v1/telephony/recording`);
-  console.log(`• Phase 5 Phone: ${process.env.TWILIO_PHONE_NUMBER || 'Not configured (add TWILIO_PHONE_NUMBER to .env)'}`);
+  console.log(`ðŸš€ Vocalis AI Production Server Live at http://localhost:${PORT}`);
+  console.log(`â€¢ Admin Super-Panel: http://localhost:${PORT}/index.html`);
+  console.log(`â€¢ Client Reception Portal: http://localhost:${PORT}/client-portal/index.html`);
+  console.log(`â€¢ Inbound Telephony Webhook: POST http://localhost:${PORT}/v1/telephony/inbound`);
+  console.log(`â€¢ Verified WhatsApp Dispatcher: POST http://localhost:${PORT}/v1/test/whatsapp`);
+  console.log(`â€¢ Twilio Media Stream: wss://localhost:${PORT}/v1/stream`);
+  console.log(`â€¢ Recording Callback: POST http://localhost:${PORT}/v1/telephony/recording`);
+  console.log(`â€¢ Phase 5 Phone: ${process.env.TWILIO_PHONE_NUMBER || 'Not configured (add TWILIO_PHONE_NUMBER to .env)'}`);
   console.log(`===========================================================\n`);
   
   // Attach WebSocket server for Twilio Media Streams
   attachMediaStreamServer(server);
 });
+
+
+module.exports = server;
+
