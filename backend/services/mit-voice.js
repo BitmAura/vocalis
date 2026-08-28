@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Child of server.js only â€” no extra HTTP port.
  * IndicF5 (ta/te/kn/hi) + Piper (ar UAE, fr, en).
  */
