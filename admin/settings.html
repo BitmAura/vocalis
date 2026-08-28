@@ -88,6 +88,35 @@
         </div>
       </div>
 
+      
+      <!-- Section: Live Phone Line Active Industry Routing -->
+      <div class="card" style="margin-bottom:18px;border:2px solid var(--brand-primary)">
+        <div class="card-header" style="background:#EEF2FF;border-bottom:1px solid #C7D2FE">
+          <div class="card-title" style="color:var(--brand-primary-text);display:flex;align-items:center;justify-content:space-between;width:100%">
+            <span>📞 Live Phone Line Active Routing (+1 980 372 3727)</span>
+            <span class="badge badge-live">Live Cellular Inbound</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px">
+            Select which client / industry persona should answer whenever someone dials your Twilio phone number (<strong>+1 980 372 3727</strong>). In multi-client production, calls automatically route by dialed phone number.
+          </p>
+          <div style="display:flex;gap:12px;align-items:center">
+            <select id="selActiveTenant" class="form-control" style="font-weight:600;font-size:13.5px;max-width:480px">
+              <option value="TNT-001">🦷 Dr. Harley Dental Clinic (UK English - £140 Hygiene)</option>
+              <option value="TNT-002">🌳 Prestige Nature Farmland (Kannada/Telugu - ₹48L Sandalwood)</option>
+              <option value="TNT-003">🔧 Apex 24/7 HVAC Emergency (US English - $79 Dispatch)</option>
+              <option value="TNT-004">⚖️ Johnson & Croft Injury Law (US English - 100% Contingency)</option>
+              <option value="TNT-005">🍽️ Gourmet Haven Italian Ristorante (UK English - Table Booking)</option>
+            </select>
+            <button class="btn btn-primary" onclick="updateActiveTelephonyRouting()">
+              ⚡ Switch Active Routing
+            </button>
+          </div>
+          <div id="routingStatusAlert" style="margin-top:10px;font-size:12px;color:var(--brand-accent);font-weight:600"></div>
+        </div>
+      </div>
+
       <!-- Section 2: Telephony & WebRTC Providers (Twilio) -->
       <div class="card" style="margin-bottom:18px">
         <div class="card-header"><div class="card-title">📞 2. Telephony & Real Phone Numbers (Twilio / Telnyx)</div></div>
@@ -157,6 +186,38 @@ async function saveAllPlatformSettings() {
     alert("Connection error: " + e.message);
   }
 }
+
+async function loadActiveRouting() {
+  try {
+    const res = await fetch('/v1/telephony/active-tenant');
+    const data = await res.json();
+    if(data.activeTenantId) {
+      document.getElementById('selActiveTenant').value = data.activeTenantId;
+    }
+  } catch(e) {}
+}
+
+async function updateActiveTelephonyRouting() {
+  const tenantId = document.getElementById('selActiveTenant').value;
+  try {
+    const res = await fetch('/v1/telephony/active-tenant', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ activeTenantId: tenantId })
+    });
+    const data = await res.json();
+    if(data.success) {
+      const alertDiv = document.getElementById('routingStatusAlert');
+      alertDiv.innerText = '✅ Phone line (+1 980 372 3727) is now actively routed to: ' + tenantId;
+      setTimeout(() => alertDiv.innerText = '', 4000);
+    }
+  } catch(e) {
+    alert('Error updating routing: ' + e.message);
+  }
+}
+
+loadActiveRouting();
+
 </script>
 </body>
 </html>

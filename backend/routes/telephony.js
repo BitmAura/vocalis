@@ -28,17 +28,24 @@ async function handleInboundCall(reqBody) {
   const callSid = reqBody.CallSid || 'CA_' + Date.now();
   const speechResult = reqBody.SpeechResult || reqBody.speechResult || null;
 
-  // Resolve tenant based on called number or default to Dental / Real Estate
+  // Resolve tenant: 1. By direct matched phone number, 2. By active test routing from Admin Dashboard
   const tenants = tenantStore.getAllTenants();
-  let tenant = tenants.find(t => t.phone && t.phone.replace(/\s+/g,'') === toNumber.replace(/\s+/g,'')) || tenants[0] || {
-    id: 'TNT-001',
-    businessName: 'Harley Street Smiles Dental',
-    ownerName: 'Dr. Harley',
-    industry: 'dental',
-    personaName: 'Clara',
-    language: 'en-GB',
-    doctorPhone: '+44 7911 123456'
-  };
+  let tenant = tenants.find(t => t.phone && t.phone.replace(/\D/g,'') === toNumber.replace(/\D/g,''));
+  if (!tenant) {
+    const activeId = tenantStore.getActiveTestTenantId();
+    tenant = tenantStore.getTenantById(activeId) || tenants[0];
+  }
+  if (!tenant) {
+    tenant = {
+      id: 'TNT-001',
+      businessName: 'Harley Street Smiles Dental',
+      ownerName: 'Dr. Harley',
+      industry: 'dental',
+      personaName: 'Clara',
+      language: 'en-GB',
+      doctorPhone: '+44 7911 123456'
+    };
+  }
 
   let session = callHistories.get(callSid);
   if (!session) {

@@ -6,6 +6,32 @@ const fs = require('fs');
 const path = require('path');
 
 class TenantStore {
+
+  getActiveTestTenantId() {
+    try {
+      const cfgPath = path.join(__dirname, '..', 'data', 'active_telephony_routing.json');
+      if (fs.existsSync(cfgPath)) {
+        const d = JSON.parse(fs.readFileSync(cfgPath, 'utf8'));
+        return d.activeTenantId || 'TNT-001';
+      }
+    } catch(e) {}
+    return 'TNT-001';
+  }
+
+  setActiveTestTenantId(tenantId) {
+    try {
+      const cfgDir = path.join(__dirname, '..', 'data');
+      if (!fs.existsSync(cfgDir)) fs.mkdirSync(cfgDir, { recursive: true });
+      const cfgPath = path.join(cfgDir, 'active_telephony_routing.json');
+      fs.writeFileSync(cfgPath, JSON.stringify({ activeTenantId: tenantId, updatedAt: new Date().toISOString() }, null, 2), 'utf8');
+      console.log('[Telephony Routing] Active live phone line routed to tenant:', tenantId);
+      return true;
+    } catch(e) {
+      console.error('Failed to set active test tenant:', e.message);
+      return false;
+    }
+  }
+
   constructor() {
     this.tenantsDir = path.join(__dirname, '..', 'tenants');
     if (!fs.existsSync(this.tenantsDir)) {

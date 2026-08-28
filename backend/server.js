@@ -142,6 +142,30 @@ const server = http.createServer((req, res) => {
 
   
   // API Route: Get Dispatched Doctor WhatsApp Alerts
+  
+  // API Route: Active Telephony Routing (Switch phone line to any client tenant)
+  if (req.method === 'GET' && parsedUrl === '/v1/telephony/active-tenant') {
+    const activeTenantId = tenantStore.getActiveTestTenantId();
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ activeTenantId }));
+    return;
+  }
+
+  if (req.method === 'POST' && parsedUrl === '/v1/telephony/active-tenant') {
+    let body = '';
+    req.on('data', c => { body += c; });
+    req.on('end', () => {
+      let data = {};
+      try { data = JSON.parse(body); } catch(e) {}
+      if (data.activeTenantId) {
+        tenantStore.setActiveTestTenantId(data.activeTenantId);
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, activeTenantId: tenantStore.getActiveTestTenantId() }));
+    });
+    return;
+  }
+
   if (req.method === 'GET' && parsedUrl === '/v1/doctor/alerts') {
     const alertsFile = path.join(__dirname, 'data', 'doctor_alerts.json');
     let alerts = [];
