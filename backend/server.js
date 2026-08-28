@@ -82,7 +82,7 @@ function parseRequestBody(req) {
   });
 }
 
-const server = http.createServer(async (req, res) => {
+async function requestHandler(req, res) {
   const parsedUrl = req.url.split('?')[0];
   Object.entries(SECURITY_HEADERS).forEach(([k,v]) => res.setHeader(k,v));
   if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
@@ -569,13 +569,15 @@ const server = http.createServer(async (req, res) => {
       res.end(content, 'utf-8');
     }
   });
-});
+}
+
+const server = http.createServer(requestHandler);
 
 // Upgrade HTTP server to support WebSocket for Twilio Media Streams (Phase 5)
 const { WebSocketServer } = require('ws');
 // attachMediaStreamServer is called after server.listen below
 
-if (!process.env.VERCEL) {
+if (require.main === module && !process.env.VERCEL) {
 server.listen(PORT, () => {
   console.log(`\n===========================================================`);
   console.log(`Ã°Å¸Å¡â‚¬ Vocalis AI Production Server Live at http://localhost:${PORT}`);
@@ -594,7 +596,7 @@ server.listen(PORT, () => {
 }
 
 
-module.exports = server;
+module.exports = requestHandler;
 
 
 
