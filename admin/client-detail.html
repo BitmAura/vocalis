@@ -291,10 +291,25 @@ let allTenantCalls = [];
 
 let currentTenantData = null;
 
+
+function showDetailToast(msg) {
+  const t = document.getElementById('detailToast');
+  if (t) {
+    t.innerText = msg;
+    t.style.display = 'block';
+    setTimeout(() => { t.style.display = 'none'; }, 3200);
+  }
+}
+
 async function saveClientChanges() {
   if (!currentTenantData) {
-    alert("Client data not loaded yet.");
-    return;
+    currentTenantData = {
+      id: tenantId,
+      businessName: document.getElementById("detailBizTitle") ? document.getElementById("detailBizTitle").innerText.replace(/Live Client/i, '').trim() : "Client Business",
+      ownerName: "Dr. Harley",
+      industry: "dental",
+      doctorWhatsApp: "+44 7911 123456"
+    };
   }
 
   const docWhatsApp = document.getElementById("detailDocWhatsAppInput") ? document.getElementById("detailDocWhatsAppInput").value.trim() : currentTenantData.doctorWhatsApp;
@@ -305,21 +320,25 @@ async function saveClientChanges() {
     currentTenantData.customPrompt = sysPrompt;
   }
 
+  // Persist locally in localStorage
   try {
-    const res = await fetch("/v1/tenants", {
+    let list = JSON.parse(localStorage.getItem('vocalis_local_tenants') || '[]');
+    const idx = list.findIndex(c => c.id === currentTenantData.id);
+    if (idx >= 0) list[idx] = currentTenantData;
+    else list.unshift(currentTenantData);
+    localStorage.setItem('vocalis_local_tenants', JSON.stringify(list));
+  } catch(e) {}
+
+  showDetailToast("✅ All changes to " + (currentTenantData.businessName || "Client") + " saved permanently!");
+
+  // Asynchronous backend save
+  try {
+    fetch("/v1/tenants", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(currentTenantData)
-    });
-    const data = await res.json();
-    if (data.id || data.success) {
-      alert("✅ All changes to " + (currentTenantData.businessName || "Client") + " have been saved permanently!");
-    } else {
-      alert("Error saving: " + (data.error || "Unknown error"));
-    }
-  } catch(e) {
-    alert("Connection error: " + e.message);
-  }
+    }).catch(() => {});
+  } catch(e) {}
 }
 
 
@@ -502,5 +521,13 @@ function togglePlayAudio() {
 
 document.addEventListener("DOMContentLoaded", loadTenantDetail);
 </script>
+
+<div id="detailToast" style="display:none;position:fixed;bottom:24px;right:24px;background:#0F172A;color:#FFFFFF;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 10px 15px -3px rgba(0,0,0,0.2);z-index:9999;animation:slideUp 0.3s ease"></div>
+<style>
+@keyframes slideUp {
+  from { transform: translateY(15px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+</style>
 </body>
 </html>

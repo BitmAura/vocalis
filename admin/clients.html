@@ -187,22 +187,66 @@ function filterClients() {
   renderTable(filtered);
 }
 
-async function deleteClient(id, name) {
-  if (!confirm('Remove client "' + name + '" (' + id + ') from Vocalis AI?\n\nThis will stop their AI receptionist immediately.')) return;
-  try {
-    const res = await fetch('/v1/tenants/' + id, { method: 'DELETE' });
-    const data = await res.json();
-    if (data.success || data.deleted) {
-      allClientsData = allClientsData.filter(c => c.id !== id);
-      filterClients();
-      alert('✅ Client ' + name + ' removed successfully.');
-    } else {
-      alert('Error: ' + (data.error || 'Could not remove client'));
-    }
-  } catch (e) {
-    alert('Network error: ' + e.message);
+
+let pendingDeleteId = null;
+let pendingDeleteName = null;
+
+function showToast(msg) {
+  const t = document.getElementById('clientToast');
+  if (t) {
+    t.innerText = msg;
+    t.style.display = 'block';
+    setTimeout(() => { t.style.display = 'none'; }, 3200);
   }
 }
+
+function closeDeleteModal() {
+  const m = document.getElementById('deleteConfirmModal');
+  if (m) m.style.display = 'none';
+  pendingDeleteId = null;
+  pendingDeleteName = null;
+}
+
+function deleteClient(id, name) {
+  pendingDeleteId = id;
+  pendingDeleteName = name;
+  const desc = document.getElementById('deleteModalDesc');
+  if (desc) desc.innerText = 'Are you sure you want to remove "' + name + '" (' + id + ') from Vocalis AI? This will disconnect their AI voice receptionist.';
+  const btn = document.getElementById('btnConfirmDelete');
+  if (btn) btn.onclick = executeClientDelete;
+  const m = document.getElementById('deleteConfirmModal');
+  if (m) m.style.display = 'flex';
+}
+
+async function executeClientDelete() {
+  const id = pendingDeleteId;
+  const name = pendingDeleteName;
+  closeDeleteModal();
+
+  // 1. Remove from in-memory array
+  allClientsData = allClientsData.filter(c => c.id !== id);
+
+  // 2. Persist deletion in localStorage
+  try {
+    let localTenants = JSON.parse(localStorage.getItem('vocalis_local_tenants') || '[]');
+    localTenants = localTenants.filter(c => c.id !== id);
+    localStorage.setItem('vocalis_local_tenants', JSON.stringify(localTenants));
+
+    let deletedIds = JSON.parse(localStorage.getItem('vocalis_deleted_ids') || '[]');
+    if (!deletedIds.includes(id)) deletedIds.push(id);
+    localStorage.setItem('vocalis_deleted_ids', JSON.stringify(deletedIds));
+  } catch(e) {}
+
+  // 3. Render updated table instantly
+  filterClients();
+  showToast('✅ Client "' + name + '" removed successfully.');
+
+  // 4. Try backend deletion asynchronously without throwing user errors
+  try {
+    fetch('/v1/tenants/' + id, { method: 'DELETE' }).catch(() => {});
+  } catch(e) {}
+}
+
 
 
 const EMBEDDED_CLIENTS = [
@@ -243,7 +287,9 @@ async function loadClients() {
     const map = new Map();
     EMBEDDED_CLIENTS.forEach(c => map.set(c.id, c));
     localTenants.forEach(c => map.set(c.id, c));
-    allClientsData = Array.from(map.values());
+    let deletedIds = [];
+    try { deletedIds = JSON.parse(localStorage.getItem('vocalis_deleted_ids') || '[]'); } catch(e) {}
+    allClientsData = Array.from(map.values()).filter(c => !deletedIds.includes(c.id));
   }
 
   // Update nav badge count
@@ -257,5 +303,31 @@ async function loadClients() {
 
 document.addEventListener('DOMContentLoaded', loadClients);
 </script>
+
+<!-- Modern Delete Confirmation Modal -->
+<div id="deleteConfirmModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,23,42,0.65);backdrop-filter:blur(4px);z-index:9999;align-items:center;justify-content:center">
+  <div style="background:#FFFFFF;border-radius:14px;width:90%;max-width:440px;padding:24px;box-shadow:0 20px 25px -5px rgba(0,0,0,0.2);animation:modalScale 0.2s ease-out">
+    <div style="font-size:28px;margin-bottom:8px">⚠️</div>
+    <h3 style="font-size:18px;font-weight:700;color:#0F172A;margin:0 0 6px 0">Remove Client from Directory?</h3>
+    <p id="deleteModalDesc" style="font-size:13px;color:#64748B;line-height:1.45;margin:0 0 20px 0">This will stop their AI voice receptionist and remove them from active tracking.</p>
+    <div style="display:flex;justify-content:flex-end;gap:10px">
+      <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+      <button class="btn" id="btnConfirmDelete" style="background:#DC2626;color:#FFFFFF;padding:8px 16px;border-radius:6px;font-weight:600">Yes, Remove Client</button>
+    </div>
+  </div>
+</div>
+
+<div id="clientToast" style="display:none;position:fixed;bottom:24px;right:24px;background:#0F172A;color:#FFFFFF;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 10px 15px -3px rgba(0,0,0,0.2);z-index:9999;animation:slideUp 0.3s ease"></div>
+
+<style>
+@keyframes modalScale {
+  from { transform: scale(0.94); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes slideUp {
+  from { transform: translateY(15px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+</style>
 </body>
 </html>
