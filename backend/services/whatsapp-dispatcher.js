@@ -24,6 +24,55 @@ const LANG_DISPLAY = {
   'es': 'Spanish (Español)'
 };
 class WhatsAppDispatcher {
+
+  async sendSMS(toNumber, bodyText) {
+    const sid = process.env.TWILIO_ACCOUNT_SID;
+    const token = process.env.TWILIO_AUTH_TOKEN;
+    const fromNumber = process.env.TWILIO_PHONE_NUMBER;
+    if (!sid || !token || !fromNumber || !toNumber || toNumber === '+Unknown' || toNumber.includes('Unknown')) {
+      return false;
+    }
+
+    try {
+      const auth = Buffer.from(sid + ':' + token).toString('base64');
+      const data = new URLSearchParams({
+        To: toNumber,
+        From: fromNumber,
+        Body: bodyText
+      }).toString();
+
+      const https = require('https');
+      return new Promise((resolve) => {
+        const req = https.request({
+          hostname: 'api.twilio.com',
+          path: '/2010-04-01/Accounts/' + sid + '/Messages.json',
+          method: 'POST',
+          headers: {
+            'Authorization': 'Basic ' + auth,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': Buffer.byteLength(data)
+          }
+        }, (res) => {
+          let b = '';
+          res.on('data', c => b += c);
+          res.on('end', () => {
+            console.log('[Twilio SMS Gateway] 📱 SMS Confirmation dispatched to ' + toNumber + ' (Status ' + res.statusCode + ')');
+            resolve(true);
+          });
+        });
+        req.on('error', (e) => {
+          console.warn('[Twilio SMS Error]:', e.message);
+          resolve(false);
+        });
+        req.write(data);
+        req.end();
+      });
+    } catch(e) {
+      console.warn('[Twilio SMS Error]:', e.message);
+      return false;
+    }
+  }
+
   constructor(config = {}) {
     this.provider = config.provider || 'meta';
     this.ensureAlertsStore();
@@ -92,6 +141,13 @@ _Dispatched in 1.8s by Vocalis AI Receptionist Engine_`;
 
     console.log(`\n[WhatsApp Dispatcher] 📲 WhatsApp Alert Dispatched to Doctor at ${doctorPhone || '+44 7911 123456'}:`);
     console.log(messageText);
+
+    // Instant SMS Confirmation to the Caller/Patient
+    if (patientPhone && patientPhone !== '+Unknown') {
+      const patientMsg = 'Hello ' + (patientName || 'there') + '! Your booking with ' + (clinicName || 'our team') + ' is CONFIRMED for ' + (slotTime || 'your requested slot') + '. We look forward to seeing you!';
+      this.sendSMS(patientPhone, patientMsg).catch(() => {});
+    }
+
 
     // Save alert to doctor_alerts.json
     try {
