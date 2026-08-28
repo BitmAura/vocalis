@@ -1,36 +1,43 @@
 ﻿{
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/v1/chat",
-      "destination": "/api/chat"
+      "src": "backend/server.js",
+      "use": "@vercel/node"
     },
     {
-      "source": "/v1/telephony/inbound",
-      "destination": "/api/telephony"
+      "src": "admin/**",
+      "use": "@vercel/static"
     },
     {
-      "source": "/v1/tenants",
-      "destination": "/api/tenants"
+      "src": "client-portal/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/v1/(.*)",
+      "dest": "backend/server.js"
     },
     {
-      "source": "/v1/bookings",
-      "destination": "/api/bookings"
+      "src": "/assets/(.*)",
+      "dest": "admin/assets/$1"
     },
     {
-      "source": "/assets/(.*)",
-      "destination": "/admin/assets/$1"
+      "src": "/client-portal/(.*)",
+      "dest": "client-portal/$1"
     },
     {
-      "source": "/client-portal/(.*)",
-      "destination": "/client-portal/$1"
+      "src": "/(.*\\.(html|css|js|png|jpg|svg|json))",
+      "dest": "admin/$1"
     },
     {
-      "source": "/(.*\\.(html|css|js|png|jpg|svg|json))",
-      "destination": "/admin/$1"
+      "src": "/",
+      "dest": "admin/index.html"
     },
     {
-      "source": "/",
-      "destination": "/admin/index.html"
+      "src": "/(.*)",
+      "dest": "backend/server.js"
     }
   ]
 }
