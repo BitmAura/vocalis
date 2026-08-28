@@ -1,20 +1,27 @@
 ﻿{
+  "version": 2,
+  "functions": {
+    "api/*.js": {
+      "runtime": "@vercel/node@3.2.0",
+      "maxDuration": 15
+    }
+  },
   "rewrites": [
     {
       "source": "/v1/chat",
-      "destination": "/api/chat"
+      "destination": "/api/chat.js"
     },
     {
       "source": "/v1/telephony/inbound",
-      "destination": "/api/telephony"
+      "destination": "/api/telephony.js"
     },
     {
       "source": "/v1/tenants",
-      "destination": "/api/tenants"
+      "destination": "/api/tenants.js"
     },
     {
       "source": "/v1/bookings",
-      "destination": "/api/bookings"
+      "destination": "/api/bookings.js"
     },
     {
       "source": "/assets/(.*)",
