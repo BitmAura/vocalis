@@ -5,6 +5,84 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vocalis AI — 7-Day Trial Pipeline</title>
 <link rel="stylesheet" href="assets/css/style.css">
+<style>
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.metric-card {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.metric-value {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.metric-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+}
+.metric-sub {
+  font-size: 11.5px;
+  color: #64748B;
+  margin-top: 4px;
+}
+/* Slide-in Modal / Drawer */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.active {
+  display: flex;
+}
+.modal-dialog {
+  background: #ffffff;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 540px;
+  padding: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  animation: modalScale 0.2s ease-out;
+}
+@keyframes modalScale {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.toast-msg {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #0F172A;
+  color: #FFFFFF;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+  display: none;
+  z-index: 2000;
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+</style>
 </head>
 <body>
 <div class="app-layout">
@@ -53,12 +131,12 @@
           <div class="metric-sub">From trial to paid plan</div>
         </div>
         <div class="metric-card">
-          <div class="metric-value">$18,400</div>
+          <div class="metric-value" style="color:#0284C7">$18,400</div>
           <div class="metric-label">Revenue Recovered for Trials</div>
           <div class="metric-sub">Confirmed bookings & leads</div>
         </div>
         <div class="metric-card">
-          <div class="metric-value" style="color:var(--brand-warning)">3</div>
+          <div class="metric-value" style="color:#D97706">3</div>
           <div class="metric-label">Trials Expiring in &lt;48h</div>
           <div class="metric-sub">Action: Send ROI Report</div>
         </div>
@@ -88,7 +166,7 @@
                 <td><strong style="color:var(--brand-accent)">$4,200</strong> (3 inspections)</td>
                 <td><strong style="color:var(--brand-accent)">92% (High)</strong></td>
                 <td>
-                  <button class="btn btn-primary btn-sm" onclick="alert('📊 Sent ROI report with Stripe invoice for $497/mo.')">Send ROI Sheet & Bill</button>
+                  <button class="btn btn-primary btn-sm" onclick="openRoiModal('Johnson Roofing Co', '$4,200', '3 roof inspections', '$497/mo')">Send ROI Sheet & Bill</button>
                 </td>
               </tr>
               <tr>
@@ -99,7 +177,7 @@
                 <td><strong style="color:var(--brand-accent)">$2,100</strong> (7 bookings)</td>
                 <td><strong style="color:var(--brand-accent)">85% (High)</strong></td>
                 <td>
-                  <button class="btn btn-secondary btn-sm" onclick="alert('📊 Previewing ROI summary sheet.')">Preview ROI Sheet</button>
+                  <button class="btn btn-secondary btn-sm" onclick="openPreviewModal('Melbourne AutoCare', '$2,100', '7 service bookings', '22 calls')">Preview ROI Sheet</button>
                 </td>
               </tr>
               <tr>
@@ -110,7 +188,7 @@
                 <td><strong style="color:var(--brand-accent)">$6,800</strong> (2 charters)</td>
                 <td><strong style="color:var(--brand-accent)">95% (VIP)</strong></td>
                 <td>
-                  <button class="btn btn-secondary btn-sm" onclick="alert('💬 Sent mid-trial WhatsApp checkin.')">Send Mid-Trial Checkin</button>
+                  <button class="btn btn-secondary btn-sm" onclick="sendMidTrialWhatsApp('Dubai Global Yacht Rentals')">Send Mid-Trial Checkin</button>
                 </td>
               </tr>
             </tbody>
@@ -120,5 +198,81 @@
     </div>
   </main>
 </div>
+
+<!-- Interactive ROI & Billing Modal -->
+<div class="modal-overlay" id="roiModal">
+  <div class="modal-dialog">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <h3 style="margin:0;font-size:17px;color:#0F172A" id="modalTitle">Send ROI Sheet & Invoice</h3>
+      <button onclick="closeModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#64748B">✕</button>
+    </div>
+    <div id="modalBody" style="font-size:13.5px;color:#334155;line-height:1.5">
+      <!-- Injected -->
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" id="modalConfirmBtn" onclick="confirmSendBill()">Send via WhatsApp & Email</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-msg" id="toastMsg"></div>
+
+<script>
+function showToast(msg) {
+  const t = document.getElementById('toastMsg');
+  t.innerText = msg;
+  t.style.display = 'block';
+  setTimeout(() => { t.style.display = 'none'; }, 3500);
+}
+
+function closeModal() {
+  document.getElementById('roiModal').classList.remove('active');
+}
+
+function openRoiModal(name, rev, details, plan) {
+  document.getElementById('modalTitle').innerText = '📊 Send ROI Dossier & Invoice: ' + name;
+  document.getElementById('modalBody').innerHTML = `
+    <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:14px;margin-bottom:14px">
+      <div style="font-weight:700;color:#0F172A;margin-bottom:4px">Trial Performance Summary:</div>
+      <div>• <strong>Revenue Recovered:</strong> <span style="color:#10B981;font-weight:700">${rev}</span> (${details})</div>
+      <div>• <strong>Plan Rate:</strong> ${plan}</div>
+      <div>• <strong>Calculated Client ROI:</strong> <span style="color:#0284C7;font-weight:700">8.4x return on subscription</span></div>
+    </div>
+    <p>This will instantly dispatch the branded PDF ROI sheet and Stripe one-click payment link to the business owner's verified WhatsApp number.</p>
+  `;
+  document.getElementById('roiModal').classList.add('active');
+}
+
+function openPreviewModal(name, rev, details, calls) {
+  document.getElementById('modalTitle').innerText = '📄 ROI Summary Sheet Preview: ' + name;
+  document.getElementById('modalBody').innerHTML = `
+    <div style="border:1.5px dashed #CBD5E1;border-radius:8px;padding:16px;background:#FAFAFA">
+      <div style="text-align:center;font-weight:800;color:#0F172A;font-size:15px;margin-bottom:6px">VOCALIS AI RECEPTION REPORT</div>
+      <div style="text-align:center;font-size:12px;color:#64748B;margin-bottom:12px">Trial Period: Days 1–5</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12.5px">
+        <div style="background:#FFFFFF;padding:10px;border-radius:6px;border:1px solid #E2E8F0">
+          <span style="color:#64748B">Calls Handled:</span><br><strong style="font-size:15px">${calls}</strong>
+        </div>
+        <div style="background:#FFFFFF;padding:10px;border-radius:6px;border:1px solid #E2E8F0">
+          <span style="color:#64748B">Leads Recovered:</span><br><strong style="font-size:15px;color:#10B981">${rev}</strong>
+        </div>
+      </div>
+      <div style="margin-top:10px;font-size:12px;color:#334155">• ${details} booked seamlessly by Vocalis AI without missed calls.</div>
+    </div>
+  `;
+  document.getElementById('modalConfirmBtn').innerText = 'Export PDF Dossier';
+  document.getElementById('roiModal').classList.add('active');
+}
+
+function confirmSendBill() {
+  closeModal();
+  showToast('✅ ROI Dossier & Stripe Invoice dispatched to owner on WhatsApp & Email!');
+}
+
+function sendMidTrialWhatsApp(name) {
+  showToast('💬 Mid-trial check-in dispatched to ' + name + ' owner via WhatsApp!');
+}
+</script>
 </body>
 </html>
