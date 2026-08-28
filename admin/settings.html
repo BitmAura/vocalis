@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocalis AI — Platform Settings & Multi-LLM Failover</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+      <div class="logo-text"><span class="logo-name">Vocalis AI</span><span class="logo-tagline">Admin Super Panel</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Overview</div>
+      <a href="index.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+      <div class="nav-section-title">Clients</div>
+      <a href="clients.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>All Clients <span class="badge" style="background:var(--brand-primary);color:white;margin-left:auto;font-size:10px">47</span></a>
+      <a href="onboarding.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add New Client</a>
+      <a href="trials.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Trial Management</a>
+      <div class="nav-section-title">Voice AI</div>
+      <a href="demo.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Live Demo Center</a>
+      <a href="client-detail.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.72 6.72l.61-1.76a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call Logs & AI</a>
+      <div class="nav-section-title">Business</div>
+      <a href="billing.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Billing & Revenue</a>
+      <a href="settings.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>Platform Settings</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-title">
+        <h1>Platform Settings & Multi-LLM Brain Architecture</h1>
+        <p>Enterprise Triple-Failover: Google Gemini ➔ NVIDIA NIM GPU (Llama 3.3) ➔ OpenRouter</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-primary" onclick="saveAllPlatformSettings()">
+          💾 Save All Keys
+        </button>
+      </div>
+    </header>
+
+    <div class="page-content" style="max-width:1050px">
+      <!-- Section 1: Multi-LLM Brain & Failover Hub -->
+      <div class="card" style="margin-bottom:18px;border-color:var(--brand-primary)">
+        <div class="card-header" style="background:var(--brand-primary-light);border-bottom:1px solid #C7D2FE">
+          <div class="card-title" style="color:var(--brand-primary-text);display:flex;align-items:center;gap:8px">
+            <span>🧠 1. Multi-LLM Brain & Automated Failover Cluster</span>
+            <span class="badge badge-live">100% Uptime Guaranteed</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-success" style="margin-bottom:16px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <div class="alert-body">
+              <div class="alert-title">Triple-Cloud Redundancy Architecture</div>
+              <div class="alert-desc">The AI automatically queries <strong>Google Gemini</strong> first. If Gemini hits rate limits or cloud downtime, it instantly switches to <strong>NVIDIA NIM (Llama 3.3 70B GPU)</strong> in under 100ms, then to <strong>OpenRouter</strong>, ensuring phone calls never disconnect.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="form-group">
+              <label class="form-label" style="display:flex;justify-content:space-between">
+                <span><strong>Priority 1: Google Gemini API Key</strong> (Gemini 1.5 Flash)</span>
+                <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--brand-primary);font-size:11.5px">Get Free Key (aistudio.google.com) ↗</a>
+              </label>
+              <input type="text" id="setGeminiKey" class="form-control" placeholder="AIzaSy..." style="font-family:'JetBrains Mono',monospace;font-size:12px">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" style="display:flex;justify-content:space-between">
+                <span><strong>Priority 2 (Failover GPU): NVIDIA NIM API Key</strong> (Llama 3.3 70B Instruct)</span>
+                <a href="https://build.nvidia.com" target="_blank" style="color:var(--brand-primary);font-size:11.5px">Get Free NVIDIA NIM Key ↗</a>
+              </label>
+              <input type="text" id="setNvidiaKey" class="form-control" placeholder="nvapi-..." style="font-family:'JetBrains Mono',monospace;font-size:12px">
+            </div>
+
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" style="display:flex;justify-content:space-between">
+                <span><strong>Priority 3 (Universal Hub): OpenRouter API Key</strong> (Claude 3.5 / Llama / Mistral)</span>
+                <a href="https://openrouter.ai/keys" target="_blank" style="color:var(--brand-primary);font-size:11.5px">Get OpenRouter Key ↗</a>
+              </label>
+              <input type="text" id="setOpenRouterKey" class="form-control" placeholder="sk-or-v1-..." style="font-family:'JetBrains Mono',monospace;font-size:12px">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Telephony & WebRTC Providers (Twilio) -->
+      <div class="card" style="margin-bottom:18px">
+        <div class="card-header"><div class="card-title">📞 2. Telephony & Real Phone Numbers (Twilio / Telnyx)</div></div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="form-group">
+              <label class="form-label">Twilio Account SID</label>
+              <input type="text" id="setTwilioSid" class="form-control" placeholder="AC98a72b14e9f8...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Twilio Auth Token</label>
+              <input type="password" id="setTwilioToken" class="form-control" placeholder="••••••••••••••••••••••••••••">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Inbound Webhook URL (For 3-Ring *71 Call Forwarding)</label>
+            <input type="text" class="form-control" value="http://localhost:3300/v1/telephony/inbound" readonly style="background:#F8FAFC;color:var(--brand-primary);font-family:'JetBrains Mono',monospace;font-weight:600">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Verified WhatsApp Delivery (Twilio & Gupshup) -->
+      <div class="card" style="margin-bottom:18px">
+        <div class="card-header"><div class="card-title">💬 3. Verified WhatsApp Delivery (Doctor Notifications & Symptoms Script)</div></div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="form-group">
+              <label class="form-label">Gupshup Enterprise API Key</label>
+              <input type="password" id="setGupshupKey" class="form-control" placeholder="••••••••••••••••••••••••••••">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Gupshup Registered App Name</label>
+              <input type="text" id="setGupshupApp" class="form-control" value="vocalis_ai_receptionist">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+async function saveAllPlatformSettings() {
+  const payload = {
+    geminiKey: document.getElementById('setGeminiKey').value.trim(),
+    nvidiaKey: document.getElementById('setNvidiaKey').value.trim(),
+    openRouterKey: document.getElementById('setOpenRouterKey').value.trim(),
+    twilioSid: document.getElementById('setTwilioSid').value.trim(),
+    twilioToken: document.getElementById('setTwilioToken').value.trim(),
+    gupshupKey: document.getElementById('setGupshupKey').value.trim(),
+    gupshupApp: document.getElementById('setGupshupApp').value.trim()
+  };
+
+  try {
+    const res = await fetch('/v1/settings/save-all', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (data.success) {
+      alert("✅ All platform API keys successfully saved and live across the system!");
+    } else {
+      alert("Error: " + (data.error || "Failed to save"));
+    }
+  } catch(e) {
+    alert("Connection error: " + e.message);
+  }
+}
+</script>
+</body>
+</html>

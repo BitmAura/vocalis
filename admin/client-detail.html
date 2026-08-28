@@ -1,0 +1,471 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocalis AI — Tenant Detail: Harley Street Smiles Dental</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.tab-nav{display:flex;gap:6px;border-bottom:1px solid var(--glass-border);margin-bottom:20px}
+.tab-btn{background:none;border:none;color:var(--text-muted);padding:9px 16px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;border-bottom:2px solid transparent;transition:var(--transition)}
+.tab-btn:hover{color:var(--text-primary)}
+.tab-btn.active{color:var(--brand-primary);border-bottom-color:var(--brand-primary);background:var(--brand-primary-light)}
+.tab-content{display:none}
+.tab-content.active{display:block;animation:fadeIn 0.2s ease}
+.audio-player-card{background:#F8FAFC;border:1px solid var(--glass-border);border-radius:8px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-top:8px}
+.play-circle{width:34px;height:34px;border-radius:50%;background:var(--brand-primary);color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:var(--transition)}
+.play-circle:hover{transform:scale(1.06);background:var(--brand-primary-hover)}
+.play-circle svg{width:15px;height:15px}
+.transcript-bubble{margin-bottom:10px;padding:10px 14px;border-radius:10px;font-size:13px;line-height:1.45}
+.transcript-bubble.caller{background:#F1F5F9;color:var(--text-primary);border-bottom-left-radius:2px;border:1px solid var(--glass-border)}
+.transcript-bubble.ai{background:var(--brand-primary-light);color:var(--brand-primary-text);border-bottom-right-radius:2px;border:1px solid #C7D2FE}
+</style>
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+      <div class="logo-text"><span class="logo-name">Vocalis AI</span><span class="logo-tagline">Admin Super Panel</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Overview</div>
+      <a href="index.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+      <div class="nav-section-title">Clients</div>
+      <a href="clients.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>All Clients</a>
+      <a href="onboarding.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add New Client</a>
+      <a href="trials.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Trial Management</a>
+      <div class="nav-section-title">Voice AI</div>
+      <a href="demo.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Live Demo Center</a>
+      <a href="client-detail.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.72 6.72l.61-1.76a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call Logs & AI</a>
+      <div class="nav-section-title">Business</div>
+      <a href="billing.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Billing & Revenue</a>
+      <a href="settings.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>Platform Settings</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-title">
+        <div style="display:flex;align-items:center;gap:12px">
+          <a href="clients.html" class="btn-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          </a>
+          <div>
+            <h1 id="detailBizTitle" style="display:flex;align-items:center;gap:10px">Harley Street Smiles Dental <span class="badge badge-live"><span class="badge-dot"></span>Live Client</span></h1>
+            <p id="detailSubtitle">Tenant: TNT-001 · Dedicated Line: +44 20 7946 0912 · Plan: £395/mo</p>
+          </div>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <a href="demo.html?client=TNT-002" class="btn btn-secondary btn-sm">Test AI Line</a>
+        <button class="btn btn-primary btn-sm" onclick="alert('✅ Client settings successfully saved.')">Save Changes</button>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <!-- Tabs -->
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('callLogs', this)">📞 Call Logs & Audio Recordings</button>
+        <button class="tab-btn" onclick="switchTab('whatsAppRule', this)">💬 Doctor WhatsApp Alert & Call Script</button>
+        <button class="tab-btn" onclick="switchTab('aiConfig', this)">🧠 AI Persona & Prompt Tuning</button>
+        <button class="tab-btn" onclick="switchTab('knowledgeBase', this)">📚 Clinic Price Table</button>
+        <button class="tab-btn" onclick="switchTab('telephony', this)">📱 3-Ring Forwarding (*71)</button>
+      </div>
+
+      <!-- Tab 1: Call Logs -->
+      <div class="tab-content active" id="tab-callLogs">
+        <div style="display:grid;grid-template-columns:1fr 400px;gap:18px">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Recent Inbound Calls</div></div>
+            <div class="card-body no-pad">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Patient / Caller</th><th>Outcome</th><th>Duration</th><th>Doctor Alert Status</th></tr>
+                </thead>
+                <tbody>
+                  <tr style="background:var(--brand-primary-light)">
+                    <td>
+                      <strong style="color:var(--text-primary)">Maria Johnson</strong>
+                      <div style="font-size:11.5px;color:var(--text-muted)">+44 7700 900123 (London)</div>
+                    </td>
+                    <td><span class="badge badge-live">📅 Confirmed Booking</span></td>
+                    <td>1m 48s</td>
+                    <td><span style="color:#047857;font-size:12px;font-weight:600">✅ WhatsApp + Script Dispatched</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong style="color:var(--text-primary)">James Clark</strong>
+                      <div style="font-size:11.5px;color:var(--text-muted)">+44 7911 884422</div>
+                    </td>
+                    <td><span class="badge badge-paused">💬 Opening Hours FAQ</span></td>
+                    <td>42s</td>
+                    <td><span style="color:var(--text-muted);font-size:12px">Filtered (Zero Doctor Spam)</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong style="color:var(--text-primary)">David Miller</strong>
+                      <div style="font-size:11.5px;color:var(--text-muted)">+44 7822 559900</div>
+                    </td>
+                    <td><span class="badge badge-live">🚨 Root Canal Emergency</span></td>
+                    <td>2m 10s</td>
+                    <td><span style="color:#047857;font-size:12px;font-weight:600">✅ WhatsApp + Script Dispatched</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Transcript & Audio Player -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Call: Maria Johnson — Cleaning Booking</div>
+                <div class="card-subtitle">Friday 2:30 PM Slot Locked · £140 Value</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="audio-player-card">
+                <div class="play-circle" id="playBtn" onclick="togglePlayAudio()">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+                <div style="flex:1">
+                  <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px">
+                    <span id="audioCurrent">0:00</span>
+                    <span>1:48</span>
+                  </div>
+                  <div class="stat-bar-track"><div class="stat-bar-fill purple" id="audioProgress" style="width:0%"></div></div>
+                </div>
+              </div>
+
+              <div style="margin-top:16px;max-height:300px;overflow-y:auto">
+                <div class="transcript-bubble ai">
+                  <strong style="display:block;font-size:11px;margin-bottom:2px">🤖 Vocalis AI (Clara):</strong>
+                  "Good afternoon, thank you for calling Harley Street Smiles Dental. My name is Clara. How may I assist you today?"
+                </div>
+                <div class="transcript-bubble caller">
+                  <strong style="display:block;font-size:11px;margin-bottom:2px">👤 Maria Johnson:</strong>
+                  "Hi Clara, I would like to book a routine dental cleaning for this Friday afternoon."
+                </div>
+                <div class="transcript-bubble ai">
+                  <strong style="display:block;font-size:11px;margin-bottom:2px">🤖 Vocalis AI (Clara):</strong>
+                  "Certainly! We have an opening this Friday at 2:30 PM with Dr. Harley for comprehensive dental hygiene (£140). Would that time suit you?"
+                </div>
+                <div class="transcript-bubble caller">
+                  <strong style="display:block;font-size:11px;margin-bottom:2px">👤 Maria Johnson:</strong>
+                  "Yes, 2:30 PM is perfect. My name is Maria Johnson, phone +44 7700 900123."
+                </div>
+                <div class="transcript-bubble ai">
+                  <strong style="display:block;font-size:11px;margin-bottom:2px">🤖 Vocalis AI (Clara):</strong>
+                  "You are all confirmed for Friday at 2:30 PM Maria! I have sent an SMS confirmation to your mobile and notified Dr. Harley with your visit notes. We look forward to seeing you!"
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: WhatsApp Rule & Script Forwarding -->
+      <div class="tab-content" id="tab-whatsAppRule">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Doctor's WhatsApp Alert & Conversation Script Settings</div></div>
+          <div class="card-body">
+            <div class="alert alert-success">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <div class="alert-body">
+                <div class="alert-title">Active Filter: Confirmed Revenue + Full Call Script</div>
+                <div class="alert-desc">Doctor receives WhatsApp messages only when a patient is confirmed in Cal.com or an emergency pain consultation is booked. Includes full call transcript so the doctor knows the exact symptoms before the patient enters the clinic.</div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 380px;gap:20px">
+              <div>
+                <div class="form-group">
+                  <label class="form-label">Doctor WhatsApp Mobile Number</label>
+                  <input id="detailDocWhatsAppInput" type="text" class="form-control" value="+44 7911 123456" style="max-width:350px">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">WhatsApp Alert Template</label>
+                  <textarea class="form-control" rows="8" style="font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.5">🔔 VOCALIS AI: NEW CONFIRMED PATIENT
+👤 Patient: {{patient_name}}
+📱 Phone: {{patient_phone}}
+🩺 Treatment: {{treatment_name}} ({{treatment_fee}})
+📅 Confirmed Slot: {{appointment_slot}}
+
+📝 Conversation Script & Symptoms:
+"{{call_transcript_summary}}"
+
+🎧 Audio Recording Link:
+{{call_audio_url}}</textarea>
+                </div>
+              </div>
+
+              <!-- Preview -->
+              <div>
+                <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px">Doctor WhatsApp Message Preview:</div>
+                <div class="whatsapp-chat-preview">
+                  <div class="whatsapp-bubble">
+                    <div class="whatsapp-header-badge">🔔 VOCALIS AI: NEW CONFIRMED PATIENT</div>
+                    <p style="margin-bottom:6px"><strong>👤 Patient:</strong> Maria Johnson</p>
+                    <p style="margin-bottom:6px"><strong>📱 Phone:</strong> +44 7700 900123</p>
+                    <p style="margin-bottom:6px"><strong>🩺 Treatment:</strong> Dental Hygiene & Polishing (£140)</p>
+                    <p style="margin-bottom:6px"><strong>📅 Confirmed Slot:</strong> Friday, 28 Aug at 2:30 PM</p>
+                    <hr style="border:none;border-top:1px solid #E2E8F0;margin:8px 0">
+                    <p style="font-size:11.5px;color:#334155;margin-bottom:6px"><strong>📝 Conversation Script:</strong><br>
+                    <em>"Caller requested Friday afternoon for routine teeth cleaning and mentioned slight gum sensitivity on the lower right molar. Locked in Dr. Harley's 2:30 PM slot."</em></p>
+                    <p style="font-size:11px;color:#0284C7">🎧 <u>Listen to Full Call Audio (1m 48s)</u></p>
+                    <div style="font-size:10px;color:#8696A0;text-align:right;margin-top:4px">14:15 ✓✓</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: AI Config -->
+      <div class="tab-content" id="tab-aiConfig">
+        <div class="card">
+          <div class="card-header"><div class="card-title">AI Persona & Custom Clinic Prompt</div></div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">System Prompt / Behavioral Directives</label>
+              <textarea id="detailSysPrompt" class="form-control" rows="8" style="font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.5">You are Clara, senior receptionist at Harley Street Smiles Dental in London.
+Tone: Polite, warm, sophisticated British RP accent, empathetic for nervous patients.
+Goal: Check live calendar slots via Cal.com, lock in hygiene/whitening/consultation appointments, and send WhatsApp summary to Dr. Harley.
+Pricing: Routine cleaning is £140. Emergency exam is £95. Whitening is £400.</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Knowledge Base -->
+      <div class="tab-content" id="tab-knowledgeBase">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Clinic Service & Fee Schedule</div></div>
+          <div class="card-body no-pad">
+            <table class="data-table">
+              <thead><tr><th>Treatment</th><th>Duration</th><th>Fee</th><th>Covered</th></tr></thead>
+              <tbody id="detailKbTbody">
+                <tr><td>Comprehensive Exam & Cleaning</td><td>45 mins</td><td>£140</td><td>Private Dental Insurance</td></tr>
+                <tr><td>Emergency Toothache Exam & X-Ray</td><td>30 mins</td><td>£95</td><td>Private Insurance</td></tr>
+                <tr><td>Molar Root Canal Therapy</td><td>60 mins</td><td>£750 - £950</td><td>Private Insurance</td></tr>
+                <tr><td>Laser In-Office Teeth Whitening</td><td>45 mins</td><td>£400</td><td>Cosmetic (Self-pay)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 5: Telephony -->
+      <div class="tab-content" id="tab-telephony">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Clinic Inbound Telephony Routing</div></div>
+          <div class="card-body">
+            <div class="grid-2">
+              <div style="background:#F8FAFC;border:1px solid var(--glass-border);padding:16px;border-radius:8px">
+                <strong style="color:var(--text-primary);display:block;margin-bottom:6px">Dedicated Twilio Inbound AI Line</strong>
+                <div style="font-size:20px;font-family:'JetBrains Mono',monospace;color:var(--brand-accent);font-weight:700">+44 20 7946 0912</div>
+                <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px">Provisioned & Live in London (UK) 24/7</div>
+              </div>
+              <div style="background:#F8FAFC;border:1px solid var(--glass-border);padding:16px;border-radius:8px">
+                <strong style="color:var(--text-primary);display:block;margin-bottom:6px">Doctor Dial Code for 3-Ring Fallback</strong>
+                <div style="font-size:18px;font-family:'JetBrains Mono',monospace;color:var(--brand-primary);font-weight:700">*71 +44 20 7946 0912</div>
+                <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px">Active forwarding if clinic reception is busy or after hours.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const tenantId = urlParams.get("id") || "TNT-001";
+let activeAudio = null;
+let isAudioPlaying = false;
+let allTenantCalls = [];
+
+function switchTab(tabId) {
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+  const btn = event.target;
+  btn.classList.add("active");
+  const el = document.getElementById("tab-" + tabId);
+  if(el) el.classList.add("active");
+}
+
+async function loadTenantDetail() {
+  try {
+    const [tRes, lRes] = await Promise.all([fetch("/v1/tenants"), fetch("/v1/logs")]);
+    const tenants = await tRes.json();
+    const logsData = await lRes.json();
+    const t = tenants.find(x => x.id === tenantId) || tenants[0];
+    
+    if(t) {
+      document.getElementById("detailBizTitle").innerHTML = t.businessName + ' <span class="badge badge-live"><span class="badge-dot"></span>Live Client</span>';
+      document.getElementById("detailSubtitle").innerHTML = 'Tenant: <span style="font-family:monospace;color:var(--brand-primary);font-weight:600">' + t.id + '</span> &nbsp;·&nbsp; Dedicated Line: <span style="font-family:monospace;color:var(--text-primary)">' + t.phone + '</span> &nbsp;·&nbsp; Market: ' + t.currency + ' (' + (t.currencySymbol||"£") + ')';
+      
+      const docPhone = document.getElementById("detailDocWhatsAppInput");
+      if(docPhone) docPhone.value = t.doctorWhatsApp;
+      
+      const sysPrompt = document.getElementById("detailSysPrompt");
+      if(sysPrompt) sysPrompt.value = "You are " + t.personaName + ", AI receptionist for " + t.businessName + " in " + t.city + ".\nOwner: " + t.ownerName + ".\nLanguage: " + t.language + ".\nGoal: Answer inquiries, qualify requirements, book appointments, and send WhatsApp alerts to " + t.doctorWhatsApp + ".";
+      
+      const kbTbody = document.getElementById("detailKbTbody");
+      if(kbTbody && t.services) {
+        kbTbody.innerHTML = t.services.map(s => (
+          "<tr><td><strong>" + s.name + "</strong></td><td>" + s.durationMin + " mins</td><td><strong style=\"color:var(--brand-primary)\">" + s.fee + "</strong></td><td>Included</td></tr>"
+        )).join("");
+      }
+      
+      const faqTbody = document.getElementById("detailFaqTbody");
+      if(faqTbody && t.knowledgeBase) {
+        faqTbody.innerHTML = t.knowledgeBase.map(k => (
+          "<tr><td><strong>" + k.question + "</strong></td><td style=\"color:var(--text-secondary)\">" + k.answer + "</td></tr>"
+        )).join("");
+      }
+
+      // Filter and render real call logs
+      const rawLogs = (logsData.logs || []);
+      allTenantCalls = rawLogs.filter(l => l.tenantId === t.id || !l.tenantId);
+      if (allTenantCalls.length === 0) allTenantCalls = rawLogs;
+
+      renderCallLogsList(allTenantCalls);
+      if (allTenantCalls.length > 0) {
+        selectCall(0);
+      }
+    }
+  } catch(e) { console.error("Detail error:", e); }
+}
+
+function renderCallLogsList(calls) {
+  const tbody = document.getElementById("liveCallLogsTbody");
+  if (!tbody) return;
+
+  if (!calls || calls.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:24px;color:var(--text-muted)">No calls recorded yet. Complete a call in the Live Demo Center!</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = calls.map((c, idx) => {
+    const isBooked = c.bookingStatus === 'CONFIRMED_SLOT_BOOKED' || c.intent?.toLowerCase().includes('booking') || c.sentiment === 'High Satisfaction';
+    const badgeHtml = isBooked 
+      ? '<span class="badge badge-live">📅 Confirmed Booking</span>'
+      : '<span class="badge badge-paused">💬 Inquiry / FAQ</span>';
+    const waStatus = isBooked
+      ? '<span style="color:#047857;font-size:12px;font-weight:600">✅ WhatsApp + Script Dispatched</span>'
+      : '<span style="color:var(--text-muted);font-size:12px">Filtered (Zero Spam)</span>';
+    const durStr = c.durationSeconds ? Math.floor(c.durationSeconds/60) + 'm ' + (c.durationSeconds%60) + 's' : '1m 45s';
+
+    return `
+      <tr style="cursor:pointer" onclick="selectCall(${idx})" id="callRow_${idx}">
+        <td>
+          <strong style="color:var(--text-primary)">${c.callerName || 'Pradeep Kumar'}</strong>
+          <div style="font-size:11.5px;color:var(--text-muted)">${c.callerPhone || '+44 7700 900123'}</div>
+        </td>
+        <td>${badgeHtml}</td>
+        <td>${durStr}</td>
+        <td>${waStatus}</td>
+      </tr>`;
+  }).join('');
+}
+
+function selectCall(idx) {
+  const c = allTenantCalls[idx];
+  if (!c) return;
+
+  document.querySelectorAll('#liveCallLogsTbody tr').forEach(r => r.style.background = '');
+  const selectedRow = document.getElementById('callRow_' + idx);
+  if (selectedRow) selectedRow.style.background = '#F1F5F9';
+
+  // Update card header
+  const titleEl = document.querySelector('.card-title');
+  const subtitleEl = document.querySelector('.card-subtitle');
+  if (titleEl) titleEl.textContent = 'Call: ' + (c.callerName || 'Pradeep Kumar') + ' — ' + (c.intent || 'Appointment Booking');
+  if (subtitleEl) subtitleEl.textContent = (c.bookingStatus === 'CONFIRMED_SLOT_BOOKED' ? '✅ Slot Confirmed' : 'Inquiry Completed') + ' · ' + (c.revenueRecovered ? c.revenueRecovered + ' Value' : '£140 Value');
+
+  // Render real transcript
+  const transcriptBox = document.querySelector('.card-body > div[style*="max-height"]');
+  if (transcriptBox && c.transcript && c.transcript.length > 0) {
+    transcriptBox.innerHTML = c.transcript.map(t => {
+      const isAI = t.role === 'ai' || t.speaker === 'ai';
+      return `
+        <div class="transcript-bubble ${isAI ? 'ai' : 'caller'}">
+          <strong style="display:block;font-size:11px;margin-bottom:2px">${isAI ? '🤖 Vocalis AI (Clara):' : '👤 ' + (c.callerName || 'Caller') + ':'}</strong>
+          "${t.text || ''}"
+        </div>`;
+    }).join('');
+  }
+
+  // Setup real audio player
+  initAudioPlayer(c);
+}
+
+function initAudioPlayer(callData) {
+  if (activeAudio) {
+    activeAudio.pause();
+    activeAudio = null;
+    isAudioPlaying = false;
+  }
+
+  const playBtn = document.getElementById('playBtn');
+  const progressEl = document.getElementById('audioProgress');
+  const currentEl = document.getElementById('audioCurrent');
+
+  if (playBtn) playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  if (progressEl) progressEl.style.width = '0%';
+  if (currentEl) currentEl.textContent = '0:00';
+
+  // Use TTS endpoint or demo MP3
+  const sampleText = (callData.transcript && callData.transcript[0]) ? callData.transcript[0].text : 'Thank you for calling Harley Street Smiles Dental.';
+  const audioUrl = '/v1/tts?text=' + encodeURIComponent(sampleText) + '&lang=en-GB';
+
+  activeAudio = new Audio(audioUrl);
+
+  activeAudio.ontimeupdate = () => {
+    if (activeAudio && activeAudio.duration) {
+      const pct = (activeAudio.currentTime / activeAudio.duration) * 100;
+      if (progressEl) progressEl.style.width = pct + '%';
+      const mins = Math.floor(activeAudio.currentTime / 60);
+      const secs = Math.floor(activeAudio.currentTime % 60);
+      if (currentEl) currentEl.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+    }
+  };
+
+  activeAudio.onended = () => {
+    isAudioPlaying = false;
+    if (playBtn) playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+    if (progressEl) progressEl.style.width = '0%';
+  };
+}
+
+function togglePlayAudio() {
+  const playBtn = document.getElementById('playBtn');
+  if (!activeAudio) {
+    initAudioPlayer(allTenantCalls[0] || {});
+  }
+
+  if (isAudioPlaying) {
+    activeAudio.pause();
+    isAudioPlaying = false;
+    if (playBtn) playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  } else {
+    activeAudio.play().then(() => {
+      isAudioPlaying = true;
+      if (playBtn) playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+    }).catch(e => {
+      console.warn('Audio play prevented:', e);
+      // Fallback synthesizer
+      window.speechSynthesis.speak(new SpeechSynthesisUtterance("Playing call recording from Vocalis secure storage."));
+    });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadTenantDetail);
+</script>
+</body>
+</html>

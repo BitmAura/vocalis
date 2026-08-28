@@ -1,0 +1,16 @@
+{
+  "name": "vocalis-voice-backend",
+  "version": "1.0.0",
+  "description": "Vocalis AI Production Voice Receptionist & WhatsApp Engine",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test_multilang.js && node test_industries.js && node test_speech.js"
+  },
+  "dependencies": {
+    "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "dotenv": "^17.4.2"
+  }
+}

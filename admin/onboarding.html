@@ -1,0 +1,431 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocalis AI — Add New Client Wizard</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.wizard-steps{display:flex;gap:10px;margin-bottom:24px}
+.step-item{flex:1;background:#FFFFFF;border:1px solid var(--glass-border);padding:12px 14px;border-radius:var(--border-radius-sm);display:flex;align-items:center;gap:10px;transition:var(--transition);cursor:pointer;box-shadow:var(--shadow-sm)}
+.step-item.active{background:var(--brand-primary-light);border-color:var(--brand-primary);box-shadow:0 0 10px rgba(79,70,229,0.15)}
+.step-item.completed{border-color:var(--brand-accent);background:var(--brand-accent-light)}
+.step-number{width:26px;height:26px;border-radius:50%;background:#F1F5F9;border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--text-muted)}
+.step-item.active .step-number{background:var(--brand-primary);color:white;border-color:var(--brand-primary)}
+.step-item.completed .step-number{background:var(--brand-accent);color:white;border-color:var(--brand-accent)}
+.step-title{font-size:13px;font-weight:700;color:var(--text-primary)}
+.step-desc{font-size:11px;color:var(--text-muted)}
+.wizard-panel{display:none;animation:fadeIn 0.2s ease}
+.wizard-panel.active{display:block}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3, 1fr);gap:12px}
+.industry-card-select{border:1px solid var(--glass-border);background:#FFFFFF;padding:16px;border-radius:10px;cursor:pointer;transition:var(--transition);position:relative;box-shadow:var(--shadow-sm)}
+.industry-card-select:hover{border-color:var(--brand-primary);background:#F8FAFC;transform:translateY(-2px)}
+.industry-card-select.selected{border-color:var(--brand-primary);background:var(--brand-primary-light);box-shadow:0 0 12px rgba(79,70,229,0.2)}
+.radio-corner{position:absolute;top:14px;right:14px;width:18px;height:18px;border-radius:50%;border:2px solid var(--glass-border);background:#FFFFFF}
+.industry-card-select.selected .radio-corner{background:var(--brand-primary);border-color:var(--brand-primary);box-shadow:inset 0 0 0 3px #FFFFFF}
+.dropzone{border:2px dashed var(--glass-border-light);border-radius:10px;padding:24px;text-align:center;background:#F8FAFC;cursor:pointer;transition:var(--transition)}
+.dropzone:hover{border-color:var(--brand-primary);background:var(--brand-primary-light)}
+.toggle-box{display:flex;align-items:flex-start;gap:12px;background:#FFFFFF;border:1px solid var(--glass-border);padding:14px;border-radius:8px;cursor:pointer;box-shadow:var(--shadow-sm)}
+.toggle-box input{margin-top:3px;accent-color:var(--brand-primary);width:16px;height:16px}
+.lang-chip{display:flex;align-items:center;gap:8px;font-size:12.5px;background:#FFFFFF;padding:8px 10px;border-radius:6px;border:1px solid var(--glass-border);cursor:pointer;box-shadow:var(--shadow-sm);transition:var(--transition)}
+.lang-chip:hover{border-color:var(--brand-primary);background:#F8FAFC}
+.gateway-badge{display:inline-flex;align-items:center;gap:6px;background:#ECFDF5;border:1px solid #A7F3D0;padding:4px 10px;border-radius:6px;font-size:11.5px;color:#047857;font-weight:700}
+</style>
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+      <div class="logo-text"><span class="logo-name">Vocalis AI</span><span class="logo-tagline">Admin Super Panel</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Overview</div>
+      <a href="index.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+      <div class="nav-section-title">Clients</div>
+      <a href="clients.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>All Clients</a>
+      <a href="onboarding.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add New Client</a>
+      <a href="trials.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Trial Management</a>
+      <div class="nav-section-title">Voice AI</div>
+      <a href="demo.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Live Demo Center</a>
+      <a href="client-detail.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.72 6.72l.61-1.76a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call Logs & AI</a>
+      <div class="nav-section-title">Business</div>
+      <a href="billing.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Billing & Revenue</a>
+      <a href="settings.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>Platform Settings</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-title">
+        <h1>Client Onboarding Wizard</h1>
+        <p>Deploy dedicated AI voice receptionist with verified Twilio / Gupshup WhatsApp delivery</p>
+      </div>
+      <div class="topbar-actions">
+        <a href="clients.html" class="btn btn-secondary btn-sm">Cancel & Return</a>
+      </div>
+    </header>
+
+    <div class="page-content" style="max-width:1100px">
+      <!-- Wizard Step Indicators -->
+      <div class="wizard-steps">
+        <div class="step-item active" id="stepIndicator1" onclick="goToStep(1)">
+          <div class="step-number">1</div>
+          <div><div class="step-title">Business & Market</div><div class="step-desc">Target Currency Rate</div></div>
+        </div>
+        <div class="step-item" id="stepIndicator2" onclick="goToStep(2)">
+          <div class="step-number">2</div>
+          <div><div class="step-title">Ending Goal</div><div class="step-desc">Industry Closing Flow</div></div>
+        </div>
+        <div class="step-item" id="stepIndicator3" onclick="goToStep(3)">
+          <div class="step-number">3</div>
+          <div><div class="step-title">Global Voices & Accents</div><div class="step-desc">14+ Native Dialects</div></div>
+        </div>
+        <div class="step-item" id="stepIndicator4" onclick="goToStep(4)">
+          <div class="step-number">4</div>
+          <div><div class="step-title">Doctor WhatsApp Alert</div><div class="step-desc">Confirmed Call + Script</div></div>
+        </div>
+        <div class="step-item" id="stepIndicator5" onclick="goToStep(5)">
+          <div class="step-number">5</div>
+          <div><div class="step-title">Launch Live</div><div class="step-desc">3-Ring *71 Code</div></div>
+        </div>
+      </div>
+
+      <!-- Step 1: Business Info & High-Value Currencies -->
+      <div class="wizard-panel active" id="stepPanel1">
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">Step 1: Business Profile & Target Market Currency</div><div class="card-subtitle">Select the high-currency region for dedicated local number and monthly billing</div></div>
+          </div>
+          <div class="card-body">
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">Business Name *</label>
+                <input type="text" class="form-control" id="bizName" value="Harley Street Smiles Dental">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Client Country & Target Currency *</label>
+                <select class="form-control" id="bizCountry" onchange="updateCurrencyTier()">
+                  <option value="UK" data-price="£395 GBP / mo" data-lang="en-GB" selected>🇬🇧 United Kingdom — GBP (£395 / mo ≈ $500 USD)</option>
+                  <option value="US" data-price="$497 USD / mo" data-lang="en-US">🇺🇸 United States — USD ($497 / mo)</option>
+                  <option value="EU" data-price="€460 EUR / mo" data-lang="de-DE">🇪🇺 Eurozone (Germany/France/Ireland) — EUR (€460 / mo ≈ $500 USD)</option>
+                  <option value="AE" data-price="1,825 AED / mo" data-lang="ar-AE">🇦🇪 UAE / Dubai — AED (1,825 AED / mo ≈ $497 USD)</option>
+                  <option value="SA" data-price="1,865 SAR / mo" data-lang="ar-SA">🇸🇦 Saudi Arabia / Riyadh — SAR (1,865 SAR / mo ≈ $497 USD)</option>
+                  <option value="CA" data-price="$675 CAD / mo" data-lang="en-CA">🇨🇦 Canada — CAD ($675 CAD / mo ≈ $497 USD)</option>
+                  <option value="AU" data-price="$760 AUD / mo" data-lang="en-AU">🇦🇺 Australia — AUD ($760 AUD / mo ≈ $497 USD)</option>
+                  <option value="SG" data-price="$670 SGD / mo" data-lang="en-SG">🇸🇬 Singapore — SGD ($670 SGD / mo ≈ $497 USD)</option>
+                  <option value="CH" data-price="440 CHF / mo" data-lang="de-CH">🇨🇭 Switzerland — CHF (440 CHF / mo ≈ $500 USD)</option>
+                  <option value="IN" data-price="₹39,999 INR / mo" data-lang="hi-IN">🇮🇳 India (Tier-1 Premium Clinics) — INR (₹39,999 / mo)</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">Doctor / Owner Personal WhatsApp Number (For Direct Alerts) *</label>
+                <input type="text" class="form-control" id="ownerPhone" value="+44 7911 123456">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Notification Email *</label>
+                <input type="email" class="form-control" id="ownerEmail" value="dr.harley@smilesdental.co.uk">
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">Clinic Website / Google Maps Link</label>
+                <input type="text" class="form-control" value="https://harleystreetsmiles.co.uk">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Monthly Plan Tier</label>
+                <input type="text" class="form-control" id="planPriceDisplay" value="Standard Pro Plan: £395 GBP / mo" readonly style="background:#F8FAFC;font-weight:700;color:var(--brand-primary)">
+              </div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-top:8px">
+              <button class="btn btn-primary" onclick="goToStep(2)">Proceed to Ending Goal →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Ending Goal -->
+      <div class="wizard-panel" id="stepPanel2">
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">Step 2: Conversation Ending Goal & Industry Logic</div><div class="card-subtitle">The AI logic and closing action dynamically configures to this goal</div></div>
+          </div>
+          <div class="card-body">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:20px">
+              <div class="industry-card-select selected" onclick="selectEnding(this, 'dental')">
+                <div class="radio-corner"></div>
+                <div style="font-size:22px;margin-bottom:6px">🩺 📅</div>
+                <strong style="color:var(--text-primary);font-size:14.5px;display:block">Goal 1: Direct Appointment Booking</strong>
+                <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Checks live calendar slots, locks in patient details, confirms appointment instantly via Cal.com & sends SMS.</div>
+                <div class="industry-tag" style="margin-top:8px">Dental, Clinics, MedSpas, Salons</div>
+              </div>
+
+              <div class="industry-card-select" onclick="selectEnding(this, 'legal')">
+                <div class="radio-corner"></div>
+                <div style="font-size:22px;margin-bottom:6px">⚖️ 💼</div>
+                <strong style="color:var(--text-primary);font-size:14.5px;display:block">Goal 2: Lead Intake & Qualification</strong>
+                <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Asks qualifying questions (budget, urgency, case type), logs lead into CRM, notifies team for callback.</div>
+                <div class="industry-tag" style="margin-top:8px">Law Firms, Real Estate, Mortgages</div>
+              </div>
+
+              <div class="industry-card-select" onclick="selectEnding(this, 'hvac')">
+                <div class="radio-corner"></div>
+                <div style="font-size:22px;margin-bottom:6px">🚨 🔧</div>
+                <strong style="color:var(--text-primary);font-size:14.5px;display:block">Goal 3: Emergency Dispatch & Triage</strong>
+                <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Assesses urgency, captures street address, triggers instant dispatch SMS to on-call technician.</div>
+                <div class="industry-tag" style="margin-top:8px">HVAC, Plumbing, Roofing, Towing</div>
+              </div>
+
+              <div class="industry-card-select" onclick="selectEnding(this, 'restaurant')">
+                <div class="radio-corner"></div>
+                <div style="font-size:22px;margin-bottom:6px">🍽️ 💬</div>
+                <strong style="color:var(--text-primary);font-size:14.5px;display:block">Goal 4: Table Reservation & FAQ</strong>
+                <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Answers hours, location, menus, prices, and records table reservations automatically.</div>
+                <div class="industry-tag" style="margin-top:8px">Restaurants, Hospitality, Retail</div>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between">
+              <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
+              <button class="btn btn-primary" onclick="goToStep(3)">Configure Voice & Languages →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Complete Global Multilingual Voices & Native Accents -->
+      <div class="wizard-panel" id="stepPanel3">
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">Step 3: Global Multilingual Voice AI & Native Accents</div><div class="card-subtitle">Choose from 14+ native accent personas matching every high-value target country</div></div>
+          </div>
+          <div class="card-body">
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">AI Receptionist Persona Name</label>
+                <input type="text" class="form-control" value="Clara (Polite & Professional Front Desk)">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Voice Persona & Regional Accent Model (Fish Speech / Deepgram)</label>
+                <select class="form-control" id="voiceModelSelect">
+                  <optgroup label="🇬🇧 United Kingdom & Europe">
+                    <option value="uk_clara" selected>🇬🇧 Clara — Sophisticated British RP (UK)</option>
+                    <option value="uk_james">🇬🇧 James — Professional British Male (UK)</option>
+                    <option value="de_hannah">🇩🇪 Hannah — Fluent German (Deutschland / Swiss)</option>
+                    <option value="fr_camille">🇫🇷 Camille — Parisian French (France)</option>
+                    <option value="es_sofia">🇪🇸 Sofia — European Castilian Spanish</option>
+                  </optgroup>
+                  <optgroup label="🇺🇸 North America & Australia">
+                    <option value="us_sarah">🇺🇸 Sarah — Warm & Empathetic (US English)</option>
+                    <option value="us_marcus">🇺🇸 Marcus — Confident & Calm (US Male)</option>
+                    <option value="au_olivia">🇦🇺 Olivia — Friendly Australian Accent</option>
+                    <option value="ca_sophie">🇨🇦 Sophie — Canadian Bilingual (EN/FR)</option>
+                  </optgroup>
+                  <optgroup label="🇦🇪 Middle East & Gulf">
+                    <option value="ae_layla">🇦🇪 Layla — Fluent Gulf Dialect (Arabic & English)</option>
+                    <option value="sa_fatima">🇸🇦 Fatima — Najdi / Hijazi Arabic (Saudi Arabia)</option>
+                  </optgroup>
+                  <optgroup label="🇮🇳 India (Multilingual)">
+                    <option value="in_maya">🇮🇳 Maya — Indian English + Hindi & Kannada</option>
+                    <option value="in_priya">🇮🇳 Priya — Telugu, Tamil & Hindi Support</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+
+            <!-- Auto-Detect Language Chips -->
+            <div class="form-group">
+              <label class="form-label">Active Languages for Auto-Detection (AI automatically speaks caller's language):</label>
+              <div class="grid-3" style="margin-top:6px">
+                <label class="lang-chip"><input type="checkbox" checked style="accent-color:var(--brand-primary)"> 🇬🇧 English (UK / US / AU / CA)</label>
+                <label class="lang-chip"><input type="checkbox" checked style="accent-color:var(--brand-primary)"> 🇦🇪 Arabic (Gulf & Saudi Dialects)</label>
+                <label class="lang-chip"><input type="checkbox" checked style="accent-color:var(--brand-primary)"> 🇪🇸 Spanish (Castilian & Latin)</label>
+                <label class="lang-chip"><input type="checkbox" style="accent-color:var(--brand-primary)"> 🇩🇪 German (Deutsch / Swiss)</label>
+                <label class="lang-chip"><input type="checkbox" style="accent-color:var(--brand-primary)"> 🇫🇷 French (Français)</label>
+                <label class="lang-chip"><input type="checkbox" style="accent-color:var(--brand-primary)"> 🇮🇳 Hindi / Hinglish (हिन्दी)</label>
+                <label class="lang-chip"><input type="checkbox" style="accent-color:var(--brand-primary)"> 🇮🇳 Kannada (ಕನ್ನಡ)</label>
+                <label class="lang-chip"><input type="checkbox" style="accent-color:var(--brand-primary)"> 🇮🇳 Telugu (తెలుగు)</label>
+                <label class="lang-chip"><input type="checkbox" style="accent-color:var(--brand-primary)"> 🇷🇺 Russian (Русский)</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Upload Price Sheet / Treatment Menu (PDF, DOCX, TXT)</label>
+              <div class="dropzone">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:30px;height:30px;color:var(--brand-primary);margin-bottom:6px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <div style="font-weight:700;color:var(--text-primary);font-size:13.5px">Drag & Drop Price List or Service Menu Here</div>
+                <div style="font-size:11.5px;color:var(--text-muted);margin-top:2px">AI extracts all treatments, fees, warranties & physician schedules in 15 seconds</div>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between">
+              <button class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
+              <button class="btn btn-primary" onclick="goToStep(4)">Doctor WhatsApp Alerts & Script →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Doctor WhatsApp Alerts WITH FULL TRANSCRIPT SCRIPT & ENTERPRISE GATEWAY -->
+      <div class="wizard-panel" id="stepPanel4">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Step 4: Doctor WhatsApp Alerts & Conversation Script Forwarding</div>
+              <div class="card-subtitle">Zero spam guarantee — Verified WhatsApp delivery via Meta / Gupshup / Twilio Enterprise</div>
+            </div>
+            <div class="gateway-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Verified Gateway: Zero Ban Risk
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="alert alert-success" style="margin-bottom:18px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <div class="alert-body">
+                <div class="alert-title">High-Value Confirmation Filter Active</div>
+                <div class="alert-desc">Doctor receives WhatsApp messages only when a paying patient confirms an appointment or emergency consultation. Basic FAQ queries are answered automatically without disturbing the doctor.</div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 400px;gap:20px;margin-bottom:20px">
+              <!-- Left: Controls & Template -->
+              <div>
+                <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px">
+                  <label class="toggle-box">
+                    <input type="checkbox" checked>
+                    <div>
+                      <strong style="color:var(--text-primary);font-size:13.5px">✅ WhatsApp Confirmation Trigger</strong>
+                      <p style="font-size:12px;color:var(--text-muted);margin-top:2px">Dispatches immediately when caller confirms date/time slot with Cal.com.</p>
+                    </div>
+                  </label>
+
+                  <label class="toggle-box">
+                    <input type="checkbox" checked>
+                    <div>
+                      <strong style="color:var(--text-primary);font-size:13.5px">📝 Attach Full Conversation Script / Symptoms Summary</strong>
+                      <p style="font-size:12px;color:var(--text-muted);margin-top:2px">Doctor reads exact patient symptoms, treatment history, and requested procedures before meeting.</p>
+                    </div>
+                  </label>
+
+                  <label class="toggle-box">
+                    <input type="checkbox" checked>
+                    <div>
+                      <strong style="color:var(--text-primary);font-size:13.5px">🎧 Include Direct Call Audio Recording Link</strong>
+                      <p style="font-size:12px;color:var(--text-muted);margin-top:2px">Secure 1-click audio link to listen to the caller's actual phone conversation.</p>
+                    </div>
+                  </label>
+                </div>
+
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Cal.com Booking URL</label>
+                    <input type="text" class="form-control" value="cal.com/harley-smiles/consultation">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Doctor WhatsApp Mobile Number</label>
+                    <input type="text" class="form-control" value="+44 7911 123456">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: Live WhatsApp Preview -->
+              <div>
+                <div style="font-size:11.5px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:6px">Doctor's WhatsApp Message Preview:</div>
+                <div class="whatsapp-chat-preview">
+                  <div class="whatsapp-bubble">
+                    <div class="whatsapp-header-badge">🔔 VOCALIS AI: NEW CONFIRMED PATIENT</div>
+                    <p style="margin-bottom:5px"><strong>👤 Patient:</strong> Maria Johnson</p>
+                    <p style="margin-bottom:5px"><strong>📱 Phone:</strong> +44 7700 900123</p>
+                    <p style="margin-bottom:5px"><strong>🩺 Treatment:</strong> Dental Hygiene & Polishing (£140)</p>
+                    <p style="margin-bottom:5px"><strong>📅 Confirmed Slot:</strong> Friday, 28 Aug at 2:30 PM</p>
+                    <hr style="border:none;border-top:1px solid #E2E8F0;margin:6px 0">
+                    <p style="font-size:11.5px;color:#334155;margin-bottom:6px"><strong>📝 Conversation Script & Notes:</strong><br>
+                    <em>"Caller requested Friday afternoon for routine dental cleaning and mentioned slight gum sensitivity on lower right molar. Locked in Dr. Harley's 2:30 PM slot."</em></p>
+                    <p style="font-size:11px;color:#0284C7">🎧 <u>Listen to Full Call Audio (1m 48s)</u></p>
+                    <div style="font-size:10px;color:#8696A0;text-align:right;margin-top:4px">14:15 ✓✓</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between">
+              <button class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
+              <button class="btn btn-primary" onclick="goToStep(5)">Review & Provision Number →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Launch & Call Forwarding Setup -->
+      <div class="wizard-panel" id="stepPanel5">
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">Step 5: Review & Go Live! 🚀</div><div class="card-subtitle">Dedicated phone number will be provisioned instantly with 3-ring forwarding code</div></div>
+          </div>
+          <div class="card-body">
+            <div class="grid-2" style="margin-bottom:18px">
+              <div style="background:#F8FAFC;border:1px solid var(--glass-border);padding:16px;border-radius:10px">
+                <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;font-weight:700;letter-spacing:0.8px">Client Summary</div>
+                <div style="font-size:17px;font-weight:700;color:var(--text-primary);margin-top:4px">Harley Street Smiles Dental</div>
+                <div style="font-size:12.5px;color:var(--text-secondary);margin-top:2px">🇬🇧 United Kingdom &nbsp;·&nbsp; £395 GBP / mo (≈ $500 USD)</div>
+                <div style="font-size:12px;color:var(--brand-primary);margin-top:6px;font-weight:600">WhatsApp Gateway: Verified Gupshup / Twilio Enterprise</div>
+              </div>
+
+              <div style="background:#F8FAFC;border:1px solid var(--glass-border);padding:16px;border-radius:10px">
+                <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;font-weight:700;letter-spacing:0.8px">Client 3-Ring Forwarding Code</div>
+                <div style="font-size:16px;font-family:'JetBrains Mono',monospace;color:var(--brand-accent);margin-top:4px;font-weight:700">*71 +44 20 7946 0912</div>
+                <div style="font-size:11.5px;color:var(--text-muted);margin-top:2px">Clinic dials this once from their landline to auto-route missed calls after 3 rings.</div>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;margin-top:16px">
+              <button class="btn btn-secondary" onclick="goToStep(4)">← Back</button>
+              <button class="btn btn-success btn-lg" onclick="launchTenant()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Launch Live Client Tenant Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+function goToStep(step) {
+  for(let i=1; i<=5; i++) {
+    document.getElementById('stepPanel'+i).classList.remove('active');
+    const ind = document.getElementById('stepIndicator'+i);
+    ind.classList.remove('active');
+    if(i < step) ind.classList.add('completed');
+    else ind.classList.remove('completed');
+  }
+  document.getElementById('stepPanel'+step).classList.add('active');
+  document.getElementById('stepIndicator'+step).classList.add('active');
+}
+
+function selectEnding(el) {
+  document.querySelectorAll('.industry-card-select').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function updateCurrencyTier() {
+  const sel = document.getElementById('bizCountry');
+  const opt = sel.options[sel.selectedIndex];
+  const price = opt.getAttribute('data-price');
+  document.getElementById('planPriceDisplay').value = 'Standard Pro Plan: ' + price;
+}
+
+function launchTenant() {
+  const name = document.getElementById('bizName').value || 'New Client';
+  alert('🎉 Tenant Successfully Deployed for ' + name + '!\n\n• Dedicated Phone Number Provisioned\n• Doctor WhatsApp Alert Configured with Full Call Script & Audio Link\n• Gupshup / Twilio Enterprise Verified Gateway Connected (Zero Blocking Risk)\n• Cal.com Calendar Connected\n• Ready to handle 24/7 calls!');
+  window.location.href = 'clients.html';
+}
+</script>
+</body>
+</html>

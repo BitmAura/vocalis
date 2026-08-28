@@ -1,0 +1,34 @@
+{
+  "id": "TNT-004",
+  "businessName": "Johnson & Croft Injury Law",
+  "industry": "legal",
+  "currency": "USD",
+  "currencySymbol": "$",
+  "ownerName": "Attorney Croft",
+  "personaName": "Elena",
+  "language": "en-US",
+  "phone": "+1 (212) 555-0144",
+  "doctorWhatsApp": "+1 212 555 0144",
+  "city": "New York, NY",
+  "address": "350 5th Ave, Empire State Bldg, New York, NY 10118",
+  "workingHours": "24/7 Intake Available",
+  "emergencyAvailable": true,
+  "services": [
+    {
+      "name": "Free Initial Accident Consultation",
+      "fee": "$0 (Free)",
+      "durationMin": 30
+    },
+    {
+      "name": "Contingency Fee Representation",
+      "fee": "No Win, No Fee (0% Upfront)",
+      "durationMin": 60
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "question": "Do I have to pay any legal fees upfront?",
+      "answer": "No, we operate strictly on a contingency fee basis. You pay absolutely zero dollars out of pocket unless we win a settlement or jury award for you."
+    }
+  ]
+}

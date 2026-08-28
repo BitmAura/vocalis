@@ -1,0 +1,43 @@
+{
+  "id": "TNT-003",
+  "businessName": "Apex 24/7 HVAC & Plumbing Emergency",
+  "industry": "hvac",
+  "currency": "USD",
+  "currencySymbol": "$",
+  "ownerName": "Tech Mike",
+  "personaName": "Sarah",
+  "language": "en-US",
+  "phone": "+1 (214) 555-0199",
+  "doctorWhatsApp": "+1 214 555 0199",
+  "city": "Dallas-Fort Worth, TX",
+  "address": "4500 Plano Pkwy, Plano, TX 75093",
+  "workingHours": "24 Hours / 7 Days a Week",
+  "emergencyAvailable": true,
+  "services": [
+    {
+      "name": "Diagnostic Service Call",
+      "fee": "$79 (Waived if repaired)",
+      "durationMin": 45
+    },
+    {
+      "name": "Emergency AC Capacitor / Motor Replacement",
+      "fee": "$249 - $450",
+      "durationMin": 60
+    },
+    {
+      "name": "Seasonal HVAC Performance Tune-Up",
+      "fee": "$99",
+      "durationMin": 60
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "question": "How fast can a technician arrive for an emergency AC breakdown?",
+      "answer": "Our on-call technicians arrive within 30 to 60 minutes anywhere in the Dallas-Fort Worth metroplex."
+    },
+    {
+      "question": "Do you offer warranties on parts and labor?",
+      "answer": "Yes, all repairs include our 1-year 100% parts and labor satisfaction guarantee."
+    }
+  ]
+}

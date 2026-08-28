@@ -1,0 +1,1412 @@
+[
+  {
+    "id": "CAL-4900",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+91 98400 11223",
+    "callerName": "கார்த்திக்",
+    "durationSeconds": 16,
+    "language": "ta",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T18:30:28.639Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "வணக்கம்! எனக்கு நாளை மதியம் 12:30 மணிக்கு பல் கிளீனிங் அப்பாயின்ட்மென்ட் வேண்டும், என் பெயர் கார்த்திக்"
+      },
+      {
+        "role": "ai",
+        "text": "வணக்கம் கார்த்திக் அவர்களே! நாளை மதியம் 12:30 மணிக்கு டாக்டர் ஹார்லேவுடன் உங்கள் அப்பாயின்ட்மென்ட் உறுதியானது. உங்களுக்கு எஸ்எம்எஸ் மற்றும் டாக்டருக்கு வாட்ஸ்அப் அனுப்பப்பட்டுள்ளது."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-9633",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+91 98111 22334",
+    "callerName": "राहुल शर्मा",
+    "durationSeconds": 16,
+    "language": "hi",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T18:30:27.116Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "नमस्ते! मेरे दांत में बहुत तेज दर्द है, कल दोपहर 12:30 बजे डॉक्टर हार्ले से अपॉइंटमेंट चाहिए, मेरा नाम राहुल शर्मा है"
+      },
+      {
+        "role": "ai",
+        "text": "नमस्ते राहुल जी! आपकी समस्या को सुनकर बहुत खेद हुआ। बिलकुल राहुल जी! कल दोपहर 12:30 बजे डॉ. हार्ले के साथ आपकी अपॉइंटमेंट कन्फर्म हो गई है। आपको एसएमएस और डॉक्टर को व्हाट्सएप भेज दिया गया है।"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-7085",
+    "tenantId": "TNT-002",
+    "clinicName": "Prestige Nature Farmland & Estates",
+    "callerPhone": "+91 98480 54321",
+    "callerName": "సురేష్ వర్మ",
+    "durationSeconds": 16,
+    "language": "te",
+    "intent": "Prestige Nature Farmland & Estates Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "₹25,00,000 (₹25 Lakhs)",
+    "timestamp": "2026-08-27T18:30:17.238Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "నమస్కారం అండీ! ఈ శనివారం ఉదయం 10 గంటలకు సైట్ విజిట్ కోసం క్యాబ్ బుక్ చేయండి, నా పేరు సురేష్ వర్మ"
+      },
+      {
+        "role": "ai",
+        "text": "నమస్కారం సురేష్ వర్మ గారు! ఖండిత ఈ శనివారం 10:00 AM కి మీ సైట్ విజిట్ కన్ఫర్మ్ అవుతుంది. ఉచిత ఎసీ క్యాబ్ వ్యవస్థ పెడుతున్నాను, మీ ఇంటి దగ్గర నుంచి తీసుకెళ్లబోతున్నాను."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-1125",
+    "tenantId": "TNT-002",
+    "clinicName": "Prestige Nature Farmland & Estates",
+    "callerPhone": "+91 98450 12345",
+    "callerName": "ಪ್ರದೀಪ್ ಕುಮಾರ್",
+    "durationSeconds": 16,
+    "language": "kn",
+    "intent": "Prestige Nature Farmland & Estates Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "₹25,00,000 (₹25 Lakhs)",
+    "timestamp": "2026-08-27T18:30:14.518Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "ನಮಸ್ಕಾರ, ನಾನು 1/2 ಎಕರೆ ಸ್ಯಾಂಡಲ್‌ವುಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ನೋಡಲು ಈ ಭಾನುವಾರ ಬೆಳಿಗ್ಗೆ 11 ಕ್ಕೆ ಬರಬೇಕು, ನನ್ನ ಹೆಸರು ಪ್ರದೀಪ್ ಕುಮಾರ್"
+      },
+      {
+        "role": "ai",
+        "text": "ನಮಸ್ಕಾರ ಪ್ರದೀಪ್ ಕುಮಾರ್ ಅವರೇ! ಭಾನುವಾರ ಬೆಳಿಗ್ಗೆ 11 ಕ್ಕೆ ನಿಮ್ಮ ಸೈಟ್ ವಿಸಿಟ್ ಕನ್ಫರ್ಮ್ ಆಗಿದೆ. ಉಚಿತ ಎಸಿ ಕ್ಯಾಬ್ ವ್ಯವಸ್ಥೆ ಮಾಡಲಾಗಿದೆ, ನೀವು ಯಾವ ಸ್ಥಳದಿಂದ ಬರುವುದೆಂದು ತಿಳಿಸುತ್ತೀರಾ?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-4422",
+    "tenantId": "TNT-002",
+    "clinicName": "Prestige Nature Farmland & Estates",
+    "callerPhone": "+91 98450 99999",
+    "callerName": "ಪ್ರದೀಪ್ ಕುಮಾರ್",
+    "durationSeconds": 16,
+    "language": "kn",
+    "intent": "Prestige Nature Farmland & Estates Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "₹25,00,000 (₹25 Lakhs)",
+    "timestamp": "2026-08-27T18:28:13.669Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "ಸರಿ ಭಾನುವಾರ ಬೆಳಿಗ್ಗೆ 11 ಕ್ಕೆ ಬುಕ್ ಮಾಡಿ, ನನ್ನ ಹೆಸರು ಪ್ರದೀಪ್ ಕುಮಾರ್"
+      },
+      {
+        "role": "ai",
+        "text": "ಖಂಡಿತ ಪ್ರದೀಪ್ ಕುಮಾರ್ ಅವರೇ! ಭಾನುವಾರ ಬೆಳಿಗ್ಗೆ 11 ಕ್ಕೆ ನಿಮ್ಮ ಸೈಟ್ ವಿಸಿಟ್ ಕನ್ಫರ್ಮ್ ಆಗಿದೆ. ಉಚಿತ ಎಸಿ ಕ್ಯಾಬ್ ವ್ಯವಸ್ಥೆ ಮಾಡಲಾಗಿದೆ."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-6911",
+    "tenantId": "TNT-002",
+    "clinicName": "Prestige Nature Farmland & Estates",
+    "callerPhone": "+91 98450 99999",
+    "callerName": "ಪ್ರದೀಪ್ ಕುಮಾರ್",
+    "durationSeconds": 16,
+    "language": "kn",
+    "intent": "Prestige Nature Farmland & Estates Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "₹25,00,000 (₹25 Lakhs)",
+    "timestamp": "2026-08-27T18:27:28.090Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "ಸರಿ ಶನಿವಾರ ಬೆಳಿಗ್ಗೆ 10 ಕ್ಕೆ ಬುಕ್ ಮಾಡಿ, ನನ್ನ ಹೆಸರು ಪ್ರದೀಪ್ ಕುಮಾರ್"
+      },
+      {
+        "role": "ai",
+        "text": "ಖಂಡಿತ ಪ್ರದೀಪ್ ಕುಮಾರ್ ಅವರೇ! ಶನಿವಾರ ಬೆಳಿಗ್ಗೆ 10:00 ಕ್ಕೆ ನಿಮ್ಮ ಸೈಟ್ ವಿಸಿಟ್ ಕನ್ಫರ್ಮ್ ಆಗಿದೆ. ಉಚಿತ ಎಸಿ ಕ್ಯಾಬ್ ವ್ಯವಸ್ಥೆ ಮಾಡಲಾಗಿದೆ."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-6747",
+    "tenantId": "TNT-002",
+    "clinicName": "Prestige Nature Farmland & Estates",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "ಪ್ರದೀಪ್ ಕುಮಾರ್",
+    "durationSeconds": 16,
+    "language": "kn",
+    "intent": "Prestige Nature Farmland & Estates Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "₹25,00,000 (₹25 Lakhs)",
+    "timestamp": "2026-08-27T18:22:15.122Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "ಸರಿ ಶನಿವಾರ ಬೆಳಿಗ್ಗೆ 10 ಕ್ಕೆ ಬುಕ್ ಮಾಡಿ, ನನ್ನ ಹೆಸರು ಪ್ರದೀಪ್ ಕುಮಾರ್"
+      },
+      {
+        "role": "ai",
+        "text": "ನಮಸ್ಕಾರ ಪ್ರದೀಪ್ ಕುಮಾರ್ ಅವರೇ! ನಿಮ್ಮ ಶನಿವಾರ ಬೆಳಿಗ್ಗೆ 10 ಗಂಟೆಗೆ ಬುಕ್ಕಿಂಗ್ ದೃಢವಾಯಿತು. ನಿಮ್ಮ ಸ್ಥಳದಿಂದ ಉಚಿತ AC ಕ್ಯಾಬ್ ಸಹ ಬರಲಿದೆ. ನಾನು ನಿಮ್ಮನ್ನು ಎದುರು ನೋಡುತ್ತಿದ್ದೇನೆ!"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-8831",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "Arthur Pendelton",
+    "durationSeconds": 32,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T18:20:46.763Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Hi, I have severe pain in my back tooth, do you have any emergency slots today?"
+      },
+      {
+        "role": "ai",
+        "text": "I'm so sorry to hear about your toothache! We can see you today at 4 PM with Dr. Harley. Shall I go ahead and confirm that for you?"
+      },
+      {
+        "role": "user",
+        "text": "Yes 4 PM works, my name is Arthur Pendelton"
+      },
+      {
+        "role": "ai",
+        "text": "Certainly! Your appointment with Dr. Harley is confirmed for today at 4 PM. A confirmation SMS has been sent to you, and the doctor has been notified via WhatsApp. Looking forward to seeing you soon, Arthur!"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-1315",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+91 98765 43210",
+    "callerName": "Priya",
+    "durationSeconds": 16,
+    "language": "en-IN",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T16:55:33.225Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Hi I want an appointment tomorrow at 10 AM, my name is Priya, my number is 9876543210"
+      },
+      {
+        "role": "ai",
+        "text": "Certainly Ms. Priya! Your appointment with Dr. Harley is confirmed for tomorrow at 10 AM. I have sent you an SMS confirmation and alerted the doctor on WhatsApp."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-8324",
+    "tenantId": "TNT-002",
+    "clinicName": "Prestige Managed Farmlands",
+    "callerPhone": "+91 80 2345 6789",
+    "callerName": "ಪ್ರದೀಪ್ ಕುಮಾರ್",
+    "durationSeconds": 32,
+    "language": "kn",
+    "intent": "Prestige Managed Farmlands Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "₹25,00,000 (₹25 Lakhs)",
+    "timestamp": "2026-08-27T15:37:06.741Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "ನಮಸ್ಕಾರ, ನಿಮ್ಮ ಪ್ರೆಸ್ಟೀಜ್ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್‌ನಲ್ಲಿ ಅರ್ಧ ಎಕರೆ ಬೆಲೆ ಎಷ್ಟು ಮತ್ತು ಏನೇನು ಸೌಲಭ್ಯ ಇದೆ?"
+      },
+      {
+        "role": "ai",
+        "text": "1/4-Acre Managed Farmland Plot: ₹25,00,000 (₹25 Lakhs). 1/2-Acre Luxury Villa Farm Plot: ₹48,00,000 (₹48 Lakhs). 1-Acre Gated Sandalwood Estate: ₹90,00,000 (₹90 Lakhs). ಬುಕ್ ಮಾಡೋಣಾ?"
+      },
+      {
+        "role": "user",
+        "text": "ತುಂಬಾ ಒಳ್ಳೆಯದು, ಶನಿವಾರ ಬೆಳಿಗ್ಗೆ 10:00 ಗಂಟೆಗೆ ಇಂದಿರಾನಗರದಿಂದ ಫ್ರೀ AC ಕ್ಯಾಬ್ ಬುಕ್ ಮಾಡಿ. ನನ್ನ ಹೆಸರು ಪ್ರದೀಪ್ ಕುಮಾರ್."
+      },
+      {
+        "role": "ai",
+        "text": "ನಮಸ್ಕಾರ ಪ್ರದೀಪ್ ಕುಮಾರ್ ಅವರೇ! ಶನಿವಾರ ಬೆಳಿಗ್ಗೆ 10:00 ಗಂಟೆಗೆ ಇಂದಿರಾನಗರದಿಂದ ಫ್ರೀ AC ಕ್ಯಾಬ್ ಬುಕ್ ಮಾಡುತ್ತಿದ್ದೇನೆ. ನಿಮ್ಮ ಭೇಟಿಗೆ ಕಾಯುತ್ತಿದ್ದೇನೆ!"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-2275",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep",
+    "durationSeconds": 16,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T14:19:48.031Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "I need an appointment today morning... no wait, actually evening after 5 PM is better... my name is Pradeep"
+      },
+      {
+        "role": "ai",
+        "text": "I’m sorry, Pradeep, but we’re fully booked this evening after 5 PM. However, I can offer you an appointment tomorrow at 12:30 PM if that suits you?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-6479",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 48,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T12:56:36.093Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 2:48?"
+      },
+      {
+        "role": "ai",
+        "text": "Tomorrow at 2:48 PM is free. What's the name for it?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Pradeep Kumar, Tomorrow at 2:48 PM with Dr. Harley — shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "yes"
+      },
+      {
+        "role": "ai",
+        "text": "Booked, Pradeep Kumar. Tomorrow at 2:48 PM is locked in. See you then."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-3486",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T12:42:45.653Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 2:10?"
+      },
+      {
+        "role": "ai",
+        "text": "Tomorrow at 2:10 PM is free. What's the name for it?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Pradeep Kumar, Tomorrow at 2:10 PM with Dr. Harley — shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "yes"
+      },
+      {
+        "role": "ai",
+        "text": "Booked, Pradeep Kumar. Tomorrow at 2:10 PM is locked in. See you then."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-7556",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T12:34:03.402Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 2:56?"
+      },
+      {
+        "role": "ai",
+        "text": "Tomorrow at 2:56 PM is free. What's the name for it?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Pradeep Kumar, Tomorrow at 2:56 PM with Dr. Harley — shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "yes"
+      },
+      {
+        "role": "ai",
+        "text": "Booked, Pradeep Kumar. Tomorrow at 2:56 PM is locked in. See you then."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-7604",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T12:33:19.579Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 2:36?"
+      },
+      {
+        "role": "ai",
+        "text": "Tomorrow at 2:36 PM is free. What's the name for it?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Pradeep Kumar, Tomorrow at 2:36 PM with Dr. Harley — shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "yes"
+      },
+      {
+        "role": "ai",
+        "text": "Booked, Pradeep Kumar. Tomorrow at 2:36 PM is locked in. See you then."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-2474",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T11:06:05.181Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 2:36?"
+      },
+      {
+        "role": "ai",
+        "text": "Tomorrow at 2:36 PM is free. What's the name for it?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Pradeep Kumar, Tomorrow at 2:36 PM with Dr. Harley — shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "yes"
+      },
+      {
+        "role": "ai",
+        "text": "Booked, Pradeep Kumar. Tomorrow at 2:36 PM is locked in. See you then."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-4752",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T11:05:13.374Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 2:29?"
+      },
+      {
+        "role": "ai",
+        "text": "Tomorrow at 2:29 PM is free. What's the name for it?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Pradeep Kumar, Tomorrow at 2:29 PM with Dr. Harley — shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "yes"
+      },
+      {
+        "role": "ai",
+        "text": "Booked, Pradeep Kumar. Tomorrow at 2:29 PM is locked in. See you then."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-8265",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T11:01:14.662Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 2:16?"
+      },
+      {
+        "role": "ai",
+        "text": "Tomorrow at 2:16 PM is free. What's the name for it?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Pradeep Kumar, Tomorrow at 2:16 PM with Dr. Harley — shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "yes"
+      },
+      {
+        "role": "ai",
+        "text": "Booked, Pradeep Kumar. Tomorrow at 2:16 PM is locked in. See you then."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-6814",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T11:00:52.025Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 8:41?"
+      },
+      {
+        "role": "ai",
+        "text": "Tomorrow at 8:41 AM is free. What's the name for it?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Pradeep Kumar, Tomorrow at 8:41 AM with Dr. Harley — shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "yes"
+      },
+      {
+        "role": "ai",
+        "text": "Booked, Pradeep Kumar. Tomorrow at 8:41 AM is locked in. See you then."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-8564",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T11:00:28.959Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 8:41?"
+      },
+      {
+        "role": "ai",
+        "text": "Tomorrow at 8:41 AM is free. What's the name for it?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Pradeep Kumar, Tomorrow at 8:41 AM with Dr. Harley — shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "yes"
+      },
+      {
+        "role": "ai",
+        "text": "Booked, Pradeep Kumar. Tomorrow at 8:41 AM is locked in. See you then."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-7922",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T10:59:54.811Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 3:17?"
+      },
+      {
+        "role": "ai",
+        "text": "Tomorrow at 3:17 PM is free. What's the name for it?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Pradeep Kumar, Tomorrow at 3:17 PM with Dr. Harley — shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "yes"
+      },
+      {
+        "role": "ai",
+        "text": "Booked, Pradeep Kumar. Tomorrow at 3:17 PM is locked in. See you then."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-8199",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T10:59:28.517Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 3:17?"
+      },
+      {
+        "role": "ai",
+        "text": "Tomorrow at 3:17 PM is free. What's the name for it?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Pradeep Kumar, Tomorrow at 3:17 PM with Dr. Harley — shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "yes"
+      },
+      {
+        "role": "ai",
+        "text": "Booked, Pradeep Kumar. Tomorrow at 3:17 PM is locked in. See you then."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-3731",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T10:58:58.035Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 3:17?"
+      },
+      {
+        "role": "ai",
+        "text": "Tomorrow at 3:17 PM is free. What's the name for it?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Pradeep Kumar, Tomorrow at 3:17 PM with Dr. Harley — shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "yes"
+      },
+      {
+        "role": "ai",
+        "text": "Booked, Pradeep Kumar. Tomorrow at 3:17 PM is locked in. See you then."
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-8165",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T10:52:55.942Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 3:17?"
+      },
+      {
+        "role": "ai",
+        "text": "May I take your full name to reserve this slot for you?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Splendid, Pradeep Kumar! Locked in for Tomorrow at 3:17 PM with Dr. Harley. Arrive 10 minutes early. SMS and WhatsApp sent. Anything else today?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-7746",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T10:52:18.530Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 12:30?"
+      },
+      {
+        "role": "ai",
+        "text": "May I take your full name to reserve this slot for you?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Splendid, Pradeep Kumar! Locked in for Tomorrow at 12:30 PM with Dr. Harley. Arrive 10 minutes early. SMS and WhatsApp sent. Anything else today?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-2485",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T10:51:32.178Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 12:30?"
+      },
+      {
+        "role": "ai",
+        "text": "May I take your full name to reserve this slot for you?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Splendid, Pradeep Kumar! Locked in for Tomorrow at 12:30 PM with Dr. Harley. Arrive 10 minutes early. SMS and WhatsApp sent. Anything else today?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-5113",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 20 7946 0912",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140",
+    "timestamp": "2026-08-27T10:50:47.765Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get tomorrow 12:30?"
+      },
+      {
+        "role": "ai",
+        "text": "May I take your full name to reserve this slot for you?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Splendid, Pradeep Kumar! Locked in for Tomorrow at 12:30 PM with Dr. Harley. Arrive 10 minutes early. SMS and WhatsApp sent. Anything else today?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-8938",
+    "tenantId": "TNT-002",
+    "clinicName": "Prestige Nature Farmland & Estates",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "ಪ್ರದೀಪ್",
+    "durationSeconds": 110,
+    "language": "kn",
+    "intent": "Prestige Nature Farmland & Estates Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "₹25,00,000",
+    "timestamp": "2026-08-27T09:43:55.513Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "ನಮಸ್ಕಾರ, 1 ಎಕರೆ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಪ್ರೈಸ್ ಎಷ್ಟು?"
+      },
+      {
+        "role": "ai",
+        "text": "ನಮ್ಮ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಕಾಲು ಎಕರೆಗೆ ₹25 ಲಕ್ಷದಿಂದ (ಅರ್ಧ ಎಕರೆ ₹48 ಲಕ್ಷ) ಪ್ರಾರಂಭವಾಗುತ್ತದೆ. ಇದರಲ್ಲಿ ಹನಿ ನೀರಾವರಿ, ಶ್ರೀಗಂಧದ ತೋಟ ಮತ್ತು ಕ್ಲಬ್‌ಹೌಸ್ ಸದಸ್ಯತ್ವ ಇರುತ್ತದೆ. ನೀವು Tomorrow at 12:30 PM ಸೈಟ್ ವಿಸಿಟ್ ಮಾಡಲು ಬಯಸುತ್ತೀರಾ?"
+      },
+      {
+        "role": "user",
+        "text": "ಹೌದು, ಶನಿವಾರ 10 ಗಂಟೆಗೆ ಸೈಟ್ ವಿಸಿಟ್ ಬುಕ್ ಮಾಡಿ. ನನ್ನ ಹೆಸರು ಪ್ರದೀಪ್"
+      },
+      {
+        "role": "ai",
+        "text": "ಧನ್ಯವಾದಗಳು ಪ್ರದೀಪ್ ಸರ್! ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ this Saturday at 12:30 PM ಕ್ಕೆ Agent Vikram ಜೊತೆ ಖಚಿತವಾಗಿದೆ. ದಯವಿಟ್ಟು 10 ನಿಮಿಷ ಮುಂಚಿತವಾಗಿ ಬನ್ನಿ. ನಿಮ್ಮ ಮೊಬೈಲ್‌ಗೆ ಕನ್ಫರ್ಮೇಷನ್ ಎಸ್ಸೆಮ್ಮೆಸ್ ಕಳುಹಿಸಲಾಗಿದೆ ಮತ್ತು Agent Vikram ಅವರಿಗೆ ಪೂರ್ಣ ಮಾಹಿತಿ ವಾಟ್ಸಾಪ್ ಮಾಡಲಾಗಿದೆ. ಬೇರೇನಾದರೂ ಸಹಾಯ ಬೇಕಾ?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-6422",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140.00",
+    "timestamp": "2026-08-27T09:43:55.503Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "I am a new patient, can I get appointment on tomorrow 12:30?"
+      },
+      {
+        "role": "ai",
+        "text": "Certainly! We have an opening Tomorrow at 12:30 PM with Dr. Harley. May I take your full name to reserve this slot for you?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Splendid, Pradeep Kumar! I have you locked in for Tomorrow at 12:30 PM with Dr. Harley. Please arrive about 10 minutes early to fill out your health intake form. I've sent an instant SMS confirmation to your mobile, and Dr. Harley has been notified on WhatsApp with your visit notes. Is there anything else I can assist you with today?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-5408",
+    "tenantId": "TNT-002",
+    "clinicName": "Prestige Nature Farmland & Estates",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "ಪ್ರದೀಪ್",
+    "durationSeconds": 110,
+    "language": "kn",
+    "intent": "Prestige Nature Farmland & Estates Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "₹25,00,000",
+    "timestamp": "2026-08-27T09:43:23.267Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "ನಮಸ್ಕಾರ, 1 ಎಕರೆ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಪ್ರೈಸ್ ಎಷ್ಟು?"
+      },
+      {
+        "role": "ai",
+        "text": "ಖಂಡಿತ ಸರ್! Prestige Nature Farmland & Estates ನಲ್ಲಿ Tomorrow at 12:30 PM ಕ್ಕೆ ಸ್ಲಾಟ್ ಲಭ್ಯವಿದೆ. ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಕನ್ಫರ್ಮ್ ಮಾಡಲು ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು ತಿಳಿಸಬಹುದಾ?"
+      },
+      {
+        "role": "user",
+        "text": "ಹೌದು, ಶನಿವಾರ 10 ಗಂಟೆಗೆ ಸೈಟ್ ವಿಸಿಟ್ ಬುಕ್ ಮಾಡಿ. ನನ್ನ ಹೆಸರು ಪ್ರದೀಪ್"
+      },
+      {
+        "role": "ai",
+        "text": "ಧನ್ಯವಾದಗಳು ಪ್ರದೀಪ್ ಸರ್! ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ this Saturday at 12:30 PM ಕ್ಕೆ Agent Vikram ಜೊತೆ ಖಚಿತವಾಗಿದೆ. ದಯವಿಟ್ಟು 10 ನಿಮಿಷ ಮುಂಚಿತವಾಗಿ ಬನ್ನಿ. ನಿಮ್ಮ ಮೊಬೈಲ್‌ಗೆ ಕನ್ಫರ್ಮೇಷನ್ ಎಸ್ಸೆಮ್ಮೆಸ್ ಕಳುಹಿಸಲಾಗಿದೆ ಮತ್ತು Agent Vikram ಅವರಿಗೆ ಪೂರ್ಣ ಮಾಹಿತಿ ವಾಟ್ಸಾಪ್ ಮಾಡಲಾಗಿದೆ. ಬೇರೇನಾದರೂ ಸಹಾಯ ಬೇಕಾ?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-4660",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140.00",
+    "timestamp": "2026-08-27T09:43:23.257Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "I am a new patient, can I get appointment on tomorrow 12:30?"
+      },
+      {
+        "role": "ai",
+        "text": "Certainly! We have an opening Tomorrow at 12:30 PM with Dr. Harley. May I take your full name to reserve this slot for you?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Splendid, Pradeep Kumar! I have you locked in for Tomorrow at 12:30 PM with Dr. Harley. Please arrive about 10 minutes early to fill out your health intake form. I've sent an instant SMS confirmation to your mobile, and Dr. Harley has been notified on WhatsApp with your visit notes. Is there anything else I can assist you with today?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-5715",
+    "tenantId": "TNT-002",
+    "clinicName": "Prestige Nature Farmland & Estates",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "ಪ್ರದೀಪ್",
+    "durationSeconds": 110,
+    "language": "kn",
+    "intent": "Prestige Nature Farmland & Estates Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "₹25,00,000",
+    "timestamp": "2026-08-27T09:42:50.886Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "ನಮಸ್ಕಾರ, 1 ಎಕರೆ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಪ್ರೈಸ್ ಎಷ್ಟು?"
+      },
+      {
+        "role": "ai",
+        "text": "ಖಂಡಿತ ಸರ್! Prestige Nature Farmland & Estates ನಲ್ಲಿ Tomorrow at 1 PM ಕ್ಕೆ ಸ್ಲಾಟ್ ಲಭ್ಯವಿದೆ. ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಕನ್ಫರ್ಮ್ ಮಾಡಲು ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು ತಿಳಿಸಬಹುದಾ?"
+      },
+      {
+        "role": "user",
+        "text": "ಹೌದು, ಶನಿವಾರ 10 ಗಂಟೆಗೆ ಸೈಟ್ ವಿಸಿಟ್ ಬುಕ್ ಮಾಡಿ. ನನ್ನ ಹೆಸರು ಪ್ರದೀಪ್"
+      },
+      {
+        "role": "ai",
+        "text": "ಧನ್ಯವಾದಗಳು ಪ್ರದೀಪ್ ಸರ್! ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ this Saturday at 10 AM ಕ್ಕೆ Agent Vikram ಜೊತೆ ಖಚಿತವಾಗಿದೆ. ದಯವಿಟ್ಟು 10 ನಿಮಿಷ ಮುಂಚಿತವಾಗಿ ಬನ್ನಿ. ನಿಮ್ಮ ಮೊಬೈಲ್‌ಗೆ ಕನ್ಫರ್ಮೇಷನ್ ಎಸ್ಸೆಮ್ಮೆಸ್ ಕಳುಹಿಸಲಾಗಿದೆ ಮತ್ತು Agent Vikram ಅವರಿಗೆ ಪೂರ್ಣ ಮಾಹಿತಿ ವಾಟ್ಸಾಪ್ ಮಾಡಲಾಗಿದೆ. ಬೇರೇನಾದರೂ ಸಹಾಯ ಬೇಕಾ?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-9575",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140.00",
+    "timestamp": "2026-08-27T09:42:50.874Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "I am a new patient, can I get appointment on tomorrow 12:30?"
+      },
+      {
+        "role": "ai",
+        "text": "Certainly! We have an opening Tomorrow at 12:30 PM with Dr. Harley. May I take your full name to reserve this slot for you?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Splendid, Pradeep Kumar! I have you locked in for Tomorrow at 12:30 PM with Dr. Harley. Please arrive about 10 minutes early to fill out your health intake form. I've sent an instant SMS confirmation to your mobile, and Dr. Harley has been notified on WhatsApp with your visit notes. Is there anything else I can assist you with today?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-9740",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Inquiry & Booking",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140.00",
+    "timestamp": "2026-08-27T09:35:31.333Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "Can I get an appointment for tomorrow 12:30?"
+      },
+      {
+        "role": "ai",
+        "text": "Certainly! We have an opening Tomorrow at 12:30 PM with Dr. Harley. May I take your full name to reserve this slot for you?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Splendid, Pradeep Kumar! I have you locked in for Tomorrow at 12:30 PM with Dr. Harley. Please arrive about 10 minutes early to fill out your health intake form. I've sent an instant SMS confirmation to your mobile, and Dr. Harley has been notified on WhatsApp with your visit notes. Is there anything else I can assist you with today?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-7213",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "రమేష్ రావు",
+    "durationSeconds": 110,
+    "language": "te",
+    "intent": "Harley Street Smiles Dental Appointment",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140.00",
+    "timestamp": "2026-08-27T09:33:08.399Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "రేపు 4 PM కి అపాయిಂట్‌మెంట్ కావాలి"
+      },
+      {
+        "role": "ai",
+        "text": "తప్పకుండా సార్! Tomorrow at 4 PM కి డాక్టర్ అందుబాటులో ఉన్నారు. అపಾಯಿంట్‌మెంట్ కన్ఫర్మ్ చేయడానికి మీ పూర్తి పేరు చెప్పగలరా?"
+      },
+      {
+        "role": "user",
+        "text": "రమేష్ రావు"
+      },
+      {
+        "role": "ai",
+        "text": "చాలా ధన్యవాదాలు రమేష్ రావు గారు! మీ అపాయింట్‌మెంట్ Tomorrow at 4 PM కి Dr. Harley తో కన్ఫర్మ్ అయింది. దయచేసి 10 నిమిషాలు ముందుగా రండి. మీకు SMS మరియు డాక్టర్ గారికి WhatsApp వివరాలు పంపబడ్డాయి. మరేమైనా సహాయం కావాలా సార్?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-9458",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "ಪ್ರದೀಪ್ ಕುಮಾರ್",
+    "durationSeconds": 110,
+    "language": "kn",
+    "intent": "Harley Street Smiles Dental Appointment",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140.00",
+    "timestamp": "2026-08-27T09:33:08.392Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "ನಾಳೆ 12:30 ಕ್ಕೆ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಸಿಗುತ್ತಾ?"
+      },
+      {
+        "role": "ai",
+        "text": "ಖಂಡಿತ ಸರ್! Harley Street Smiles Dental ನಲ್ಲಿ Tomorrow at 12:30 PM ಕ್ಕೆ ಸ್ಲಾಟ್ ಲಭ್ಯವಿದೆ. ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಕನ್ಫರ್ಮ್ ಮಾಡಲು ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು ತಿಳಿಸಬಹುದಾ?"
+      },
+      {
+        "role": "user",
+        "text": "ಪ್ರದೀಪ್ ಕುಮಾರ್"
+      },
+      {
+        "role": "ai",
+        "text": "ಧನ್ಯವಾದಗಳು ಪ್ರದೀಪ್ ಕುಮಾರ್ ಸರ್! ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ Tomorrow at 12:30 PM ಕ್ಕೆ Dr. Harley ಜೊತೆ ಖಚಿತವಾಗಿದೆ. ದಯವಿಟ್ಟು 10 ನಿಮಿಷ ಮುಂಚಿತವಾಗಿ ಬನ್ನಿ. ನಿಮ್ಮ ಮೊಬೈಲ್‌ಗೆ ಕನ್ಫರ್ಮೇಷನ್ ಎಸ್ಸೆಮ್ಮೆಸ್ ಕಳುಹಿಸಲಾಗಿದೆ ಮತ್ತು Dr. Harley ಅವರಿಗೆ ಪೂರ್ಣ ಮಾಹಿತಿ ವಾಟ್ಸಾಪ್ ಮಾಡಲಾಗಿದೆ. ಬೇರೇನಾದರೂ ಸಹಾಯ ಬೇಕಾ?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-2894",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Appointment",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140.00",
+    "timestamp": "2026-08-27T09:33:08.385Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "I am a new patient, can I get appointment on tomorrow 12:30?"
+      },
+      {
+        "role": "ai",
+        "text": "Certainly! We have an opening Tomorrow at 12:30 PM with Dr. Harley. May I take your full name to reserve this slot for you?"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Splendid, Pradeep Kumar! I have you locked in for Tomorrow at 12:30 PM with Dr. Harley. Please arrive about 10 minutes early to fill out your health intake form. I've sent an instant SMS confirmation to your mobile, and Dr. Harley has been notified on WhatsApp with your visit notes. Is there anything else I can assist you with today?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-4016",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "Pradeep Kumar",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Appointment",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140.00",
+    "timestamp": "2026-08-27T09:32:08.815Z",
+    "transcript": [
+      {
+        "text": "I am a new patient, can I get appointment on tomorrow 12:30?",
+        "role": "user"
+      },
+      {
+        "text": "Certainly! We have an opening Tomorrow at 12:30 PM with Dr. Harley. May I take your full name to reserve this slot for you?",
+        "role": "ai"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Splendid, Pradeep Kumar! I have you locked in for Tomorrow at 12:30 PM with Dr. Harley. Please arrive about 10 minutes early to fill out your health intake form. I've sent an instant SMS confirmation to your mobile, and Dr. Harley has been notified on WhatsApp with your visit notes. Is there anything else I can assist you with today?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-5060",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "a new",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Appointment",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140.00",
+    "timestamp": "2026-08-27T09:31:13.554Z",
+    "transcript": [
+      {
+        "text": "I am a new patient, can I get appointment on tomorrow 12:30?",
+        "role": "user"
+      },
+      {
+        "text": "Splendid, a new! I have you locked in for Tomorrow at 12:30 PM with Dr. Harley. Please arrive about 10 minutes early to fill out your health intake form. I've sent an instant SMS confirmation to your mobile, and Dr. Harley has been notified on WhatsApp with your visit notes. Is there anything else I can assist you with today?",
+        "role": "ai"
+      },
+      {
+        "role": "user",
+        "text": "Pradeep Kumar"
+      },
+      {
+        "role": "ai",
+        "text": "Splendid, a new! I have you locked in for Tomorrow at 12:30 PM with Dr. Harley. Please arrive about 10 minutes early to fill out your health intake form. I've sent an instant SMS confirmation to your mobile, and Dr. Harley has been notified on WhatsApp with your visit notes. Is there anything else I can assist you with today?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-3934",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "a new",
+    "durationSeconds": 110,
+    "language": "en-GB",
+    "intent": "Harley Street Smiles Dental Appointment",
+    "sentiment": "High Satisfaction",
+    "bookingStatus": "CONFIRMED_SLOT_BOOKED",
+    "revenueRecovered": "£140.00",
+    "timestamp": "2026-08-27T09:31:13.198Z",
+    "transcript": [
+      {
+        "role": "user",
+        "text": "I am a new patient, can I get appointment on tomorrow 12:30?"
+      },
+      {
+        "role": "ai",
+        "text": "Splendid, a new! I have you locked in for Tomorrow at 12:30 PM with Dr. Harley. Please arrive about 10 minutes early to fill out your health intake form. I've sent an instant SMS confirmation to your mobile, and Dr. Harley has been notified on WhatsApp with your visit notes. Is there anything else I can assist you with today?"
+      }
+    ],
+    "audioUrl": "/assets/recordings/demo_rec.mp3"
+  },
+  {
+    "id": "CAL-9901",
+    "tenantId": "TNT-001",
+    "clinicName": "Harley Street Smiles Dental",
+    "callerPhone": "+44 7700 900123",
+    "callerName": "Maria Johnson",
+    "durationSeconds": 114,
+    "language": "en-GB",
+    "intent": "New Patient Cleaning & Toothache",
+    "sentiment": "Positive (Relieved)",
+    "bookingStatus": "BOOKED_FRIDAY_230PM",
+    "revenueRecovered": "£140.00",
+    "timestamp": "2026-08-27T07:19:36.724Z",
+    "transcript": [
+      {
+        "speaker": "ai",
+        "text": "Good afternoon! Thank you for calling Harley Street Smiles Dental. My name is Clara. Are you a new patient or visiting us again?"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi Clara, I am a new patient. I have a throbbing toothache on my lower right side and need an urgent appointment."
+      },
+      {
+        "speaker": "ai",
+        "text": "I am so sorry to hear you are in pain! We keep daily emergency slots open. Dr. Harley has availability today at 4:00 PM or this Friday at 2:30 PM. Which works best for you?"
+      },
+      {
+        "speaker": "caller",
+        "text": "Friday at 2:30 PM would be perfect. My name is Maria Johnson."
+      },
+      {
+        "speaker": "ai",
+        "text": "Splendid Maria! You are confirmed for this Friday at 2:30 PM with Dr. Harley. I have sent an SMS confirmation to your mobile, and Dr. Harley has been notified on WhatsApp. Is there anything else I can assist you with today?"
+      }
+    ],
+    "audioUrl": "https://app.vocalis.ai/recordings/call_rec_9901.mp3"
+  },
+  {
+    "id": "CAL-9902",
+    "tenantId": "TNT-002",
+    "clinicName": "Prestige Nature Farmland & Estates",
+    "callerPhone": "+91 98450 88712",
+    "callerName": "Rajesh Kumar",
+    "durationSeconds": 156,
+    "language": "kn",
+    "intent": "Meta Ad Inbound - 1 Acre Farmland Site Visit",
+    "sentiment": "High Purchase Intent",
+    "bookingStatus": "SITE_VISIT_CONFIRMED",
+    "revenueRecovered": "₹25,00,000 Deal Pipeline",
+    "timestamp": "2026-08-27T04:19:36.724Z",
+    "transcript": [
+      {
+        "speaker": "ai",
+        "text": "ನಮಸ್ಕಾರ ಸರ್! ಪ್ರೆಸ್ಟೀಜ್ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಅಂಡ್ ಎಸ್ಟೇಟ್ಸ್‌ಗೆ ಸ್ವಾಗತ. ನೀವು ಇನ್‌ಸ್ಟಾಗ್ರಾಮ್ ಜಾಹೀರಾತು ನೋಡಿ ಕಾಲ್ ಮಾಡಿದ್ದೀರಾ? ನೀವು ಬಂಡವಾಳ ಹೂಡಿಕೆಗಾಗಿ ಅಥವಾ ಸ್ವಂತ ಫಾರ್ಮ್‌ಹೌಸ್‌ಗಾಗಿ ನೋಡ್ತಿದ್ದೀರಾ?"
+      },
+      {
+        "speaker": "caller",
+        "text": "ಹೌದು, ನಾನು 1 ಎಕರೆ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಇನ್ವೆಸ್ಟ್‌ಮೆಂಟ್‌ಗಾಗಿ ನೋಡ್ತಿದ್ದೀನಿ. ಸೈಟ್ ವಿಸಿಟ್ ಮಾಡಬಹುದಾ?"
+      },
+      {
+        "speaker": "ai",
+        "text": "ಖಂಡಿತ ಸರ್! ಈ ಶನಿವಾರ ಬೆಳಿಗ್ಗೆ 10:00 ಗಂಟೆಗೆ ನಮ್ಮ ಎಸಿ ಕ್ಯಾಬ್ ಪಿಕಪ್ ಸೌಲಭ್ಯವಿದೆ. ಬುಕಿಂಗ್ ಕನ್ಫರ್ಮ್ ಮಾಡಲು ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು ತಿಳಿಸಬಹುದಾ?"
+      },
+      {
+        "speaker": "caller",
+        "text": "ನನ್ನ ಹೆಸರು ರಾಜೇಶ್ ಕುಮಾರ್, ಹೆಬ್ಬಾಳದಿಂದ."
+      },
+      {
+        "speaker": "ai",
+        "text": "ಧನ್ಯವಾದಗಳು ರಾಜೇಶ್ ಸರ್! ಶನಿವಾರ ಬೆಳಿಗ್ಗೆ 10:00 ಗಂಟೆಯ ಸೈಟ್ ವಿಸಿಟ್ ಕನ್ಫರ್ಮ್ ಆಗಿದೆ. ನಿಮಗೆ ಲೊಕೇಶನ್ ಪಿನ್ ಎಸ್ಸೆಮ್ಮೆಸ್ ಮಾಡಲಾಗಿದೆ ಮತ್ತು ಸೇಲ್ಸ್ ಮ್ಯಾನೇಜರ್ ವಿಕ್ರಮ್ ಅವರಿಗೆ ವಾಟ್ಸಾಪ್ ಕಳುಹಿಸಲಾಗಿದೆ!"
+      }
+    ],
+    "audioUrl": "https://app.vocalis.ai/recordings/call_rec_9902.mp3"
+  }
+]

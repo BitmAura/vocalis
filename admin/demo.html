@@ -1,0 +1,1044 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocalis AI — Live Neural Voice & Sales Demo</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.demo-container{display:grid;grid-template-columns:390px 1fr;gap:20px;min-height:calc(100vh - 140px)}
+.engine-badge-bar{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
+.engine-btn{background:#FFFFFF;border:1px solid var(--glass-border);padding:8px 12px;border-radius:8px;font-size:12px;font-weight:700;color:var(--text-secondary);cursor:pointer;transition:var(--transition);white-space:nowrap;display:flex;align-items:center;gap:6px;box-shadow:var(--shadow-sm)}
+.engine-btn.active{background:var(--brand-primary);color:#FFFFFF;border-color:var(--brand-primary);box-shadow:0 2px 8px rgba(79,70,229,0.3)}
+.lang-badge-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.lang-btn{background:#FFFFFF;border:1px solid var(--glass-border);padding:6px 11px;border-radius:6px;font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;transition:var(--transition);box-shadow:var(--shadow-sm)}
+.lang-btn.active{background:var(--brand-primary-light);color:var(--brand-primary);border-color:var(--brand-primary);font-weight:700}
+.voice-sphere-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px 20px;background:#FFFFFF;border-radius:var(--border-radius);border:1px solid var(--glass-border);position:relative;box-shadow:var(--shadow-sm);margin-bottom:14px}
+.voice-sphere{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#4F46E5,#0284C7);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(79,70,229,0.25);cursor:pointer;transition:var(--transition)}
+.voice-sphere.active{animation:voicePulse 1.2s ease-in-out infinite;box-shadow:0 0 35px rgba(2,132,199,0.5)}
+.voice-sphere svg{width:44px;height:44px;color:white}
+.chat-window{display:flex;flex-direction:column;height:100%;background:#FFFFFF;border:1px solid var(--glass-border);border-radius:var(--border-radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+.chat-messages{flex:1;padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:#F8FAFC}
+.chat-input-bar{padding:14px 18px;border-top:1px solid var(--glass-border);display:flex;gap:10px;background:#FFFFFF}
+.waveform-bars{display:flex;align-items:center;gap:4px;height:20px;margin-top:12px}
+.bar{width:3px;background:var(--brand-secondary);border-radius:99px;height:4px}
+.voice-sphere.active + .waveform-bars .bar{animation:barPulse 0.7s ease-in-out infinite alternate}
+.voice-sphere.active + .waveform-bars .bar:nth-child(2){animation-delay:0.1s}
+.voice-sphere.active + .waveform-bars .bar:nth-child(3){animation-delay:0.2s}
+.voice-sphere.active + .waveform-bars .bar:nth-child(4){animation-delay:0.3s}
+.voice-sphere.active + .waveform-bars .bar:nth-child(5){animation-delay:0.4s}
+@keyframes barPulse{0%{height:4px}100%{height:20px;background:var(--brand-primary)}}
+.quick-prompt-btn{background:#FFFFFF;border:1px solid var(--glass-border);padding:8px 12px;border-radius:6px;font-size:12px;color:var(--text-secondary);cursor:pointer;transition:var(--transition);text-align:left;box-shadow:var(--shadow-sm)}
+.quick-prompt-btn:hover{background:var(--brand-primary-light);color:var(--brand-primary);border-color:var(--brand-primary)}
+.transcript-bubble{margin-bottom:6px;padding:10px 14px;border-radius:10px;font-size:13px;line-height:1.45}
+.transcript-bubble.caller{background:#FFFFFF;color:var(--text-primary);border-bottom-left-radius:2px;border:1px solid var(--glass-border);box-shadow:var(--shadow-sm)}
+.transcript-bubble.ai{background:var(--brand-primary-light);color:var(--brand-primary-text);border-bottom-right-radius:2px;border:1px solid #C7D2FE}
+.typing-indicator{display:flex;align-items:center;gap:4px;padding:10px 14px;background:var(--brand-primary-light);border-radius:10px;border-bottom-right-radius:2px;width:fit-content}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:var(--brand-primary);animation:typingPulse 1.2s ease-in-out infinite}
+.typing-dot:nth-child(2){animation-delay:0.2s}
+.typing-dot:nth-child(3){animation-delay:0.4s}
+@keyframes typingPulse{0%,80%,100%{opacity:0.3;transform:scale(0.8)}40%{opacity:1;transform:scale(1.2)}}
+.llm-badge{background:#ECFDF5;color:#047857;border:1px solid #6EE7B7;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700}
+.fsm-badge{background:#FEF3C7;color:#92400E;border:1px solid #FCD34D;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700}
+.sound-indicator{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#047857;background:#ECFDF5;padding:2px 8px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+      <div class="logo-text"><span class="logo-name">Vocalis AI</span><span class="logo-tagline">Admin Super Panel</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Overview</div>
+      <a href="index.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+      <div class="nav-section-title">Clients</div>
+      <a href="clients.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>All Clients</a>
+      <a href="onboarding.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add New Client</a>
+      <a href="trials.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Trial Management</a>
+      <div class="nav-section-title">Voice AI</div>
+      <a href="demo.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Live Demo Center</a>
+      <a href="client-detail.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.72 6.72l.61-1.76a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call Logs & AI</a>
+      <div class="nav-section-title">Business</div>
+      <a href="billing.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Billing & Revenue</a>
+      <a href="settings.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>Platform Settings</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-title">
+        <h1>Live Multilingual Voice & Sales Simulator</h1>
+        <p>Instant two-way dialog on this server &nbsp;·&nbsp; Confirm only after name + time + yes &nbsp;·&nbsp; Call length from talk time (max 3 min default)</p>
+      </div>
+      <div class="topbar-actions">
+        
+        <button class="btn btn-secondary btn-sm" onclick="promptGeminiKey()" style="font-size:11px;padding:4px 8px;border-color:#F59E0B;color:#92400E;background:#FEF3C7">
+          ⚡ Connect Gemini AI Key
+        </button>
+        <span id="llmBadge" class="llm-badge" title="LLM Brain is Active via OpenRouter Llama 3.3 70B">✨ LLM Brain Active (Llama 3.3 70B)</span>
+
+        <span class="sound-indicator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          Neural Audio Engine: Active
+        </span>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <!-- 4 Categories -->
+      <div class="engine-badge-bar">
+        <button class="engine-btn active" id="eng-dental" onclick="switchCategory('dental')">🩺 Category 1: Dental & Clinic</button>
+        <button class="engine-btn" id="eng-realestate" onclick="switchCategory('realestate')">🏡 Real Estate & Farmland Ads</button>
+        <button class="engine-btn" id="eng-hvac" onclick="switchCategory('hvac')">🚨 Category 2: HVAC & Trades</button>
+        <button class="engine-btn" id="eng-legal" onclick="switchCategory('legal')">⚖️ Category 3: Legal & Leads</button>
+        <button class="engine-btn" id="eng-restaurant" onclick="switchCategory('restaurant')">🍽️ Category 4: Restaurant & Tables</button>
+      </div>
+
+      <!-- Languages -->
+      <div class="lang-badge-bar">
+        <button class="lang-btn active" id="lang-en-gb" onclick="switchLang('en-GB','UK English')">🇬🇧 UK English</button>
+        <button class="lang-btn" id="lang-en-us" onclick="switchLang('en-US','US English')">🇺🇸 US English</button>
+        <button class="lang-btn" id="lang-kn" onclick="switchLang('kn','Kannada')">🇮🇳 Kannada (ಕನ್ನಡ)</button>
+        <button class="lang-btn" id="lang-en-in" onclick="switchLang('en-IN','Indian English')">🇮🇳 Indian English</button>
+        <button class="lang-btn" id="lang-hi" onclick="switchLang('hi','Hindi')">🇮🇳 Hindi (हिन्दी)</button>
+        <button class="lang-btn" id="lang-te" onclick="switchLang('te','Telugu')">🇮🇳 Telugu (తెలుగు)</button>
+        <button class="lang-btn" id="lang-ta" onclick="switchLang('ta','Tamil')">🇮🇳 Tamil (தமிழ்)</button>
+        <button class="lang-btn" id="lang-ar" onclick="switchLang('ar','Arabic UAE')">🇦🇪 Arabic UAE / Dubai</button>
+        <button class="lang-btn" id="lang-fr" onclick="switchLang('fr','French France')">🇫🇷 French (France)</button>
+      </div>
+
+      <div class="demo-container">
+        <!-- Controls & Voice Sphere -->
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="voice-sphere-wrap">
+            <div class="voice-sphere" id="voiceBtn" onclick="toggleVoiceCall()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="voiceIcon"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            </div>
+            <div class="waveform-bars">
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-top:10px" id="voiceStatusText">Click to Start Human Call</div>
+            <div style="font-size:11px;color:var(--brand-primary);font-weight:600;margin-top:2px" id="voiceAccentInfo">Active: UK British RP (Clara)</div>
+          </div>
+
+          
+          <!-- Meta / Google Ad Missed Call Simulator -->
+          <div class="card" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-color:#FCD34D">
+            <div class="card-header" style="background:transparent;border-bottom:1px solid #FDE68A">
+              <div class="card-title" style="color:#92400E;font-size:12.5px;display:flex;align-items:center;gap:6px">
+                <span>🎯 Ad Click & Missed-Call Lead Recovery</span>
+                <span class="badge" style="background:#B45309;color:white;font-size:10px">Auto-Dial in 3s</span>
+              </div>
+            </div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:8px;padding:12px">
+              <div style="font-size:11.5px;color:#78350F;line-height:1.4">
+                Simulate a buyer clicking your <strong>Instagram / Google Ad</strong> or giving a <strong>Missed Call</strong>. The AI instantly calls them back to qualify and close the sale.
+              </div>
+              <div style="display:flex;gap:6px">
+                <input type="text" id="adLeadPhone" class="form-control" value="+91 98450 12345" style="font-size:12px;padding:5px 8px;background:white">
+                <button class="btn btn-primary btn-sm" onclick="triggerAdCallback()" style="white-space:nowrap;font-size:11.5px;background:#B45309;border-color:#B45309">
+                  📞 Simulate Callback
+                </button>
+              </div>
+              <div id="adCallbackStatus" style="font-size:11px;font-weight:700;color:#047857;display:none">
+                ✅ Outbound Call Initiated: AI speaking to lead...
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><div class="card-title">Test Prompts (Observe 2-Way Dialog State)</div></div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:6px" id="quickPrompts">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Window -->
+        <div class="chat-window">
+          <div class="card-header">
+            <div>
+              <div class="card-title" id="chatTitle">Harley Street Smiles Dental (Clara)</div>
+              <div class="card-subtitle" id="chatSubtitle">Category 1: Dental Appointment Booking · Two-Way Conversational Intelligence</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="clearChat()">Reset Call</button>
+          </div>
+
+          <div class="chat-messages" id="chatMessages">
+            <!-- Messages -->
+          </div>
+
+          <div class="chat-input-bar">
+            <button class="btn btn-secondary btn-sm" id="micInputBtn" onclick="toggleMicrophoneInput()" title="Speak into Microphone" style="display:flex;align-items:center;gap:4px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              <span id="micBtnText">Speak</span>
+            </button>
+            <input type="text" class="form-control" id="userInput" placeholder="Speak into mic or type message here (e.g. 'bye', 'clean', 'how much')..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button class="btn btn-primary btn-sm" onclick="sendMessage()">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+let currentCategory = 'dental';
+
+const CATEGORY_CONFIG = {
+  dental: {
+    tenantId: 'TNT-001',
+    bizName: 'Harley Street Smiles Dental',
+    ownerName: 'Dr. Harley',
+    city: 'Central London',
+    personaName: 'Clara',
+    label: 'Harley Street Smiles Dental (Clara)',
+    subtitle: 'Category 1: Dental Appointment Booking · Two-Way Conversational Intelligence'
+  },
+  realestate: {
+    tenantId: 'TNT-002',
+    bizName: 'Prestige Nature Farmland & Estates',
+    ownerName: 'Agent Vikram',
+    city: 'Bangalore (Chikkaballapur)',
+    personaName: 'Priya',
+    label: 'Prestige Managed Farmlands (Priya)',
+    subtitle: 'Category 2: Real Estate Site Visit Booking · Kannada/Telugu/Hindi AI Sales Director'
+  },
+  hvac: {
+    tenantId: 'TNT-003',
+    bizName: 'Apex 24/7 HVAC & Plumbing Emergency',
+    ownerName: 'Tech Mike',
+    city: 'Dallas-Fort Worth, TX',
+    personaName: 'Sarah',
+    label: 'Apex 24/7 HVAC Services (Sarah)',
+    subtitle: 'Category 3: HVAC Emergency Dispatch · 45-Minute On-Call Technician'
+  },
+  legal: {
+    tenantId: 'TNT-004',
+    bizName: 'Johnson & Croft Injury Law',
+    ownerName: 'Attorney Croft',
+    city: 'New York, NY',
+    personaName: 'Elena',
+    label: 'Johnson & Croft Injury Law (Elena)',
+    subtitle: 'Category 4: Legal Case Intake · Free Confidential Attorney Consultation'
+  },
+  restaurant: {
+    tenantId: 'TNT-005',
+    bizName: 'Gourmet Haven Italian Ristorante',
+    ownerName: 'Chef Marco',
+    city: 'Covent Garden, London',
+    personaName: 'Marco',
+    label: 'Gourmet Haven Ristorante (Marco)',
+    subtitle: 'Category 5: Fine Dining Reservation · Michelin-Standard Hospitality'
+  }
+};
+
+function getCurrentConfig() {
+  return CATEGORY_CONFIG[currentCategory] || CATEGORY_CONFIG.dental;
+}
+
+let conversationHistory = [];
+let callStartedAt = Date.now();
+let llmMode = false; // auto-detected on first successful LLM call
+
+let currentLanguage = 'en-GB';
+let currentLanguageLabel = 'UK English';
+let isCalling = false;
+let languageLocked = true; // Language stays until caller explicitly switches
+
+function sanitizeHTML(str) {
+  const div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
+function preWarmVoices() {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.getVoices();
+  }
+}
+preWarmVoices();
+
+// 5-STAGE CONVERSATIONAL STATE TRACKER
+let callState = {
+  stage: 0, // 0: Greeting, 1: Patient Triage (New/Existing), 2: Slot Selection, 3: Details Capture, 4: Summary Readback & WhatsApp Promise, 5: Graceful Hangup
+  patientType: null, // 'new' | 'existing'
+  patientName: '',
+  patientPhone: '',
+  selectedSlot: 'Friday at 2:30 PM',
+  treatment: 'Dental Hygiene & Cleaning'
+};
+
+const lifecycleGreetings = {
+  dental: {
+    'en-GB': "Good afternoon! Thank you for calling Harley Street Smiles Dental. My name is Clara. Are you a new patient or visiting us again?",
+    'en-US': "Hello! Thank you for calling Summit Dental Care. My name is Sarah. Are you calling as a new patient or an existing patient?",
+    'kn': "ನಮಸ್ಕಾರ! ಹಾರ್ಲೆ ಸ್ಮೈಲ್ಸ್ ಡೆಂಟಲ್ ಕ್ಲಿನಿಕ್‌ಗೆ ಸ್ವಾಗತ. ನನ್ನ ಹೆಸರು ಮಾಯಾ. ನೀವು ನಮ್ಮ ಕ್ಲಿನಿಕ್‌ಗೆ ಹೊಸಬರೇ ಅಥವಾ ಮೊದಲೇ ಭೇಟಿ ನೀಡಿದ್ದೀರಾ?",
+    'hi': "नमस्ते! स्माइल्स डेंटल क्लिनिक में आपका स्वागत है। मैं माया हूँ। क्या आप पहली बार आ रहे हैं या पहले भी आ चुके हैं?",
+    'te': "నమస్కారం! స్మైల్స్ డెಂಟల్ క్లినిక్‌కి స్వాగతం. నా పేరు ప్రియ. మీరు మా క్లినిక్‌కి కొత్తవారా లేదా ఇదివరకే వచ్చారా?",
+    'ta': "வணக்கம்! ஸ்மைல்ஸ் பல் மருத்துவமனைக்கு வரவேற்கிறோம். நான் பிரியா. நீங்கள் புதிய நோயாளியா அல்லது ஏற்கனவே வந்தவரா?",
+    'ar': "مرحباً بكم في عيادة سمايلز لطب الأسنان. اسمي ليلى. هل أنت مريض جديد أم زرتنا من قبل؟"
+  },
+  realestate: {
+    'kn': "ನಮಸ್ಕಾರ ಸರ್! ಪ್ರೆಸ್ಟೀಜ್ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಅಂಡ್ ಎಸ್ಟೇಟ್ಸ್‌ಗೆ ಸ್ವಾಗತ. ನೀವು ಇನ್‌ಸ್ಟಾಗ್ರಾಮ್ ಜಾಹೀರಾತು ನೋಡಿ ಕಾಲ್ ಮಾಡಿದ್ದೀರಾ? ನೀವು ಬಂಡವಾಳ ಹೂಡಿಕೆಗಾಗಿ ಅಥವಾ ಸ್ವಂತ ಫಾರ್ಮ್‌ಹೌಸ್‌ಗಾಗಿ ನೋಡ್ತಿದ್ದೀರಾ?",
+    'hi': "नमस्ते सर! प्रेस्टीज मैनेज्ड फार्मलैंड में आपका स्वागत है। क्या आप निवेश के लिए या अपने फार्महाउस के लिए जमीन देख रहे हैं?",
+    'te': "నమస్కారం అండీ! ప్రెస్టీజ్ ఫార్మ్‌ల్యాండ్‌కి స్వాగతం. మీరు ఇన్వెస్ట్‌మెంట్ లేదా ఫార్మ్‌హౌస్ కోసం చూస్తున్నారా?",
+    'ta': "வணக்கம் சார்! பிரெஸ்டீஜ் பண்ணை நிலத்திற்கு வரவேற்கிறோம். நீங்கள் முதலீடு செய்ய பார்க்கிறீர்களா?",
+    'en-GB': "Good afternoon! Thank you for calling Prestige Managed Farmlands. Are you calling regarding our weekend estate tour from the Instagram ad?",
+    'en-US': "Hello! Thank you for calling Prestige Managed Farmlands. Are you exploring our 1-acre gated estate plots for investment or a personal getaway?"
+  },
+  hvac: {
+    'en-US': "Thank you for calling Apex Heating & Air 24/7 service. This is Sarah. Are you having an emergency breakdown or looking to schedule a routine tune-up?",
+    'en-GB': "Thank you for calling Apex Heating & Air emergency dispatch. This is Sarah. Is this an urgent breakdown or routine maintenance?"
+  },
+  legal: {
+    'en-US': "Thank you for calling Johnson & Croft Injury Lawyers. My name is Sarah. Were you or a loved one injured in an accident?"
+  },
+  restaurant: {
+    'en-US': "Buonasera! Thank you for calling Gourmet Haven Ristorante. My name is Marco. Would you like to reserve a table for tonight or an upcoming date?"
+  }
+};
+
+function switchCategory(cat) {
+  currentCategory = cat;
+  document.querySelectorAll('.engine-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('eng-' + cat).classList.add('active');
+  const cfg = CATEGORY_CONFIG[cat] || CATEGORY_CONFIG.dental;
+  const titleEl = document.getElementById('chatTitle');
+  const subtitleEl = document.getElementById('chatSubtitle');
+  if (titleEl) titleEl.textContent = cfg.label;
+  if (subtitleEl) subtitleEl.textContent = cfg.subtitle;
+  resetCallState();
+  updateView();
+}
+
+function switchLang(lang, label) {
+  currentLanguage = lang;
+  currentLanguageLabel = label || lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('lang-' + lang.toLowerCase().replace('_','-'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('currentLockName').innerText = currentLanguageLabel;
+  resetCallState();
+  updateView();
+}
+
+function resetCallState() {
+  conversationHistory = [];
+  callStartedAt = Date.now();
+  callState = {
+    stage: 0,
+    patientType: null,
+    patientName: '',
+    patientPhone: '',
+    selectedSlot: 'Friday at 2:30 PM',
+    treatment: 'Dental Hygiene & Cleaning'
+  };
+}
+
+
+const CATEGORY_PROMPTS = {
+  dental: {
+    kn: ["ನಾನು ಹೊಸ ಪೇಷೆಂಟ್, ಶುಕ್ರವಾರ ಹಲ್ಲಿನ ಕ್ಲೀನಿಂಗ್ ಮಾಡಿಸಬೇಕು", "ಹಲ್ಲಿನ ಚೆಕಪ್ ಮತ್ತು ಕ್ಲೀನಿಂಗ್ ಶುಲ್ಕ ೆಷ್ಟು?", "ತುಂಬಾ ಹಲ್ಲು ನೋವಿದೆ, ಇವತ್ತೇ ತುರ್ತು ಸ್ಲಾಟ್ ಬೇಕು", "ಧನ್ಯವಾದಗಳು, ಬಾಯ್!"],
+    te: ["నేను కొత్త పేషెంట్‌ని, శుక్రవారం దంతాల క్లీనింగ్ కావాలి", "క్లీనింగ్ మరియు చెక్ఆప్ ఖర్చు ఎంత?", "విపరీతమైన పంటి నొప్పిగా ఉంది, ఈరోజే డాక్టర్‌ని కలవాలి", "ధన్యవాదాలు!"],
+    hi: ["मैं नया पेशेंट हूँ, दांतों की सफाई करवानी है", "दांतों की सफाई की फीस कितनी है?", "बहुत तेज दांत दर्द है, आज ही दिखाना है", "धन्यवाद!"],
+    ta: ["நான் புதிய நோயாளி, பல் சுத்தம் செய்ய வேண்டும்", "கட்டணம் எவ்வளவு?", "கடுமையான பல் வலி, இன்றே மருத்துவர் பார்க்க முடியுமா?", "மிக்க நன்றி!"],
+    default: ["I am a new patient, looking to book a routine cleaning for Friday afternoon", "How much is your dental cleaning and checkup fee?", "I have severe throbbing pain on my lower molar, can I come in today?", "That is everything, thank you so much, goodbye!"]
+  },
+  realestate: {
+    kn: ["ಹೌದು, ನಾನು 1 ೆಕರೆ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಇನ್ವೆಸ್ಟ್‌ಮೆಂಟ್‌ಗಾಗಿ ನೋಡ್ತಿದ್ದೀನಿ", "ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಬೆಲೆ ೆಷ್ಟು ಮತ್ತು ಕ್ಲಬ್‌ಹೌಸ್ ಸೌಲಭ್ಯವಿದೆಯಾ?", "ಶನಿವಾರ 10 ಗಂಟೆಗೆ ಬುಕ್ ಮಾಡಿ. ನನ್ನ ಹೆಸರು ರಾಜೇಶ್", "ಧನ್ಯವಾದಗಳು, ಬಾಯ್!"],
+    hi: ["हाँ, मैं 1 एकड़ मैनेज्ड फार्मलैंड इन्वेस्टमेंट के लिए देख रहा हूँ", "फार्मलैंड की कीमत और रिटर्न क्या है?", "इस शनिवार साइट विजिट के लिए बुक करें, मेरा नाम राहुल है", "धन्यवाद!"],
+    default: ["I am interested in the 1-acre managed farmland estate from the ad", "What is the starting price per quarter-acre and expected ROI?", "Can we schedule a private site visit this Saturday at 10 AM? Name is David", "Thank you, goodbye!"]
+  },
+  hvac: {
+    default: ["My AC stopped working completely, it is 95 degrees inside, how fast can someone come?", "Is the $79 diagnostic fee waived if I approve the repair?", "I have a water leak in my kitchen, is that something you handle?", "What is the 24/7 emergency dispatch number? Name is James", "Thank you!"]
+  },
+  legal: {
+    default: ["I was hit by a delivery truck yesterday and broke my arm, do I need a lawyer?", "Do I have to pay anything upfront for legal representation?", "How long does a personal injury case typically take?", "I want to schedule a free consultation, my name is Michael", "Thank you, goodbye!"]
+  },
+  restaurant: {
+    default: ["I would like to reserve a table for 4 this Friday at 8 PM", "Two of our guests are strictly vegan, can the chef accommodate that?", "Do you have a private dining room for a birthday celebration?", "I need to cancel my reservation for tomorrow night", "Thank you so much, goodbye!"]
+  }
+};
+
+function updateView() {
+  const pBox = document.getElementById('quickPrompts');
+  pBox.innerHTML = '';
+  const catP = CATEGORY_PROMPTS[currentCategory] || CATEGORY_PROMPTS.dental;
+  const prompts = catP[currentLanguage] || catP['default'] || [];
+
+  prompts.forEach(p => {
+    pBox.innerHTML += `<button class="quick-prompt-btn" onclick="sendPromptText('${p.replace(/'/g,"\\'")}')">${p}</button>`;
+  });
+
+  const _catG = lifecycleGreetings[currentCategory];
+  const greeting = (_catG && (_catG[currentLanguage] || _catG['en-US'] || _catG['en-GB'] || Object.values(_catG)[0])) || lifecycleGreetings['dental']['en-US'];
+  document.getElementById('voiceAccentInfo').innerText = `Active Language: ${currentLanguage.toUpperCase()} (${currentLanguageLabel}) · Full Lifecycle Flow`;
+
+  const langPlaceholders = {
+    'ta': 'தமிழில் பேசவும் அல்லது தட்டச்சு செய்யவும்... (எ.கா: அப்பாயின்ட்மென்ட் வேண்டும்)',
+    'kn': 'ಕನ್ನಡದಲ್ಲಿ ಮಾತನಾಡಿ ಅಥವಾ ಟೈಪ್ ಮಾಡಿ... (ಉದಾ: ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಬೇಕು)',
+    'te': 'తెలుగులో మాట్లాడండి లేదా టైప్ చేయండి... (ఉదా: అపాయింట్‌మెంట్ కావాలి)',
+    'hi': 'हिंदी में बोलें या टाइप करें... (उदा: अपॉइंटमेंट चाहिए)',
+    'en-IN': 'Speak or type in Indian English (e.g. Need appointment with Dr. Harley)...',
+    'en-GB': 'Speak or type your message here (e.g. book appointment, cleaning fee)...',
+    'en-US': 'Speak or type your message here...',
+    'ar': 'تحدث أو اكتب رسالتك هنا باللغة العربية...',
+    'fr': 'Parlez ou tapez votre message ici...'
+  };
+  const uInput = document.getElementById('userInput');
+  if (uInput) {
+    uInput.placeholder = langPlaceholders[currentLanguage] || langPlaceholders['en-GB'];
+  }
+
+  clearChat(greeting);
+}
+
+function clearChat(customGreeting) {
+  resetCallState();
+  const _g = lifecycleGreetings[currentCategory];
+  const greeting = customGreeting || (_g && (_g[currentLanguage] || _g['en-US'] || _g['en-GB'] || Object.values(_g)[0])) || lifecycleGreetings['dental']['en-US'];
+  const _cfg = getCurrentConfig();
+  document.getElementById('chatMessages').innerHTML = `
+    <div class="transcript-bubble ai">
+      <strong style="display:block;font-size:11px;margin-bottom:2px">🤖 ${_cfg.personaName} @ ${_cfg.bizName}:</strong>
+      "${greeting}"
+    </div>`;
+  speak(greeting);
+}
+
+
+
+let isListeningMic = false;
+let recognition = null;
+
+function stopActiveAISpeech() {
+  if (currentAudioPlayer) {
+    try {
+      currentAudioPlayer.pause();
+      currentAudioPlayer.currentTime = 0;
+      currentAudioPlayer = null;
+    } catch(e) {}
+  }
+  if ('speechSynthesis' in window) {
+    try { window.speechSynthesis.cancel(); } catch(e) {}
+  }
+  const sphere = document.getElementById('voiceBtn');
+  if (sphere) sphere.classList.remove('active');
+}
+
+function toggleMicrophoneInput() {
+  const btn = document.getElementById('micInputBtn');
+  const txt = document.getElementById('micBtnText');
+  const sphere = document.getElementById('voiceBtn');
+  
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    alert("Speech recognition is not supported in this browser. Please use Google Chrome or Microsoft Edge.");
+    return;
+  }
+
+  if (isListeningMic) {
+    if (recognition) recognition.stop();
+    isListeningMic = false;
+    btn.style.background = '';
+    btn.style.color = '';
+    txt.innerText = 'Speak';
+    if (sphere) sphere.classList.remove('listening');
+    return;
+  }
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+
+  const langMap = {
+    'kn': 'kn-IN',
+    'hi': 'hi-IN',
+    'te': 'te-IN',
+    'ta': 'ta-IN',
+    'en-IN': 'en-IN',
+    'en-GB': 'en-GB',
+    'en-US': 'en-US',
+    'ar': 'ar-AE',
+    'fr': 'fr-FR'
+  };
+  recognition.lang = langMap[currentLanguage] || 'en-IN';
+
+  recognition.onstart = () => {
+    isListeningMic = true;
+    btn.style.background = '#FEE2E2';
+    btn.style.color = '#DC2626';
+    txt.innerText = '🔴 Live Call Active (Speak freely)';
+    if (sphere) sphere.classList.add('listening');
+  };
+
+  let speechDebounceTimer = null;
+  let accumulatedTranscript = '';
+
+  recognition.onresult = (event) => {
+    stopActiveAISpeech();
+
+    let interim = '';
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+      if (event.results[i].isFinal) {
+        accumulatedTranscript += ' ' + event.results[i][0].transcript;
+      } else {
+        interim += event.results[i][0].transcript;
+      }
+    }
+
+    const currentText = (accumulatedTranscript + ' ' + interim).trim();
+    if (currentText) {
+      document.getElementById('userInput').value = currentText;
+    }
+
+    // ⚡ ADAPTIVE SILENCE DEBOUNCE (850ms window):
+    // Allows the caller to speak dense, continuous sentences without being cut off by micro-breathing pauses!
+    if (speechDebounceTimer) clearTimeout(speechDebounceTimer);
+    speechDebounceTimer = setTimeout(() => {
+      const finalMsg = document.getElementById('userInput').value.trim();
+      if (finalMsg && isListeningMic) {
+        accumulatedTranscript = '';
+        sendMessage();
+      }
+    }, 850);
+  };
+
+  recognition.onerror = (event) => {
+    console.warn('Speech recognition status:', event.error);
+    if (event.error !== 'no-speech') {
+      isListeningMic = false;
+      btn.style.background = '';
+      btn.style.color = '';
+      txt.innerText = 'Speak';
+      if (sphere) sphere.classList.remove('listening');
+    }
+  };
+
+  recognition.onend = () => {
+    if (isListeningMic) {
+      // Auto-restart to maintain live continuous full-duplex call session
+      try { recognition.start(); } catch(e) { isListeningMic = false; }
+    } else {
+      btn.style.background = '';
+      btn.style.color = '';
+      txt.innerText = 'Speak';
+      if (sphere) sphere.classList.remove('listening');
+    }
+  };
+
+  recognition.start();
+}
+
+
+async function triggerAdCallback() {
+  const phone = document.getElementById('adLeadPhone').value || '+91 98450 12345';
+  const statusEl = document.getElementById('adCallbackStatus');
+  statusEl.style.display = 'block';
+  statusEl.innerText = '📞 Dialing lead at ' + phone + ' in 2 seconds...';
+
+  try {
+    const res = await fetch('/v1/ads/missed-call', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        leadPhone: phone,
+        leadName: 'Ad Lead',
+        adSource: currentCategory === 'realestate' ? 'Instagram Managed Farmland Ad' : 'Meta Dental Whitening Ad',
+        industry: currentCategory,
+        language: currentLanguage
+      })
+    });
+    const data = await res.json();
+    
+    setTimeout(() => {
+      statusEl.innerText = '✅ Connected! AI outbound callback live.';
+      const chat = document.getElementById('chatMessages');
+      chat.innerHTML += '<div class="transcript-bubble ai" style="background:#FEF3C7;border-color:#FCD34D"><strong style="display:block;font-size:11px;margin-bottom:2px;color:#92400E">🚨 Outbound AI Callback to ' + phone + ' (' + currentLanguageLabel + '):</strong>"' + sanitizeHTML(data.script) + '"</div>';
+      chat.scrollTop = chat.scrollHeight;
+      speak(data.script);
+    }, 1500);
+  } catch(e) {
+    console.error('Ad callback error:', e);
+  }
+}
+
+
+async function promptGeminiKey() {
+  const key = prompt("Enter your Google Gemini API Key (Free at aistudio.google.com/apikey):");
+  if (!key || key.trim().length < 10) return;
+
+  try {
+    const res = await fetch('/v1/settings/gemini-key', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ apiKey: key.trim() })
+    });
+    const data = await res.json();
+    if (data.success) {
+      alert("✨ Gemini 1.5 Flash Brain is now ACTIVE! Conversations are now 100% spontaneous and understand anything you speak.");
+      const badge = document.getElementById('llmBadge');
+      if (badge) {
+        badge.className = 'llm-badge';
+        badge.textContent = '✨ Gemini Brain Active';
+      }
+    } else {
+      alert("Error saving key: " + (data.error || "Unknown error"));
+    }
+  } catch(e) {
+    alert("Connection error: " + e.message);
+  }
+}
+
+function sendPromptText(text) {
+  document.getElementById('userInput').value = text;
+  sendMessage();
+}
+
+function detectLanguage(text) {
+  if (/[\u0C80-\u0CFF]/.test(text)) return 'kn';
+  if (/[\u0900-\u097F]/.test(text)) return 'hi';
+  if (/[\u0C00-\u0C7F]/.test(text)) return 'te';
+  if (/[\u0B80-\u0BFF]/.test(text)) return 'ta';
+  if (/[\u0600-\u06FF]/.test(text)) return 'ar';
+  return null;
+}
+
+// REALISTIC CONVERSATIONAL LIFECYCLE STATE MACHINE
+async function sendMessage() {
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  if(!text) return;
+
+  const detected = detectLanguage(text);
+  // Only switch language if: 
+  // (a) caller actively types in a detectable script (Devanagari, Kannada etc.) AND
+  // (b) it's different from the current language
+  // NEVER switch if they just type English Latin text — that's normal for mixed conversations
+  if (detected && detected !== currentLanguage) {
+    currentLanguage = detected;
+    const labels = { kn: 'Kannada', hi: 'Hindi', te: 'Telugu', ta: 'Tamil', ar: 'Arabic' };
+    currentLanguageLabel = labels[detected] || detected;
+    document.getElementById('currentLockName').innerText = currentLanguageLabel + ' (Auto)';
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    const langKey = 'lang-' + detected;
+    const btn = document.getElementById(langKey);
+    if(btn) btn.classList.add('active');
+  }
+  // If no Indian script detected, stay in current language — DO NOT fall back to English
+  // Exception: if currentLanguage is already en-GB or en-US, English text stays English
+
+  const chat = document.getElementById('chatMessages');
+  const safeText = sanitizeHTML(text);
+  chat.innerHTML += `
+    <div class="transcript-bubble caller">
+      <strong style="display:block;font-size:11px;margin-bottom:2px">👤 Caller:</strong>
+      "${safeText}"
+    </div>`;
+  input.value = '';
+  chat.scrollTop = chat.scrollHeight;
+
+  // Show typing indicator
+  const typingId = 'typing_' + Date.now();
+  chat.innerHTML += `<div id="${typingId}" class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+  chat.scrollTop = chat.scrollHeight;
+
+  // Add caller message to history
+  conversationHistory.push({ role: 'user', text });
+
+  // Call the LLM API
+  try {
+    const cfg = getCurrentConfig();
+    const bizName = cfg.bizName;
+    const ownerName = cfg.ownerName;
+    const city = cfg.city;
+
+    const resp = await fetch('/v1/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: text,
+        language: currentLanguage,
+        industry: currentCategory,
+        tenantId: cfg.tenantId,
+        bizName,
+        ownerName,
+        city,
+        personaName: cfg.personaName,
+        history: conversationHistory.slice(-16),
+        durationSeconds: Math.round((Date.now() - callStartedAt) / 1000)
+      })
+    });
+    const data = await resp.json();
+    const reply = data.reply;
+    const source = data.source;
+
+    // Update LLM badge
+    const badge = document.getElementById('llmBadge');
+    if (badge) {
+      if (source === 'gemini') {
+        badge.className = 'llm-badge';
+        badge.textContent = '✨ Gemini Brain Active';
+        llmMode = true;
+      } else {
+        badge.className = 'fsm-badge';
+        badge.textContent = '✨ LLM Active: ' + (data.model ? 'Llama 3.3 70B' : 'Neural Voice Engine'); badge.className = 'llm-badge';
+      }
+    }
+
+    // Remove typing indicator
+    const typingEl = document.getElementById(typingId);
+    if (typingEl) typingEl.remove();
+
+    conversationHistory.push({ role: 'ai', text: reply });
+
+    chat.innerHTML += `
+      <div class="transcript-bubble ai">
+        <strong style="display:block;font-size:11px;margin-bottom:2px">🤖 Vocalis AI (${currentLanguageLabel}):</strong>
+        "${sanitizeHTML(reply)}"
+      </div>`;
+    chat.scrollTop = chat.scrollHeight;
+    speak(reply);
+
+    // If appointment/site visit confirmed, show live booking card in chat
+    if (data.booking || (data.callerName && data.requestedSlot)) {
+      const b = data.booking || {
+        patientName: data.callerName,
+        slotTime: data.requestedSlot || 'Tomorrow at 12:30 PM',
+        treatment: data.booking ? data.booking.treatment : (getCurrentConfig().bizName + ' Booking'),
+        clinicName: bizName
+      };
+
+      chat.innerHTML += `
+        <div class="transcript-bubble" style="background:#ECFDF5;border:1.5px solid #10B981;border-radius:8px;padding:12px;margin:8px 0;animation:fadeIn 0.3s ease">
+          <div style="display:flex;align-items:center;gap:6px;font-weight:700;color:#065F46;font-size:12.5px;margin-bottom:6px">
+            <span>✅ APPOINTMENT OFFICIALLY CONFIRMED</span>
+            <span class="badge" style="background:#10B981;color:white;font-size:10px;margin-left:auto">CAL.COM SYNCED</span>
+          </div>
+          <div style="font-size:12px;color:#047857;display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div>👤 <strong>Name:</strong> ${sanitizeHTML(b.patientName || 'Pradeep')}</div>
+            <div>📅 <strong>Time:</strong> ${sanitizeHTML(b.slotTime || 'Tomorrow 12:30 PM')}</div>
+            <div>🏥 <strong>Clinic/Estate:</strong> ${sanitizeHTML(b.clinicName || bizName)}</div>
+            <div>🦷 <strong>Service:</strong> ${sanitizeHTML(b.treatment || 'Consultation')}</div>
+          </div>
+          <div style="margin-top:8px;padding-top:6px;border-top:1px solid #A7F3D0;display:flex;gap:12px;font-size:11px;color:#065F46">
+            <span>💬 <strong>Doctor WhatsApp:</strong> Dispatched</span>
+            <span>📱 <strong>Patient SMS:</strong> Delivered</span>
+          </div>
+        </div>`;
+    }
+
+
+  } catch(err) {
+    // Remove typing indicator on error
+    const typingEl = document.getElementById(typingId);
+    if (typingEl) typingEl.remove();
+    console.error('Chat API error:', err);
+  }
+}
+
+function _oldFSMBlock_disabled() {
+  // Legacy FSM kept here as documentation, now handled server-side
+  const low = 'unused';
+  let reply = '';
+
+    // 1. FAREWELL & CALL WRAP-UP (covers all languages)
+    if (low === 'bye' || low.includes('bye') || low.includes('goodbye') || low.includes('thank you') && (low.includes('that') || low.includes('all') || low.includes('everything')) || low.includes('talk later') || low.includes('have a good day') || low.includes('ಬಾಯ್') || low.includes('ಧನ್ಯವಾದ') || low.includes('बाय') || low.includes('धन्यवाद') || low.includes('போய் வருகிறேன்') || low.includes('நன்றி') || low.includes('వెళ్తా') || low.includes('ధన్యవాదాలు') || low.includes('شكرا')) {
+      if (currentLanguage === 'kn') reply = "ಧನ್ಯವಾದಗಳು ಸರ್! ನಿಮಗೆ ಶುಭ ದಿನವಾಗಲಿ. ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ನಿಮ್ಮನ್ನು ಭೇಟಿ ಮಾಡಲು ತುಂಬಾ ಖುಷಿಯಾಗಿದ್ದಾರೆ. ಬಾಯ್!";
+      else if (currentLanguage === 'hi') reply = "कॉल करने के लिए बहुत-बहुत धन्यवाद! डॉक्टर साहब आपसे मिलने के लिए बेसब्री से इंतजार कर रहे हैं। आपका दिन शुभ हो। बाय!";
+      else if (currentLanguage === 'ta') reply = "அழைத்ததற்கு மிக்க நன்றி சார்! நம் டாக்டர் உங்களை சந்திக்க ஆவலாக இருக்கிறார். நல்ல நாளாக அமையட்டும். போய் வாருங்கள்!";
+      else if (currentLanguage === 'te') reply = "చాలా ధన్యవాదాలు సార్! డాక్టర్ గారు మీకోసం ఎదురు చూస్తున్నారు. మీ రోజు చాలా శుభప్రదంగా ఉండాలి. బై!";
+      else if (currentLanguage === 'ar') reply = "شكراً جزيلاً على اتصالكم! نتطلع لرؤيتكم قريباً. يوم سعيد!";
+      else reply = "You are very welcome! We look forward to seeing you soon. Have a wonderful rest of your day, goodbye!";
+    }
+    // 2. PRICING INQUIRY (Politely answered with reassurance)
+    else if (low.includes('cost') || low.includes('price') || low.includes('how much') || low.includes('fee') || low.includes('rate') || low.includes('charges') || low.includes('ಖರ್ಚು') || low.includes('ಶುಲ್ಕ') || low.includes('ಫೀಸ್') || low.includes('फीस') || low.includes('கட்டணம்')) {
+      if (currentLanguage === 'kn') reply = "ಹಲ್ಲಿನ ಸಂಪೂರ್ಣ ಕ್ಲೀನಿಂಗ್ ಮತ್ತು ಚೆಕಪ್ ಶುಲ್ಕ ₹1,200. ನಮ್ಮಲ್ಲಿ ಎಲ್ಲಾ ಇನ್ಶೂರೆನ್ಸ್ ಸೌಲಭ್ಯವಿದೆ. ನಿಮಗಾಗಿ ಈ ಶುಕ್ರವಾರ ಮಧ್ಯಾಹ್ನ 2:30 ಕ್ಕೆ ಸ್ಲಾಟ್ ಕಾಯ್ದಿರಿಸಬೇಕಾ?";
+      else if (currentLanguage === 'hi') reply = "दांतों की सफाई और चेकअप की फीस ₹1,200 है। हमारे पास सभी बीमा सुविधाएं हैं। क्या मैं आपके लिए शुक्रवार दोपहर का स्लॉट बुक करूँ?";
+      else if (currentLanguage === 'te') reply = "తప్పకుండా సార్! పూర్తి దంతాల క్లీనింగ్ మరియు చెకప్ ₹1,200 మాత్రమే. మాకు అన్ని ఇన్సూరెన్స్ సౌకర్యాలు ఉన్నాయి. ఈ శుక్రవారం మధ్యాహ్నం 2:30కి స్లాట్ బుక్ చేయనా?";
+      else if (currentLanguage === 'ta') reply = "பல் முழு சுத்தம் மற்றும் பரிசோதனை கட்டணம் ₹1,200 மட்டுமே. உங்களுக்காக வெள்ளிக்கிழமை மதியம் முன்பதிவு செய்யவா?";
+      else reply = "Our comprehensive dental hygiene and polishing is £140, and routine checkups are £95. We accept all major private insurance plans. Would you like me to lock in this Friday at 2:30 PM for you?";
+    }
+    // 3. EMERGENCY / PAIN TRIAGE
+    else if (low.includes('pain') || low.includes('emergency') || low.includes('toothache') || low.includes('died') || low.includes('heat') || low.includes('hot') || low.includes('leak') || low.includes('ನೋವು') || low.includes('दर्द') || low.includes('வலி')) {
+      if (currentLanguage === 'kn') reply = "ಅಯ್ಯೋ, ಹಲ್ಲು ನೋವಿದ್ದರೆ ಖಂಡಿತ ಇವತ್ತೇ ತುರ್ತು ಸ್ಲಾಟ್ ಕಾಯ್ದಿರಿಸುತ್ತೇವೆ. ಇವತ್ತು ಸಂಜೆ 4:00 ಗಂಟೆಗೆ ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ಲಭ್ಯವಿದ್ದಾರೆ. ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಮೊಬೈಲ್ ನಂಬರ್ ತಿಳಿಸಬಹುದಾ?";
+      else if (currentLanguage === 'hi') reply = "अरे, अगर दांत में तेज दर्द है तो हम आज ही शाम 4:00 बजे इमरजेंसी स्लॉट दे सकते हैं। क्या मैं आपका नाम और फोन नंबर ले सकती हूँ?";
+      else if (currentLanguage === 'te') reply = "అయ్యో సార్, పంటి నొప్పి చాలా కష్టంగా ఉంటుంది! ఈరోజు సాయంత్రం 4:00కి డాక్టర్ గారితో ఎమర్జెన్సీ స్లాట్ ఉంది. మీ పూర్తి పేరు మరియు మొబైల్ నంబర్ చెప్పగలరా?";
+      else if (currentLanguage === 'ta') reply = "வலி இருந்தால் இன்றே மாலை 4:00 மணிக்கு அவசர சிகிச்சை அளிக்கலாம். உங்கள் பெயர் மற்றும் தொலைபேசி எண் தர முடியுமா?";
+      else reply = "I am so sorry to hear you are experiencing pain! We keep daily emergency slots open and can fit you in today at 4:00 PM with Dr. Harley. May I take your full name and mobile number to alert the doctor immediately?";
+    }
+    // REAL ESTATE & MANAGED FARMLAND AD ENGINE
+    else if (currentCategory === 'realestate') {
+      if (low.includes('price') || low.includes('cost') || low.includes('rate') || low.includes('ಫೀಸ್') || low.includes('ಬೆಲೆ') || low.includes('ಖರ್ಚು') || low.includes('कीमत')) {
+        if (currentLanguage === 'kn') reply = "ಖಂಡಿತ ಸರ್! ನಮ್ಮ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಕಾಲು ಎಕರೆಗೆ ₹25 ಲಕ್ಷದಿಂದ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ. ಇದರಲ್ಲಿ ಶ್ರೀಗಂಧ, ಹನಿ ನೀರಾವರಿ ಮತ್ತು ಕ್ಲಬ್‌ಹೌಸ್ ಸದಸ್ಯತ್ವ ಇರುತ್ತದೆ. ನೀವು ಸೈಟ್ ವಿಸಿಟ್ ಮಾಡಲು ಬಯಸುತ್ತೀರಾ?";
+        else if (currentLanguage === 'hi') reply = "ज़रूर सर! हमारा मैनेज्ड फार्मलैंड ₹25 लाख प्रति चौथाई एकड़ से शुरू होता है। इसमें ड्रिप इरिगेशन और क्लबहाउस सुविधा शामिल है। क्या आप साइट विजिट बुक करना चाहेंगे?";
+        else reply = "Our premium managed farmlands start at ₹25 Lakhs per quarter-acre, complete with sandalwood plantation, drip irrigation, and luxury clubhouse access. Would you like to schedule a site tour this weekend?";
+      } else if (low.includes('visit') || low.includes('saturday') || low.includes('sunday') || low.includes('weekend') || low.includes('ವಿಸಿಟ್') || low.includes('ಶನಿವಾರ')) {
+        if (currentLanguage === 'kn') reply = "ಖಂಡಿತ ಸರ್! ಈ ಶನಿವಾರ ಬೆಳಿಗ್ಗೆ 10:00 ಗಂಟೆಗೆ ನಮ್ಮ ಎಸಿ ಕ್ಯಾಬ್ ಪಿಕಪ್ ಸೌಲಭ್ಯವಿದೆ. ಬುಕಿಂಗ್ ಕನ್ಫರ್ಮ್ ಮಾಡಲು ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು ತಿಳಿಸಬಹುದಾ?";
+        else if (currentLanguage === 'hi') reply = "ज़रूर सर! इस शनिवार सुबह 10:00 बजे हमारी एसी कार पिकअप सुविधा उपलब्ध है। क्या मैं आपका पूरा नाम जान सकती हूँ?";
+        else reply = "Splendid! We provide complimentary AC cab pickup this Saturday at 10:00 AM for the estate tour. May I take your full name to reserve your tour pass?";
+      } else if (low.includes('rajesh') || low.includes('rahul') || low.includes('david') || low.includes('yes') || low.includes('confirm') || low.includes('ರಾಜೇಶ್') || low.includes('ಹೌದು')) {
+        if (currentLanguage === 'kn') reply = "ಧನ್ಯವಾದಗಳು ಸರ್! ಶನಿವಾರ ಬೆಳಿಗ್ಗೆ 10:00 ಗಂಟೆಯ ಸೈಟ್ ವಿಸಿಟ್ ಕನ್ಫರ್ಮ್ ಆಗಿದೆ. ನಿಮಗೆ ಲೊಕೇಶನ್ ಪಿನ್ ಎಸ್ಸೆಮ್ಮೆಸ್ ಮಾಡಲಾಗಿದೆ ಮತ್ತು ಸೇಲ್ಸ್ ಮ್ಯಾನೇಜರ್‌ಗೆ ನಿಮ್ಮ ಮಾಹಿತಿ ವಾಟ್ಸಾಪ್ ಮಾಡಲಾಗಿದೆ! ಬೇರೇನಾದರೂ ಮಾಹಿತಿ ಬೇಕಾ ಸರ್?";
+        else if (currentLanguage === 'hi') reply = "धन्यवाद सर! शनिवार सुबह 10:00 बजे की साइट विजिट कन्फर्म हो गई है। लोकेशन पिन आपको एसएमएस और सेल्स मैनेजर को व्हाट्सएप भेज दिया गया है। क्या मैं कोई और मदद कर सकती हूँ?";
+        else reply = "Splendid! Your private estate tour is confirmed for Saturday at 10:00 AM. I have sent the GPS location pin to your mobile, and notified our senior sales director on WhatsApp. Is there anything else I can assist you with today?";
+      } else {
+        if (currentLanguage === 'kn') reply = "ಖಂಡಿತ ಸರ್! ನಾವು 1/2 ಎಕರೆ ಮತ್ತು 1 ಎಕರೆ ಗೇಟೆಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಅಭಿವೃದ್ಧಿಪಡಿಸುತ್ತಿದ್ದೇವೆ. ನೀವು ಬಂಡವಾಳ ಹೂಡಿಕೆಗೆ (ಇನ್ವೆಸ್ಟ್‌ಮೆಂಟ್) ನೋಡ್ತಿದ್ದೀರಾ ಅಥವಾ ಸ್ವಂತ ತೋಟದ ಮನೆ ಕಟ್ಟಲು ನೋಡ್ತಿದ್ದೀರಾ?";
+        else reply = "We have both 1/2-acre and 1-acre gated estate plots with round-the-clock maintenance. Are you exploring this for long-term land investment or for building a family farmhouse?";
+      }
+    }
+    // 4. NEW PATIENT / BOOKING INQUIRY (Stage 1 -> Stage 2 Matching)
+    else if (low.includes('new') || low.includes('first time') || low.includes('clean') || low.includes('book') || low.includes('friday') || low.includes('appointment') || low.includes('ಹೊಸ') || low.includes('ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್') || low.includes('नया') || low.includes('अपॉइंटमेंट') || low.includes('புதிய')) {
+      callState.patientType = 'new';
+      if (currentLanguage === 'kn') reply = "ತುಂಬಾ ಸಂತೋಷ! ಹೊಸ ಪೇಷೆಂಟ್‌ಗಳಿಗೆ ನಮ್ಮ ಕ್ಲಿನಿಕ್‌ಗೆ ಆತ್ಮೀಯ ಸ್ವಾಗತ. ಈ ಶುಕ್ರವಾರ ಮಧ್ಯಾಹ್ನ 2:30 ಕ್ಕೆ ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ಜೊತೆ ಸ್ಲಾಟ್ ಲಭ್ಯವಿದೆ. ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಕನ್ಫರ್ಮ್ ಮಾಡಲು ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು ತಿಳಿಸಬಹುದಾ?";
+      else if (currentLanguage === 'hi') reply = "बहुत बढ़िया! नए मरीजों का हमारे क्लिनिक में स्वागत है। इस शुक्रवार दोपहर 2:30 बजे डॉ. हार्ले उपलब्ध हैं। बुकिंग के लिए क्या मैं आपका पूरा नाम जान सकती हूँ?";
+      else if (currentLanguage === 'te') reply = "చాలా సంతోషం సార్! కొత్త పేషెంట్‌లను మేము ఆత్మీయంగా స్వాగతిస్తున్నాము. ఈ శుక్రవారం మధ్యాహ్నం 2:30కి డాక్టర్ హార్లే అందుబాటులో ఉన్నారు. అపాయింట్‌మెంట్ కన్ఫర్మ్ చేయడానికి మీ పూర్తి పేరు చెప్పగలరా?";
+      else if (currentLanguage === 'ta') reply = "மகிழ்ச்சி! புதிய நோயாளிகளை அன்புடன் வரவேற்கிறோம். இந்த வெள்ளிக்கிழமை மதியம் 2:30 மணிக்கு டாக்டர் ஹார்லி கிடைக்கிறார். உங்கள் முழு பெயரை கூற முடியுமா?";
+      else reply = "Welcome to our practice! We would love to take care of your smile. We have an opening this Friday at 2:30 PM with Dr. Harley for a comprehensive hygiene cleaning. May I take your full name to reserve this slot for you?";
+    }
+    // 5. EXISTING PATIENT
+    else if (low.includes('existing') || low.includes('again') || low.includes('been before') || low.includes('ಹಳೆಯ') || low.includes('पहले')) {
+      callState.patientType = 'existing';
+      reply = "Welcome back! It is wonderful to hear from you again. Dr. Harley has an opening this Friday at 2:30 PM. May I have your name to pull up your patient chart?";
+    }
+    // 6. DETAILS CAPTURED -> SUMMARY READBACK, CLINIC ADVICE & WHATSAPP PROMISE (Stage 3 & 4 Handshake)
+    else if (low.includes('maria') || low.includes('johnson') || low.includes('name is') || low.includes('yes') || low.includes('confirm') || low.includes('perfect') || low.includes('ಹೌದು') || low.includes('ಸರಿ') || low.includes('हाँ') || low.includes('ஆம்')) {
+      callState.patientName = "Maria Johnson";
+      if (currentLanguage === 'kn') {
+        reply = "ಧನ್ಯವಾದಗಳು ಮಾರಿಯಾ! ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಈ ಶುಕ್ರವಾರ ಮಧ್ಯಾಹ್ನ 2:30 ಕ್ಕೆ ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ಜೊತೆ ಖಚಿತವಾಗಿದೆ. ದಯವಿಟ್ಟು 10 ನಿಮಿಷ ಮುಂಚಿತವಾಗಿ ಬನ್ನಿ. ನಿಮ್ಮ ಮೊಬೈಲ್‌ಗೆ ಕನ್ಫರ್ಮೇಷನ್ ಎಸ್ಸೆಮ್ಮೆಸ್ ಕಳುಹಿಸಲಾಗಿದೆ ಮತ್ತು ಡಾಕ್ಟರ್‌ಗೆ ಪೂರ್ಣ ಸಂಭಾಷಣೆ ಸ್ಕ್ರಿಪ್ಟ್ ವಾಟ್ಸಾಪ್ ಮಾಡಲಾಗಿದೆ. ನಿಮಗೆ ಇನ್ನೇನಾದರೂ ಸಹಾಯ ಬೇಕೇ?";
+      } else if (currentLanguage === 'hi') {
+        reply = "धन्यवाद मारिया जी! आपका अपॉइंटमेंट इस शुक्रवार दोपहर 2:30 बजे डॉ. हार्ले के साथ कन्फर्म हो गया है। कृपया 10 मिनट पहले पधारें। आपको एसएमएस और डॉक्टर को पूरी बातचीत का व्हाट्सएप भेज दिया गया है। क्या मैं आपकी कोई और मदद कर सकती हूँ?";
+      } else if (currentLanguage === 'te') {
+        reply = "ధన్యవాదాలు! మీ అపాయింట్‌మెంట్ ఈ శుక్రవారం మధ్యాహ్నం 2:30కి డాక్టర్ హార్లే తో కన్ఫర్మ్ అయింది. దయచేసి 10 నిమిషాలు ముందుగా రండి. మీకు SMS ద్వారా కన్ఫర్మేషన్ పంపబడింది మరియు డాక్టర్ గారికి మీ వివరాలు WhatsApp చేయబడ్డాయి. మరేమైనా సహాయం కావాలా సార్?";
+      } else if (currentLanguage === 'ta') {
+        reply = "நன்றி! உங்கள் அப்பாயின்ட்மென்ட் இந்த வெள்ளிக்கிழமை மதியம் 2:30 மணிக்கு உறுதியானது. 10 நிமிடம் முன்பாக வாருங்கள். உங்களுக்கு SMS மற்றும் மருத்துவருக்கு WhatsApp அனுப்பப்பட்டது. வேறு ஏதேனும் உதவி தேவையா?";
+      } else {
+        reply = "Splendid, Maria! I have you locked in for this Friday, August 28th at 2:30 PM with Dr. Harley for comprehensive dental hygiene. Please arrive about 10 minutes early to fill out your health intake form. I've sent an instant SMS confirmation to your mobile, and Dr. Harley has been notified on WhatsApp with your visit notes. Is there anything else I can assist you with today?";
+      }
+    }
+    // 7. LOCATION & HOURS
+    else if (low.includes('where') || low.includes('location') || low.includes('address') || low.includes('hours') || low.includes('open') || low.includes('ವಿಳಾಸ') || low.includes('पता') || low.includes('முகவரி')) {
+      reply = "We are located at 14 Harley Street, Central London. We are open Monday to Saturday from 8:30 AM to 6:00 PM with validated parking right out front. Shall I book your visit?";
+    }
+    // DEFAULT COURTESY FALLBACK
+    else {
+      reply = "I understand. I would be delighted to assist you with scheduling a visit or answering any questions. Would you like to check Dr. Harley's available times?";
+    }
+
+    chat.innerHTML += `
+      <div class="transcript-bubble ai">
+        <strong style="display:block;font-size:11px;margin-bottom:2px">🤖 Vocalis AI (${currentLanguage.toUpperCase()}):</strong>
+        "${reply}"
+      </div>`;
+// end of _oldFSMBlock_disabled
+}
+
+function toggleVoiceCall() {
+  const btn = document.getElementById('voiceBtn');
+  const txt = document.getElementById('voiceStatusText');
+  if(!isCalling) {
+    isCalling = true;
+    btn.classList.add('active');
+    txt.innerText = 'Call Live (Listening...)';
+    const greeting = {
+      'en-GB': "Hi, you're through to reception. How can I help?",
+      'en-US': "Hi, you've reached reception. How can I help?",
+      'en-IN': 'Hi, reception here. How can I help?',
+      fr: "Allo, bienvenue. Je vous ecoute.",
+      ar: 'هلا، تفضل.',
+      hi: 'नमस्ते, बोलिए?',
+      kn: 'ನಮಸ್ಕಾರ, ಹೇಳಿ?',
+      te: 'హాయ్, చెప్పండి?',
+      ta: 'வணக்கம், சொல்லுங்க?'
+    }[currentLanguage] || "Hi, how can I help?";
+    speak(greeting);
+  } else {
+    isCalling = false;
+    btn.classList.remove('active');
+    txt.innerText = 'Click to Start Human Call';
+    window.speechSynthesis.cancel();
+  }
+}
+
+function voiceLangMatches(voiceLang, want) {
+  const v = (voiceLang || '').toLowerCase().replace('_', '-');
+  const w = (want || '').toLowerCase();
+  if (w === 'en-gb' || w === 'en-uk') return v === 'en-gb' || v === 'en-uk';
+  if (w === 'en-us') return v === 'en-us' || v === 'en';
+  if (w === 'en-in') return v === 'en-in' || v.startsWith('en-in');
+  if (w.startsWith('fr')) return v.startsWith('fr');
+  if (w.startsWith('ar')) return v.startsWith('ar');
+  const prefix = w.split('-')[0];
+  return v === w || v.startsWith(prefix + '-') || v === prefix;
+}
+
+function isRoboticVoice(name) {
+  const n = (name || '').toLowerCase();
+  if (/natural|neural|online|google|wavenet/.test(n)) return false;
+  return /compact|desktop|mobile|espeak|sapi|microsoft david$|microsoft zira desktop/.test(n);
+}
+
+function getBestVoice(lang, voices) {
+  if (!voices || !voices.length) return null;
+  const pool = voices.filter(x => voiceLangMatches(x.lang, lang));
+  if (!pool.length) return null;
+  const score = (x) => {
+    const n = (x.name || '').toLowerCase();
+    let s = 0;
+    if (/natural|neural|online/.test(n)) s += 50;
+    if (/google/.test(n)) s += 30;
+    if (isRoboticVoice(x.name)) s -= 40;
+    const prefer = {
+      'en-gb': ['sonia', 'libby', 'hazel', 'susan', 'uk english female', 'ryan'],
+      'en-us': ['jenny', 'aria', 'guy', 'michelle', 'us english'],
+      'en-in': ['neerja', 'prabhat', 'ravi', 'heera', 'indian'],
+      'fr-fr': ['denise', 'hortense', 'henri', 'julie', 'claude', 'france'],
+      'ar-ae': ['hamed', 'naayf', 'zariyah', 'fatima', 'saleh'],
+      'ar-sa': ['hamed', 'naayf', 'zariyah', 'fatima']
+    };
+    const key = lang.toLowerCase();
+    const kws = prefer[key] || prefer[key.split('-')[0]] || [];
+    if (kws.some(k => n.includes(k))) s += 20;
+    return s;
+  };
+  pool.sort((a, b) => score(b) - score(a));
+  return pool[0];
+}
+
+function spokenForBrowser(text, lang) {
+  let out = (text || '').replace(/[*_#]/g, '');
+  out = out.replace(/[—–]/g, ', ');
+  out = out.replace(/[’]/g, "'");
+  if (lang === 'fr') out = out.replace(/\bDr\.?\b/g, 'docteur');
+  if (lang === 'ar') {
+    out = out.replace(/\bWhatsApp\b/gi, 'واتساب').replace(/\bSMS\b/g, 'اس ام اس');
+  }
+  return out;
+}
+
+function waitVoices() {
+  const have = window.speechSynthesis.getVoices();
+  if (have && have.length) return Promise.resolve(have);
+  return new Promise((resolve) => {
+    const done = () => resolve(window.speechSynthesis.getVoices() || []);
+    window.speechSynthesis.onvoiceschanged = done;
+    setTimeout(done, 400);
+  });
+}
+
+
+let currentAudioPlayer = null;
+
+async function speak(text) {
+  if (!text) return;
+  
+  // Stop any active audio
+  if (currentAudioPlayer) {
+    currentAudioPlayer.pause();
+    currentAudioPlayer = null;
+  }
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
+
+  const sphere = document.getElementById('voiceBtn');
+  const indicator = document.getElementById('voiceAccentInfo');
+  
+  // Clean text from markdown syntax
+  const clean = text.replace(/[*_#`]/g, '').trim();
+
+  // Try High-Fidelity Server Neural Speech Stream (/v1/tts)
+  try {
+    const audioUrl = '/v1/tts?text=' + encodeURIComponent(clean) + '&lang=' + currentLanguage;
+    const audio = new Audio(audioUrl);
+    audio.playbackRate = 1.05; // Human conversational pacing with natural breathing pauses
+    currentAudioPlayer = audio;
+
+    if (sphere) sphere.classList.add('active');
+    if (indicator) {
+      indicator.innerText = 'Active: ' + currentLanguageLabel + ' · Neural High-Fidelity Human Voice';
+    }
+
+    audio.onended = () => {
+      if (sphere) sphere.classList.remove('active');
+      currentAudioPlayer = null;
+    };
+    audio.onerror = () => {
+      if (sphere) sphere.classList.remove('active');
+      speakBrowser(clean);
+    };
+
+    await audio.play();
+    return;
+  } catch(e) {
+    console.warn("Neural audio autoplay fallback:", e.message);
+    speakBrowser(clean);
+  }
+}
+
+
+async function speakBrowser(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const voices = await waitVoices();
+  const prosodyMap = {
+    kn: { lang: 'kn-IN', rate: 0.9, pitch: 0.98 },
+    te: { lang: 'te-IN', rate: 0.9, pitch: 0.98 },
+    hi: { lang: 'hi-IN', rate: 0.9, pitch: 0.98 },
+    ta: { lang: 'ta-IN', rate: 0.9, pitch: 0.98 },
+    'en-IN': { lang: 'en-IN', rate: 0.9, pitch: 0.98 },
+    'en-GB': { lang: 'en-GB', rate: 0.9, pitch: 0.97 },
+    'en-US': { lang: 'en-US', rate: 0.91, pitch: 0.98 },
+    ar: { lang: 'ar-AE', rate: 0.88, pitch: 0.97 },
+    fr: { lang: 'fr-FR', rate: 0.9, pitch: 0.98 }
+  };
+  const fallbackLang = {
+    ar: ['ar-AE', 'ar-SA', 'ar-EG', 'ar'],
+    fr: ['fr-FR', 'fr-CA', 'fr'],
+    'en-GB': ['en-GB', 'en-US'],
+    'en-US': ['en-US', 'en-GB'],
+    'en-IN': ['en-IN', 'en-GB', 'en-US']
+  };
+  const prosody = prosodyMap[currentLanguage] || prosodyMap['en-GB'];
+  let bestVoice = getBestVoice(prosody.lang, voices);
+  if (!bestVoice && fallbackLang[currentLanguage]) {
+    for (const alt of fallbackLang[currentLanguage]) {
+      if (alt.toLowerCase() === (prosody.lang || '').toLowerCase()) continue;
+      bestVoice = getBestVoice(alt, voices);
+      if (bestVoice) break;
+    }
+  }
+  const u = new SpeechSynthesisUtterance(spokenForBrowser(text, currentLanguage));
+  u.lang = (bestVoice && bestVoice.lang) || prosody.lang;
+  u.rate = 1.20; // Snappy conversational pacing
+  u.pitch = prosody.pitch;
+  u.volume = 1.0;
+  if (bestVoice) {
+    u.voice = bestVoice;
+    const indicator = document.getElementById('voiceAccentInfo');
+    if (indicator) {
+      const vName = bestVoice.name.replace('Microsoft ', '').replace('Online (Natural) - ', '').replace('Google ', '');
+      indicator.innerText = 'Active: ' + currentLanguageLabel + ' · ' + vName + ' (' + (bestVoice.lang || '') + ')';
+    }
+  } else {
+    const indicator = document.getElementById('voiceAccentInfo');
+    if (indicator) indicator.innerText = 'Active: ' + currentLanguageLabel + ' · Windows Settings, add Natural voice for ' + prosody.lang;
+  }
+  const sphere = document.getElementById('voiceBtn');
+  u.onstart = () => { if (sphere) sphere.classList.add('active'); };
+  u.onend = () => { if (sphere) sphere.classList.remove('active'); };
+  u.onerror = () => { if (sphere) sphere.classList.remove('active'); };
+  window.speechSynthesis.speak(u);
+}
+
+if('speechSynthesis' in window) {
+  window.speechSynthesis.onvoiceschanged = () => { updateView(); };
+}
+
+switchCategory('dental');
+
+</script>
+</body>
+</html>

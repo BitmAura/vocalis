@@ -1,0 +1,38 @@
+{
+  "id": "TNT-005",
+  "businessName": "Gourmet Haven Italian Ristorante",
+  "industry": "restaurant",
+  "currency": "GBP",
+  "currencySymbol": "£",
+  "ownerName": "Chef Marco",
+  "personaName": "Marco",
+  "language": "en-GB",
+  "phone": "+44 20 7123 4567",
+  "doctorWhatsApp": "+44 7922 888999",
+  "city": "Covent Garden, London",
+  "address": "18 Floral Street, Covent Garden, London WC2E 9DS",
+  "workingHours": "Tue-Sun: 12:00 PM - 11:00 PM",
+  "emergencyAvailable": false,
+  "services": [
+    {
+      "name": "Dining Table Reservation",
+      "fee": "Complimentary",
+      "durationMin": 120
+    },
+    {
+      "name": "Chef Tasting Menu (5-Course)",
+      "fee": "£85 per person",
+      "durationMin": 120
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "question": "Do you offer gluten-free and vegan pasta options?",
+      "answer": "Yes! We make fresh homemade gluten-free pasta and have a dedicated vegan Italian menu curated by Chef Marco."
+    },
+    {
+      "question": "What is the dress code?",
+      "answer": "Our dress code is smart casual."
+    }
+  ]
+}

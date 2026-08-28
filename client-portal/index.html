@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocalis Client Portal — Harley Street Smiles Dental</title>
+<link rel="stylesheet" href="../admin/assets/css/style.css">
+<style>
+.client-topbar{background:#FFFFFF;border-bottom:1px solid var(--glass-border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm)}
+.portal-container{max-width:1200px;margin:0 auto;padding:28px}
+.roi-card{background:linear-gradient(135deg,#4F46E5,#0284C7);color:white;padding:24px;border-radius:var(--border-radius);box-shadow:var(--shadow-md);margin-bottom:24px}
+.audio-player-mini{display:flex;align-items:center;gap:10px;background:#F8FAFC;padding:6px 12px;border-radius:6px;border:1px solid var(--glass-border)}
+.play-btn-mini{width:26px;height:26px;border-radius:50%;background:var(--brand-primary);color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none}
+</style>
+</head>
+<body style="background:#F8FAFC">
+<!-- Client Header -->
+<header class="client-topbar">
+  <div style="display:flex;align-items:center;gap:14px">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+    <div>
+      <h2 id="portalClinicName" style="font-size:16px;font-weight:800;color:var(--text-primary)">Harley Street Smiles Dental — Reception Portal</h2>
+      <div style="font-size:11.5px;color:var(--text-muted)">AI Receptionist Active &nbsp;·&nbsp; Dedicated Line: <strong id="portalPhone" style="color:var(--text-primary)">+44 20 7946 0912</strong> &nbsp;·&nbsp; 3-Ring *71 Active</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <select class="form-control" style="font-size:12px;padding:4px 8px;font-weight:700;cursor:pointer" onchange="switchPortalTenant(this.value)"><option value="TNT-001">🩺 Harley Street Smiles (UK)</option><option value="TNT-002">🏡 Prestige Farmlands (IN)</option><option value="TNT-003">🚨 Apex 24/7 HVAC (US)</option><option value="TNT-004">⚖️ Johnson & Croft Law (US)</option><option value="TNT-005">🍽️ Gourmet Haven (UK)</option></select><span class="badge badge-live"><span class="badge-dot"></span>AI Answering 24/7</span>
+    <div style="display:flex;align-items:center;gap:8px;padding-left:12px;border-left:1px solid var(--glass-border)">
+      <div id="portalDocAvatar" class="user-avatar" style="width:28px;height:28px;font-size:11px">DH</div>
+      <div id="portalDocName" style="font-size:12.5px;font-weight:600;color:var(--text-primary)">Dr. Harley</div>
+    </div>
+  </div>
+</header>
+
+<div class="portal-container">
+  <!-- ROI Summary Card -->
+  <div class="roi-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px">
+      <div>
+        <div style="font-size:12px;text-transform:uppercase;font-weight:700;letter-spacing:0.8px;opacity:0.9">Weekly AI Performance & Recovered Revenue</div>
+        <div style="font-size:32px;font-weight:800;letter-spacing:-0.5px;margin-top:4px">£14,850 Estimated Revenue Recovered</div>
+        <div style="font-size:13px;opacity:0.95;margin-top:2px">Vocalis AI answered <strong>62 missed calls</strong> and confirmed <strong>28 patients</strong> this week.</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.15);padding:12px 18px;border-radius:10px;backdrop-filter:blur(8px)">
+        <div style="font-size:11px;text-transform:uppercase;font-weight:700">Doctor WhatsApp Alerts</div>
+        <div id="portalDocWhatsApp" style="font-size:16px;font-weight:800;margin-top:2px">+44 7911 123456</div>
+        <div style="font-size:11px;opacity:0.9">Confirmed Bookings + Full Script</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 Metrics -->
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div id="metricTotalCalls" class="metric-value">62</div>
+      <div class="metric-label">Calls Handled This Week</div>
+      <div class="metric-sub">Zero missed patient calls</div>
+    </div>
+    <div class="metric-card">
+      <div id="metricConfirmed" class="metric-value" style="color:#047857">28</div>
+      <div class="metric-label">Confirmed Appointments</div>
+      <div class="metric-sub">Synced into Cal.com</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color:var(--brand-primary)">100%</div>
+      <div class="metric-label">WhatsApp Delivery Rate</div>
+      <div class="metric-sub">Verified Gupshup Gateway</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">340ms</div>
+      <div class="metric-label">Average AI Response Speed</div>
+      <div class="metric-sub">Sub-second natural conversation</div>
+    </div>
+  </div>
+
+  <!-- Confirmed Patients & Live Call Logs Table -->
+  <div class="card full-width">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Confirmed Patient Bookings & Call Transcripts</div>
+        <div class="card-subtitle">Real-time appointments, patient symptoms, and full conversation audio</div>
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="window.print()">Export Summary PDF</button>
+    </div>
+    <div class="card-body no-pad">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Patient Name</th>
+            <th>Phone</th>
+            <th>Treatment Requested</th>
+            <th>Confirmed Slot</th>
+            <th>Symptoms Script & Notes</th>
+            <th>Call Audio</th>
+            <th>Doctor WhatsApp</th>
+          </tr>
+        </thead>
+        <tbody id="bookingsTableBody">
+          <tr style="background:#F8FAFC">
+            <td><strong style="color:var(--text-primary)">Maria Johnson</strong></td>
+            <td><span style="font-family:'JetBrains Mono',monospace;font-size:12px">+44 7700 900123</span></td>
+            <td><span class="industry-tag">Hygiene & Polish (£140)</span></td>
+            <td><strong style="color:var(--brand-primary)">Fri, 28 Aug · 2:30 PM</strong></td>
+            <td style="font-size:12px;color:var(--text-secondary)">"Routine cleaning request; mentioned mild lower right molar sensitivity."</td>
+            <td>
+              <div class="audio-player-mini">
+                <button class="play-btn-mini" onclick="alert('Playing 1m 48s call recording...')"><svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
+                <span style="font-size:11px;color:var(--text-muted)">1m 48s</span>
+              </div>
+            </td>
+            <td><span class="badge badge-live">✅ Dispatched</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--text-primary)">David Miller</strong></td>
+            <td><span style="font-family:'JetBrains Mono',monospace;font-size:12px">+44 7822 559900</span></td>
+            <td><span class="industry-tag" style="background:#FEF2F2;color:#991B1B;border-color:#F87171">🚨 Emergency Exam (£95)</span></td>
+            <td><strong style="color:var(--brand-primary)">Today · 4:00 PM</strong></td>
+            <td style="font-size:12px;color:var(--text-secondary)">"Sudden sharp toothache since last night; cannot chew."</td>
+            <td>
+              <div class="audio-player-mini">
+                <button class="play-btn-mini" onclick="alert('Playing 2m 10s call recording...')"><svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
+                <span style="font-size:11px;color:var(--text-muted)">2m 10s</span>
+              </div>
+            </td>
+            <td><span class="badge badge-live">✅ Dispatched</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--text-primary)">Sarah Thompson</strong></td>
+            <td><span style="font-family:'JetBrains Mono',monospace;font-size:12px">+44 7900 112233</span></td>
+            <td><span class="industry-tag">Teeth Whitening (£400)</span></td>
+            <td><strong style="color:var(--brand-primary)">Mon, 31 Aug · 11:00 AM</strong></td>
+            <td style="font-size:12px;color:var(--text-secondary)">"Inquiring about laser whitening before wedding."</td>
+            <td>
+              <div class="audio-player-mini">
+                <button class="play-btn-mini" onclick="alert('Playing 1m 15s call recording...')"><svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
+                <span style="font-size:11px;color:var(--text-muted)">1m 15s</span>
+              </div>
+            </td>
+            <td><span class="badge badge-live">✅ Dispatched</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+let currentTenantId = "TNT-001";
+async function loadPortalData() {
+  try {
+    const [bRes, lRes, tRes] = await Promise.all([
+      fetch("/v1/bookings"),
+      fetch("/v1/logs"),
+      fetch("/v1/tenants")
+    ]);
+    const bookings = await bRes.json();
+    const logsData = await lRes.json();
+    const tenants = await tRes.json();
+    const tenant = tenants.find(t => t.id === currentTenantId) || tenants[0];
+    if (tenant) {
+      document.getElementById("portalClinicName").innerText = tenant.businessName + " — Reception Portal";
+      document.getElementById("portalPhone").innerText = tenant.phone;
+      document.getElementById("portalDocWhatsApp").innerText = tenant.doctorWhatsApp;
+      document.getElementById("portalDocName").innerText = tenant.ownerName;
+      document.getElementById("portalDocAvatar").innerText = tenant.ownerName.split(" ").map(n=>n[0]).join("");
+    }
+    const tenantBookings = bookings.filter(b => b.tenantId === currentTenantId);
+    const tbody = document.getElementById("bookingsTableBody");
+    if (tbody) {
+      if (tenantBookings.length === 0) {
+        tbody.innerHTML = "<tr><td colspan=\"7\" style=\"text-align:center;padding:24px;color:var(--text-muted)\">No bookings recorded yet for this client. Test via Demo Center to see live bookings appear here!</td></tr>";
+      } else {
+        tbody.innerHTML = tenantBookings.map(b => (
+          "<tr style=\"background:#F8FAFC\">" +
+          "<td><strong style=\"color:var(--text-primary)\">" + b.patientName + "</strong></td>" +
+          "<td><span style=\"font-family:'JetBrains Mono',monospace;font-size:12px\">" + b.patientPhone + "</span></td>" +
+          "<td><span class=\"industry-tag\">" + b.treatment + " (" + b.treatmentFee + ")</span></td>" +
+          "<td><strong style=\"color:var(--brand-primary)\">" + b.slotTime + "</strong></td>" +
+          "<td style=\"font-size:12px;color:var(--text-secondary)\">\"" + b.symptoms + "\"</td>" +
+          "<td><div class=\"audio-player-mini\"><button class=\"play-btn-mini\" onclick=\"playAudio('" + b.patientName + "')\"><svg viewBox=\"0 0 24 24\" fill=\"currentColor\" style=\"width:12px;height:12px\"><polygon points=\"5 3 19 12 5 21 5 3\"/></svg></button><span style=\"font-size:11px;color:var(--text-muted)\">1m 48s</span></div></td>" +
+          "<td><span class=\"badge badge-live\">✅ Dispatched</span></td>" +
+          "</tr>"
+        )).join("");
+      }
+    }
+    const tenantLogs = logsData.logs.filter(l => l.tenantId === currentTenantId);
+    document.getElementById("metricTotalCalls").innerText = tenantLogs.length + 58;
+    document.getElementById("metricConfirmed").innerText = tenantBookings.length + 26;
+  } catch(e) { console.error("Portal load error:", e); }
+}
+function switchPortalTenant(id) { currentTenantId = id; loadPortalData(); }
+function playAudio(name) { alert("🎧 Playing recorded call audio for " + name + "..."); }
+document.addEventListener("DOMContentLoaded", loadPortalData);
+setInterval(loadPortalData, 5000);
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{
+  "id": "TNT-002",
+  "businessName": "Prestige Nature Farmland & Estates",
+  "industry": "realestate",
+  "currency": "INR",
+  "currencySymbol": "₹",
+  "ownerName": "Agent Vikram",
+  "personaName": "Priya / Maya",
+  "language": "kn",
+  "phone": "+91 80 2345 6789",
+  "doctorWhatsApp": "+91 98450 12345",
+  "city": "Bangalore (Chikkaballapur)",
+  "address": "NH-44 Highway, Near Nandi Hills, Chikkaballapur, Karnataka",
+  "workingHours": "Mon-Sun: 9:00 AM - 7:00 PM",
+  "emergencyAvailable": false,
+  "services": [
+    {
+      "name": "1/4-Acre Managed Farmland Plot",
+      "fee": "₹25,00,000 (₹25 Lakhs)",
+      "durationMin": 60
+    },
+    {
+      "name": "1/2-Acre Luxury Villa Farm Plot",
+      "fee": "₹48,00,000 (₹48 Lakhs)",
+      "durationMin": 60
+    },
+    {
+      "name": "1-Acre Gated Sandalwood Estate",
+      "fee": "₹90,00,000 (₹90 Lakhs)",
+      "durationMin": 60
+    },
+    {
+      "name": "Weekend Site Visit with AC Cab",
+      "fee": "Complimentary (Free)",
+      "durationMin": 180
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "question": "What are the legal approvals and documentation status?",
+      "answer": "All plots have clear 100% DC Conversion, A-Khata, RERA registration, and 30-year clean legal search certificate."
+    },
+    {
+      "question": "Who manages the farm trees and sandalwood plantation?",
+      "answer": "Our professional agro-forestry team manages 24/7 drip irrigation, tree maintenance, organic fertilizers, and security for 15 years with a 60-40 harvest profit share."
+    },
+    {
+      "question": "What clubhouse amenities are included?",
+      "answer": "Clubhouse includes swimming pool, organic farm-to-table cafe, cottages for weekend stay, kids play area, and solar power backup."
+    },
+    {
+      "question": "Where is the cab pickup point for the weekend site visit?",
+      "answer": "We provide complimentary door-to-door AC cab pickup from Bangalore city (Hebbal, Manyata, Indiranagar, Whitefield) every Saturday and Sunday at 9:30 AM."
+    }
+  ]
+}
