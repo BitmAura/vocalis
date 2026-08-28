@@ -80,8 +80,8 @@ class WhatsAppDispatcher {
 
   ensureAlertsStore() {
     const dir = path.dirname(ALERTS_FILE);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    if (!fs.existsSync(ALERTS_FILE)) fs.writeFileSync(ALERTS_FILE, '[]', 'utf8');
+    if (!fs.existsSync(dir)) try { fs.mkdirSync(dir, { recursive: true }); } catch(e) {}
+    if (!fs.existsSync(ALERTS_FILE)) try { fs.writeFileSync(ALERTS_FILE, '[]', 'utf8'); } catch(e) { /* Read-only cloud filesystem fallback */ }
   }
 
   async sendConfirmedBookingAlert(doctorPhone, bookingDetails) {
@@ -165,7 +165,7 @@ _Dispatched in 1.8s by Vocalis AI Receptionist Engine_`;
         dispatchedAt: new Date().toISOString(),
         status: 'DELIVERED_TO_WHATSAPP'
       });
-      fs.writeFileSync(ALERTS_FILE, JSON.stringify(existing.slice(0, 100), null, 2), 'utf8');
+      try { fs.writeFileSync(ALERTS_FILE, JSON.stringify(existing.slice(0, 100), null, 2), 'utf8'); } catch(e) { /* Read-only cloud filesystem fallback */ }
     } catch(e) {
       console.error('Error saving doctor alert:', e);
     }

@@ -575,6 +575,7 @@ const server = http.createServer(async (req, res) => {
 const { WebSocketServer } = require('ws');
 // attachMediaStreamServer is called after server.listen below
 
+if (!process.env.VERCEL) {
 server.listen(PORT, () => {
   console.log(`\n===========================================================`);
   console.log(`Ã°Å¸Å¡â‚¬ Vocalis AI Production Server Live at http://localhost:${PORT}`);
@@ -590,6 +591,7 @@ server.listen(PORT, () => {
   // Attach WebSocket server for Twilio Media Streams
   attachMediaStreamServer(server);
 });
+}
 
 
 module.exports = server;

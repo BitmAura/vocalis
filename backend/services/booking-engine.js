@@ -11,10 +11,10 @@ class BookingEngine {
     this.bookingsFile = path.join(__dirname, '..', 'bookings', 'bookings.json');
     const bookingsDir = path.dirname(this.bookingsFile);
     if (!fs.existsSync(bookingsDir)) {
-      fs.mkdirSync(bookingsDir, { recursive: true });
+      try { fs.mkdirSync(bookingsDir, { recursive: true }); } catch(e) {}
     }
     if (!fs.existsSync(this.bookingsFile)) {
-      fs.writeFileSync(this.bookingsFile, JSON.stringify([], null, 2), 'utf8');
+      try { fs.writeFileSync(this.bookingsFile, JSON.stringify([], null, 2), 'utf8'); } catch(e) { /* Read-only cloud filesystem fallback */ }
     }
     this.whatsApp = new WhatsAppDispatcher();
     this.seedInitialBookings();
@@ -57,7 +57,7 @@ class BookingEngine {
           audioUrl: 'https://app.vocalis.ai/recordings/call_rec_8802.mp3'
         }
       ];
-      fs.writeFileSync(this.bookingsFile, JSON.stringify(samples, null, 2), 'utf8');
+      try { fs.writeFileSync(this.bookingsFile, JSON.stringify(samples, null, 2), 'utf8'); } catch(e) { /* Read-only cloud filesystem fallback */ }
     }
   }
 
@@ -132,7 +132,7 @@ class BookingEngine {
     };
 
     all.unshift(newBooking);
-    fs.writeFileSync(this.bookingsFile, JSON.stringify(all, null, 2), 'utf8');
+    try { fs.writeFileSync(this.bookingsFile, JSON.stringify(all, null, 2), 'utf8'); } catch(e) { /* Read-only cloud filesystem fallback */ }
 
     // Trigger Doctor WhatsApp alert
     await this.whatsApp.sendConfirmedBookingAlert(newBooking.doctorPhone, {

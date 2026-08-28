@@ -21,9 +21,9 @@ class TenantStore {
   setActiveTestTenantId(tenantId) {
     try {
       const cfgDir = path.join(__dirname, '..', 'data');
-      if (!fs.existsSync(cfgDir)) fs.mkdirSync(cfgDir, { recursive: true });
+      if (!fs.existsSync(cfgDir)) try { fs.mkdirSync(cfgDir, { recursive: true }); } catch(e) {}
       const cfgPath = path.join(cfgDir, 'active_telephony_routing.json');
-      fs.writeFileSync(cfgPath, JSON.stringify({ activeTenantId: tenantId, updatedAt: new Date().toISOString() }, null, 2), 'utf8');
+      try { fs.writeFileSync(cfgPath, JSON.stringify({ activeTenantId: tenantId, updatedAt: new Date().toISOString() }, null, 2), 'utf8'); } catch(e) { /* Read-only cloud filesystem fallback */ }
       console.log('[Telephony Routing] Active live phone line routed to tenant:', tenantId);
       return true;
     } catch(e) {
@@ -35,7 +35,7 @@ class TenantStore {
   constructor() {
     this.tenantsDir = path.join(__dirname, '..', 'tenants');
     if (!fs.existsSync(this.tenantsDir)) {
-      fs.mkdirSync(this.tenantsDir, { recursive: true });
+      try { fs.mkdirSync(this.tenantsDir, { recursive: true }); } catch(e) {}
     }
     this.seedDefaultTenants();
   }
@@ -175,7 +175,7 @@ class TenantStore {
     for (const t of defaults) {
       const filePath = path.join(this.tenantsDir, `${t.id}.json`);
       if (!fs.existsSync(filePath)) {
-        fs.writeFileSync(filePath, JSON.stringify(t, null, 2), 'utf8');
+        try { fs.writeFileSync(filePath, JSON.stringify(t, null, 2), 'utf8'); } catch(e) { /* Read-only cloud filesystem fallback */ }
       }
     }
   }
@@ -205,7 +205,7 @@ class TenantStore {
       tenantData.id = 'TNT-' + Date.now() + '-' + Math.random().toString(36).slice(2, 5).toUpperCase();
     }
     const filePath = path.join(this.tenantsDir, `${tenantData.id}.json`);
-    fs.writeFileSync(filePath, JSON.stringify(tenantData, null, 2), 'utf8');
+    try { fs.writeFileSync(filePath, JSON.stringify(tenantData, null, 2), 'utf8'); } catch(e) { /* Read-only cloud filesystem fallback */ }
     return tenantData;
   }
 

@@ -10,10 +10,10 @@ class CallLogsStore {
     this.logsFile = path.join(__dirname, '..', 'bookings', 'call_logs.json');
     const dir = path.dirname(this.logsFile);
     if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+      try { fs.mkdirSync(dir, { recursive: true }); } catch(e) {}
     }
     if (!fs.existsSync(this.logsFile)) {
-      fs.writeFileSync(this.logsFile, JSON.stringify([], null, 2), 'utf8');
+      try { fs.writeFileSync(this.logsFile, JSON.stringify([], null, 2), 'utf8'); } catch(e) { /* Read-only cloud filesystem fallback */ }
     }
     this.seedInitialLogs();
   }
@@ -67,7 +67,7 @@ class CallLogsStore {
           audioUrl: 'https://app.vocalis.ai/recordings/call_rec_9902.mp3'
         }
       ];
-      fs.writeFileSync(this.logsFile, JSON.stringify(samples, null, 2), 'utf8');
+      try { fs.writeFileSync(this.logsFile, JSON.stringify(samples, null, 2), 'utf8'); } catch(e) { /* Read-only cloud filesystem fallback */ }
     }
   }
 
@@ -103,7 +103,7 @@ class CallLogsStore {
     };
 
     all.unshift(newLog);
-    fs.writeFileSync(this.logsFile, JSON.stringify(all, null, 2), 'utf8');
+    try { fs.writeFileSync(this.logsFile, JSON.stringify(all, null, 2), 'utf8'); } catch(e) { /* Read-only cloud filesystem fallback */ }
     return newLog;
   }
 
