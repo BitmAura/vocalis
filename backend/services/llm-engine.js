@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Vocalis AI — Top 0.1% Human Voice Intelligence Engine
  * Enterprise Multi-LLM Orchestrator with Human Speech Prosody, Micro-Fillers & Dynamic Empathy
  */

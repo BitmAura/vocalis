@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Vocalis AI — Instant Missed-Call & Ad Auto-Callback Engine
  * Feature:
  * 1. Meta / Google Ad Click-to-Call: Inbound pickup in < 2 seconds

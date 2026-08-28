@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Vocalis AI — Phase 5: Call Recording Manager
  * Stores Twilio recordings and generates shareable URLs
  * Supports: Local disk storage (dev) + Cloudflare R2 / AWS S3 (production)

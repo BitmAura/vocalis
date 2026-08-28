@@ -1,5 +1,5 @@
-﻿require('dotenv').config({ path: __dirname + '/.env' });
-ï»¿const http = require('http');
+require('dotenv').config({ path: __dirname + '/.env' });
+const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const { handleInboundCall } = require('./routes/telephony');

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Vocalis AI — Real Calendar & Slot Booking Engine (Pillar 3)
  * Manages appointment availability, conflict prevention, and confirmed booking records.
  */

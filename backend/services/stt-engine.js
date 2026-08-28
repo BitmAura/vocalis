@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Vocalis AI — Phase 5: Deepgram Real-Time STT Engine
  * Sub-300ms streaming transcription for inbound phone calls
  * Supports all 7 languages: Kannada, Hindi, Telugu, Tamil, English (GB/US), Arabic

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Vocalis AI — Live Call Logs & Analytics Engine (Pillar 4)
  * Stores full call transcripts, audio waveform recordings, patient sentiment, and revenue recovered.
  */

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Vocalis AI — Enterprise Inbound Telephony Engine
  * Handles live phone calls via Twilio with real-time Speech Recognition,
  * LLM Neural Dialogue, Appointment Booking & Dual-Channel Recording.

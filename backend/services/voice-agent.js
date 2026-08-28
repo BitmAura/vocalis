@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Voice session — tenant + language aware, no hardcoded Maria Johnson.
  */
 const dialog = require('./dialog-engine');

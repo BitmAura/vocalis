@@ -1,5 +1,5 @@
 const whatsAppDispatcher = require('../services/whatsapp-dispatcher');
-﻿/**
+/**
  * Vocalis chat API — LLM first, multilingual dialog-engine fallback.
  */
 const llm = require('../services/llm-engine');

@@ -1,4 +1,4 @@
-﻿const http = require('http');
+const http = require('http');
 
 function request(method, path, body = null) {
   return new Promise((resolve, reject) => {

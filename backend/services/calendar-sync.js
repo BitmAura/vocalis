@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Vocalis AI — Cal.com & Google Calendar Integration Service
  * Fetches available booking slots in real-time and books appointments via Voice
  */

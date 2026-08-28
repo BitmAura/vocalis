@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Vocalis AI — Phase 5: Twilio Media Streams WebSocket Handler
  * 
  * Flow:

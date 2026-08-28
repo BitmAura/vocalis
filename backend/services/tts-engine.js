@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Vocalis AI — Phase 5: TTS Engine
  * ElevenLabs for natural Indian + British voices (primary)
  * Google Cloud TTS as fallback for Indian regional languages

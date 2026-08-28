@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Vocalis AI — Multi-Tenant Store & Knowledge Base Engine (Pillar 1 & 2)
  * Manages tenant JSON configurations, custom business rules, and FAQ knowledge bases.
  */
