@@ -41,7 +41,6 @@ class TenantStore {
   }
 
   seedDefaultTenants() {
-    this.defaultTenantsList = defaults;
     const defaults = [
       {
         id: 'TNT-001',
@@ -173,6 +172,7 @@ class TenantStore {
       }
     ];
 
+    this.defaultTenantsList = defaults;
     for (const t of defaults) {
       const filePath = path.join(this.tenantsDir, `${t.id}.json`);
       if (!fs.existsSync(filePath)) {
