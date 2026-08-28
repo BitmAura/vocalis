@@ -41,6 +41,7 @@ class TenantStore {
   }
 
   seedDefaultTenants() {
+    this.defaultTenantsList = defaults;
     const defaults = [
       {
         id: 'TNT-001',
@@ -182,12 +183,16 @@ class TenantStore {
 
   getAllTenants() {
     try {
-      const files = fs.readdirSync(this.tenantsDir).filter(f => f.endsWith('.json'));
-      return files.map(f => JSON.parse(fs.readFileSync(path.join(this.tenantsDir, f), 'utf8')));
+      if (fs.existsSync(this.tenantsDir)) {
+        const files = fs.readdirSync(this.tenantsDir).filter(f => f.endsWith('.json'));
+        if (files.length > 0) {
+          return files.map(f => JSON.parse(fs.readFileSync(path.join(this.tenantsDir, f), 'utf8')));
+        }
+      }
     } catch (e) {
-      console.error('[TenantStore] Read error:', e);
-      return [];
+      console.warn('[TenantStore] Using memory store:', e.message);
     }
+    return this.defaultTenantsList || [];
   }
 
   getTenantById(id) {
@@ -197,7 +202,22 @@ class TenantStore {
     }
     // Fallback: search by industry or return first
     const all = this.getAllTenants();
-    return all.find(t => t.industry === id || t.id === id) || all[0];
+    const found = all.find(t => t.industry === id || t.id === id);
+    if (found) return found;
+    if (this.defaultTenantsList && this.defaultTenantsList.length > 0) {
+      return this.defaultTenantsList.find(t => t.industry === id || t.id === id) || this.defaultTenantsList[0];
+    }
+    return {
+      id: 'TNT-001',
+      businessName: 'Harley Street Smiles Dental',
+      ownerName: 'Dr. Harley',
+      industry: 'dental',
+      personaName: 'Clara',
+      language: 'en-GB',
+      doctorPhone: '+44 7911 123456',
+      city: 'London',
+      services: [{ name: 'Comprehensive Hygiene', fee: '£140', durationMin: 45 }]
+    };
   }
 
   saveTenant(tenantData) {
