@@ -211,8 +211,11 @@ class MultiLLMOrchestrator {
 
     if (this.openRouterKey) {
       try {
-        const reply = await this.callOpenRouter(userMessage, config, history);
-        if (reply) return { reply, source: 'openrouter_gpt4o_mini', model: 'openai/gpt-4o-mini' };
+        let reply = await this.callOpenRouter(userMessage, config, history);
+        if (reply) {
+          reply = reply.replace(/[_*#`~]/g, '').trim();
+          return { reply, source: 'openrouter_gpt4o_mini', model: 'openai/gpt-4o-mini' };
+        }
       } catch (e) {
         console.error('[OpenRouter Error]:', e.message);
       }
@@ -220,8 +223,11 @@ class MultiLLMOrchestrator {
 
     if (this.geminiKey) {
       try {
-        const reply = await this.callGemini(userMessage, config, history);
-        if (reply) return { reply, source: 'gemini', model: 'gemini-1.5-flash' };
+        let reply = await this.callGemini(userMessage, config, history);
+        if (reply) {
+          reply = reply.replace(/[_*#`~]/g, '').trim();
+          return { reply, source: 'gemini', model: 'gemini-1.5-flash' };
+        }
       } catch (e) {
         console.error('[Gemini Error]:', e.message);
       }

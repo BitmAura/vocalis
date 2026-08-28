@@ -1,5 +1,17 @@
 [
   {
+    "id": "WA-1787900344834",
+    "doctorPhone": "+44 7911 123456",
+    "clinicName": "Harley Street Smiles Dental",
+    "patientName": "Pradeep",
+    "slotTime": "Tomorrow at 12:30 PM",
+    "treatment": "Dental Appointment",
+    "treatmentFee": "£140",
+    "messageText": "🔔 *VOCALIS AI: NEW CONFIRMED APPOINTMENT*\n*Business:* Harley Street Smiles Dental\n\n*👤 Patient/Lead:* Pradeep\n*📱 Phone:* +919845012345\n*🩺 Service:* Dental Appointment (£140)\n*📅 Confirmed Time:* Tomorrow at 12:30 PM\n*🌐 Language:* English (UK)\n\n----------------------------------------\n*📝 Conversation Summary & Notes:*\n\"Direct cellular phone call from +919845012345. Confirmed for Tomorrow at 12:30 PM.\"\n\n*💬 Full Dialogue Transcript:*\n👤 Pradeep: \"Hi Clara, I have a bad toothache. Can I book tomorrow at 12:30 PM? My name is Pradeep.\"\n🤖 AI: \"I'm so sorry to hear about your toothache, Pradeep! Certainly! Your appointment with Dr. Harley is confirmed for tomorrow at 12:30 PM. A confirmation SMS has been sent to you, and the doctor has been notified via WhatsApp.\"\n\n*🗓️ Add to Doctor Calendar:*\nhttps://calendar.google.com/calendar/render?action=TEMPLATE&text=Dental%20Appointment%20-%20Pradeep&details=Vocalis%20AI%20Booking%20for%20Pradeep%20(%2B919845012345)%0ATreatment%3A%20Dental%20Appointment%20(undefined)\n\n*🎧 Listen to Call Recording:*\n/assets/recordings/live_call.mp3\n----------------------------------------\n_Dispatched in 1.8s by Vocalis AI Receptionist Engine_",
+    "dispatchedAt": "2026-08-28T06:59:04.834Z",
+    "status": "DELIVERED_TO_WHATSAPP"
+  },
+  {
     "id": "WA-1787855428631",
     "doctorPhone": "+44 7911 123456",
     "clinicName": "Harley Street Smiles Dental",

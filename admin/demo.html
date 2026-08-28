@@ -479,32 +479,32 @@ function toggleMicrophoneInput() {
   let accumulatedTranscript = '';
 
   recognition.onresult = (event) => {
-    stopActiveAISpeech();
-
-    let interim = '';
-    for (let i = event.resultIndex; i < event.results.length; ++i) {
-      if (event.results[i].isFinal) {
-        accumulatedTranscript += ' ' + event.results[i][0].transcript;
-      } else {
-        interim += event.results[i][0].transcript;
-      }
+    // 🛡️ ANTI-ECHO PROTECTION: Ignore microphone input while AI is speaking over speakers
+    if (isAISpeaking) {
+      return;
     }
 
-    const currentText = (accumulatedTranscript + ' ' + interim).trim();
-    if (currentText) {
-      document.getElementById('userInput').value = currentText;
+    let fullSentence = '';
+    for (let i = 0; i < event.results.length; ++i) {
+      fullSentence += event.results[i][0].transcript + ' ';
+    }
+    fullSentence = fullSentence.trim();
+
+    if (fullSentence) {
+      document.getElementById('userInput').value = fullSentence;
     }
 
-    // ⚡ ADAPTIVE SILENCE DEBOUNCE (850ms window):
-    // Allows the caller to speak dense, continuous sentences without being cut off by micro-breathing pauses!
+    // ⚡ NATURAL CONVERSATIONAL SILENCE THRESHOLD (1500ms):
+    // Gives callers plenty of time to formulate dense multi-word thoughts without premature cut-offs
     if (speechDebounceTimer) clearTimeout(speechDebounceTimer);
     speechDebounceTimer = setTimeout(() => {
       const finalMsg = document.getElementById('userInput').value.trim();
-      if (finalMsg && isListeningMic) {
-        accumulatedTranscript = '';
+      if (finalMsg && isListeningMic && !isAISpeaking) {
+        // Reset recognition buffer for fresh next turn
+        try { recognition.stop(); } catch(e) {}
         sendMessage();
       }
-    }, 850);
+    }, 1500);
   };
 
   recognition.onerror = (event) => {
@@ -930,6 +930,7 @@ function waitVoices() {
 
 
 let currentAudioPlayer = null;
+let isAISpeaking = false;
 
 async function speak(text) {
   if (!text) return;
@@ -957,15 +958,18 @@ async function speak(text) {
     currentAudioPlayer = audio;
 
     if (sphere) sphere.classList.add('active');
+    isAISpeaking = true;
     if (indicator) {
       indicator.innerText = 'Active: ' + currentLanguageLabel + ' · Neural High-Fidelity Human Voice';
     }
 
     audio.onended = () => {
+      isAISpeaking = false;
       if (sphere) sphere.classList.remove('active');
       currentAudioPlayer = null;
     };
     audio.onerror = () => {
+      isAISpeaking = false;
       if (sphere) sphere.classList.remove('active');
       speakBrowser(clean);
     };
@@ -1027,9 +1031,9 @@ async function speakBrowser(text) {
     if (indicator) indicator.innerText = 'Active: ' + currentLanguageLabel + ' · Windows Settings, add Natural voice for ' + prosody.lang;
   }
   const sphere = document.getElementById('voiceBtn');
-  u.onstart = () => { if (sphere) sphere.classList.add('active'); };
-  u.onend = () => { if (sphere) sphere.classList.remove('active'); };
-  u.onerror = () => { if (sphere) sphere.classList.remove('active'); };
+  u.onstart = () => { isAISpeaking = true; if (sphere) sphere.classList.add('active'); };
+  u.onend = () => { isAISpeaking = false; if (sphere) sphere.classList.remove('active'); };
+  u.onerror = () => { isAISpeaking = false; if (sphere) sphere.classList.remove('active'); };
   window.speechSynthesis.speak(u);
 }
 
