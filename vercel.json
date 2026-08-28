@@ -1,8 +1,20 @@
 ﻿{
   "rewrites": [
     {
-      "source": "/v1/(.*)",
-      "destination": "/api/index"
+      "source": "/v1/chat",
+      "destination": "/api/chat"
+    },
+    {
+      "source": "/v1/telephony/inbound",
+      "destination": "/api/telephony"
+    },
+    {
+      "source": "/v1/tenants",
+      "destination": "/api/tenants"
+    },
+    {
+      "source": "/v1/bookings",
+      "destination": "/api/bookings"
     },
     {
       "source": "/assets/(.*)",
@@ -19,10 +31,6 @@
     {
       "source": "/",
       "destination": "/admin/index.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/api/index"
     }
   ]
 }
