@@ -11,13 +11,14 @@ const bookingEngine = require('../services/booking-engine');
 const callHistories = new Map(); // CallSid -> { history, tenant, lang, callerName }
 
 const VOICE_MAP = {
-  'en-GB': { voice: 'Google.en-GB-Neural2-C', lang: 'en-GB' },
-  'en-US': { voice: 'Google.en-US-Neural2-H', lang: 'en-US' },
-  'kn':    { voice: 'Google.kn-IN-Wavenet-A', lang: 'kn-IN' },
-  'te':    { voice: 'Google.te-IN-Standard-A', lang: 'te-IN' },
-  'ta':    { voice: 'Google.ta-IN-Wavenet-A', lang: 'ta-IN' },
-  'hi':    { voice: 'Google.hi-IN-Wavenet-A', lang: 'hi-IN' },
-  'ar':    { voice: 'Google.ar-XA-Wavenet-A', lang: 'ar-XA' }
+  'en-GB': { voice: 'Google.en-GB-Neural2-F', lang: 'en-GB', prosodyRate: '1.03', prosodyPitch: '+1%' },
+  'en-US': { voice: 'Google.en-US-Neural2-F', lang: 'en-US', prosodyRate: '1.02', prosodyPitch: '+0%' },
+  'en-IN': { voice: 'Google.en-IN-Neural2-A', lang: 'en-IN', prosodyRate: '1.02', prosodyPitch: '+1%' },
+  'kn':    { voice: 'Google.kn-IN-Wavenet-A', lang: 'kn-IN', prosodyRate: '1.02', prosodyPitch: '+0%' },
+  'te':    { voice: 'Google.te-IN-Standard-A', lang: 'te-IN', prosodyRate: '1.02', prosodyPitch: '+0%' },
+  'ta':    { voice: 'Google.ta-IN-Wavenet-A', lang: 'ta-IN', prosodyRate: '1.02', prosodyPitch: '+0%' },
+  'hi':    { voice: 'Google.hi-IN-Neural2-D', lang: 'hi-IN', prosodyRate: '1.02', prosodyPitch: '+0%' },
+  'ar':    { voice: 'Google.ar-XA-Wavenet-A', lang: 'ar-XA', prosodyRate: '1.00', prosodyPitch: '+0%' }
 };
 
 async function handleInboundCall(reqBody) {
@@ -164,13 +165,16 @@ function inboundActionUrl() {
 
 function twimlSayGather(vConfig, text) {
   const action = inboundActionUrl();
+  const rate = vConfig.prosodyRate || '1.02';
+  const pitch = vConfig.prosodyPitch || '+0%';
+  
   return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say voice="${vConfig.voice}" language="${vConfig.lang}">${escapeXml(text)}</Say>
-  <Gather input="speech" action="${escapeXml(action)}" method="POST" speechTimeout="auto" speechModel="phone_call" enhanced="true" language="${vConfig.lang}">
+  <Gather input="speech" action="${escapeXml(action)}" method="POST" speechTimeout="auto" speechModel="phone_call" enhanced="true" language="${vConfig.lang}" bargeIn="true">
+    <Say voice="${vConfig.voice}" language="${vConfig.lang}"><prosody rate="${rate}" pitch="${pitch}">${escapeXml(text)}</prosody></Say>
   </Gather>
-  <Say voice="${vConfig.voice}" language="${vConfig.lang}">I am still on the line. Are you looking to book an appointment with Dr. Harley?</Say>
-  <Gather input="speech" action="${escapeXml(action)}" method="POST" speechTimeout="auto" speechModel="phone_call" enhanced="true" language="${vConfig.lang}">
+  <Gather input="speech" action="${escapeXml(action)}" method="POST" speechTimeout="auto" speechModel="phone_call" enhanced="true" language="${vConfig.lang}" bargeIn="true">
+    <Say voice="${vConfig.voice}" language="${vConfig.lang}"><prosody rate="${rate}">I am still with you! Are you looking to book an appointment?</prosody></Say>
   </Gather>
   <Hangup />
 </Response>`;
