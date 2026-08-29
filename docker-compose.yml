@@ -1,9 +1,9 @@
-version: '3.8'
-
 services:
   # 1. Main Vocalis Voice & Telephony Engine
   app:
     build: .
+    env_file:
+      - .env
     container_name: vocalis-app
     restart: unless-stopped
     ports:
@@ -27,6 +27,8 @@ services:
   # 2. Dedicated Background Worker
   worker:
     build: .
+    env_file:
+      - .env
     container_name: vocalis-worker
     restart: unless-stopped
     command: ["node", "backend/workers/index.js"]
