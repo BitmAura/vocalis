@@ -1,7 +1,7 @@
-FROM node:20-slim
+FROM node:20-alpine
 
 # Install system dependencies for audio streaming and codecs
-RUN apt-get update && apt-get install -y --no-install-recommends     ffmpeg     curl     ca-certificates     && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache ffmpeg curl ca-certificates
 
 WORKDIR /app
 
@@ -20,6 +20,7 @@ ENV NODE_ENV=production
 
 EXPOSE 3300
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3   CMD curl -f http://localhost:3300/v1/llm/status || exit 1
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3300/v1/llm/status || exit 1
 
 CMD ["node", "backend/server.js"]
