@@ -229,7 +229,7 @@ class MultiLLMOrchestrator {
         let reply = await this.callOpenRouter(userMessage, config, history);
         if (reply) {
           reply = reply.replace(/[_*#`~]/g, '').trim();
-          return { reply, source: 'openrouter_gpt4o_mini', model: 'openai/gpt-4o-mini' };
+          return { reply, source: 'openrouter_gpt4o_mini', model: 'google/gemini-2.5-flash' };
         }
       } catch (e) {
         console.error('[OpenRouter Error]:', e.message);
@@ -260,7 +260,7 @@ class MultiLLMOrchestrator {
     messages.push({ role: 'user', content: userMessage });
 
     const body = JSON.stringify({
-      model: 'openai/gpt-4o-mini',
+      model: 'google/gemini-2.5-flash',
       messages,
       temperature: 0.65,
       max_tokens: 65
