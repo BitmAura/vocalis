@@ -143,7 +143,7 @@ async function handleInboundCall(reqBody) {
 }
 
 function inboundActionUrl() {
-  const base = (process.env.PUBLIC_BASE_URL || '').replace(/\/$/, '');
+  const base = (require('../services/integrations').appBaseUrl() || '').replace(/\/$/, '');
   return (base || '') + '/v1/telephony/inbound';
 }
 

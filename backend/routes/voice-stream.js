@@ -252,7 +252,7 @@ function generateMediaStreamTwiML(config) {
     doctorPhone: config.doctorPhone || ''
   }).map(([k, v]) => `<Parameter name="${k}" value="${v}"/>`).join('');
 
-  const publicHttp = (process.env.PUBLIC_BASE_URL || process.env.PUBLIC_SERVER_URL || '').replace(/\/$/, '');
+  const publicHttp = (require('../services/integrations').appBaseUrl() || process.env.PUBLIC_SERVER_URL || '').replace(/\/$/, '');
   const serverUrl = publicHttp.replace(/^https:/, 'wss:').replace(/^http:/, 'ws:') || 'wss://your-server.com';
 
   return `<?xml version="1.0" encoding="UTF-8"?>

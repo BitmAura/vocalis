@@ -1,11 +1,11 @@
 const { request } = require('./https-request');
+const { appBaseUrl } = require('./integrations');
 
 class OutboundAutoCallEngine {
   constructor() {
     this.twilioSid = process.env.TWILIO_ACCOUNT_SID || '';
     this.twilioToken = process.env.TWILIO_AUTH_TOKEN || '';
     this.twilioFrom = process.env.TWILIO_PHONE_NUMBER || '';
-    this.statusCallback = process.env.PUBLIC_BASE_URL || '';
   }
 
   async triggerMissedCallCallback(leadData) {
@@ -21,12 +21,12 @@ class OutboundAutoCallEngine {
         adSource: leadData.adSource || null
       };
     }
-    const base = (this.statusCallback || '').replace(/\/$/, '');
+    const base = appBaseUrl();
     if (!base.startsWith('https://')) {
       return {
         success: false,
         status: 'PUBLIC_BASE_URL_REQUIRED',
-        reason: 'Twilio outbound needs PUBLIC_BASE_URL (https) pointing at this server',
+        reason: 'Set VOCALIS_BASE_URL (or PUBLIC_BASE_URL as Config, not Secret) to https://vocalis-sigma-lake.vercel.app',
         leadPhone
       };
     }

@@ -13,8 +13,19 @@ function configured() {
     elevenLabs: !!process.env.ELEVENLABS_API_KEY,
     stripe: !!process.env.STRIPE_SECRET_KEY,
     vercel: !!process.env.VERCEL,
-    adminKeySet: !!process.env.ADMIN_API_KEY
+    adminKeySet: !!process.env.ADMIN_API_KEY,
+    publicBase: !!appBaseUrl()
   };
 }
 
-module.exports = { configured };
+function appBaseUrl() {
+  return String(
+    process.env.VOCALIS_BASE_URL ||
+    process.env.APP_BASE_URL ||
+    process.env.PUBLIC_BASE_URL ||
+    process.env.PUBLIC_SERVER_URL ||
+    ''
+  ).replace(/\/$/, '');
+}
+
+module.exports = { configured, appBaseUrl };
