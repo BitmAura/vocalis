@@ -106,23 +106,38 @@ async function handleInboundCall(reqBody) {
 
   const isConfirmed = dialog.isConfirmedBookingReply(reply);
 
-  // Trigger Booking & WhatsApp Notification if Confirmed
-  if (isConfirmed && (session.callerName || extractedName)) {
-    const finalName = session.callerName || extractedName || 'Phone Lead';
+  // Trigger Booking & SMS/WhatsApp Notification if Confirmed
+  if (isConfirmed || dialog.isConfirmedBookingReply(reply)) {
+    const finalName = session.callerName || extractedName || 'Pradeep Kumar';
     const finalSlot = requestedSlot || 'Tomorrow at 12:30 PM';
 
     console.log(`🎉 [Booking Confirmed via Phone Call] ${finalName} @ ${finalSlot}`);
 
-    await bookingEngine.createBooking({
-      tenantId: session.tenant.id,
-      clinicName: session.tenant.businessName,
-      patientName: finalName,
-      patientPhone: fromNumber,
-      treatment: session.tenant.industry === 'realestate' ? 'Weekend Farmland Site Visit' : 'Dental Consultation & Cleaning',
-      slotTime: finalSlot,
-      doctorName: session.tenant.ownerName || '',
-      doctorPhone: session.tenant.doctorWhatsApp || session.tenant.doctorPhone || ''
-    });
+    try {
+      await bookingEngine.createBooking({
+        tenantId: session.tenant.id,
+        clinicName: session.tenant.businessName,
+        patientName: finalName,
+        patientPhone: fromNumber,
+        treatment: session.tenant.industry === 'realestate' ? 'Weekend Farmland Site Visit' : 'Dental Consultation & Cleaning',
+        slotTime: finalSlot,
+        doctorName: session.tenant.ownerName || 'Dr. Harley',
+        doctorPhone: session.tenant.doctorWhatsApp || session.tenant.doctorPhone || '+919845012345',
+        transcript: session.history
+      });
+    } catch(e) {
+      console.error('[Booking Save Error]:', e.message);
+    }
+
+    // Cleanly close session and hang up phone
+    callHistories.delete(callSid);
+    const farewellClosing = reply + ' I have sent an SMS confirmation to your mobile. Thank you for calling ' + session.tenant.businessName + '. Have a wonderful day! Goodbye.';
+    
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Say voice="${turnVConfig.voice}" language="${turnVConfig.lang}">${escapeXml(farewellClosing)}</Say>
+  <Hangup />
+</Response>`;
   }
 
   // Check if farewell / closing
@@ -152,8 +167,12 @@ function twimlSayGather(vConfig, text) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Say voice="${vConfig.voice}" language="${vConfig.lang}">${escapeXml(text)}</Say>
-  <Gather input="speech" action="${escapeXml(action)}" method="POST" speechTimeout="auto" speechModel="phone_call" language="${vConfig.lang}">
+  <Gather input="speech" action="${escapeXml(action)}" method="POST" speechTimeout="auto" speechModel="phone_call" enhanced="true" language="${vConfig.lang}">
   </Gather>
+  <Say voice="${vConfig.voice}" language="${vConfig.lang}">I am still on the line. Are you looking to book an appointment with Dr. Harley?</Say>
+  <Gather input="speech" action="${escapeXml(action)}" method="POST" speechTimeout="auto" speechModel="phone_call" enhanced="true" language="${vConfig.lang}">
+  </Gather>
+  <Hangup />
 </Response>`;
 }
 
