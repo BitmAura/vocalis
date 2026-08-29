@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # 1. Main Vocalis Voice & Telephony Engine
+  app:
+    build: .
+    container_name: vocalis-app
+    restart: unless-stopped
+    ports:
+      - "3300:3300"
+    environment:
+      - PORT=3300
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - ./backend/data:/app/backend/data
+      - ./models:/app/models
+      - ./recordings:/app/recordings
+    depends_on:
+      - redis
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
+
+  # 2. Dedicated Background Worker
+  worker:
+    build: .
+    container_name: vocalis-worker
+    restart: unless-stopped
+    command: ["node", "backend/workers/index.js"]
+    environment:
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - ./backend/data:/app/backend/data
+      - ./recordings:/app/recordings
+    depends_on:
+      - redis
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
+
+  # 3. High-Speed Task Queue (Redis)
+  redis:
+    image: redis:7-alpine
+    container_name: vocalis-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "2"
+
+volumes:
+  redis-data:
