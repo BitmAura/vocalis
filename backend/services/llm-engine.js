@@ -269,7 +269,7 @@ class MultiLLMOrchestrator {
       model: 'google/gemini-2.5-flash',
       messages,
       temperature: 0.65,
-      max_tokens: 65
+      max_tokens: 100
     });
 
     return new Promise((resolve) => {
@@ -314,7 +314,7 @@ class MultiLLMOrchestrator {
     const body = JSON.stringify({
       system_instruction: { parts: [{ text: systemPrompt }] },
       contents,
-      generationConfig: { temperature: 0.65, maxOutputTokens: 65 }
+      generationConfig: { temperature: 0.65, maxOutputTokens: 100 }
     });
 
     return new Promise((resolve) => {
