@@ -52,7 +52,7 @@ class TenantStore {
         personaName: 'Clara',
         language: 'en-GB',
         phone: '+19803723727',
-        doctorWhatsApp: '+919148868413',
+        doctorWhatsApp: '+918197280019',
         city: 'Bangalore',
         address: 'Kumar's Microscopic Dental Care, Indiranagar, Bangalore',
         workingHours: 'Mon-Sat: 8:30 AM - 6:00 PM',
