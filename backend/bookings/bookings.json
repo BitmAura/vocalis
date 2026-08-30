@@ -1,5 +1,69 @@
 [
   {
+    "id": "BKG-1788053277581",
+    "tenantId": "TNT-001",
+    "clinicName": "Test",
+    "patientName": "Demo",
+    "patientPhone": "+919999999999",
+    "treatment": "X",
+    "treatmentFee": "",
+    "slotTime": "Monday 10 AM",
+    "doctorName": "Dr X",
+    "doctorPhone": "+919845012345",
+    "status": "CANCELLED",
+    "bookedAt": "2026-08-30T01:27:57.581Z",
+    "symptoms": "",
+    "audioUrl": "",
+    "calendarSynced": false,
+    "calendar": {
+      "provider": null,
+      "success": false,
+      "status": "NOT_SYNCED",
+      "bookingId": null,
+      "reason": "CAL_API_KEY or CAL_EVENT_TYPE_ID missing"
+    },
+    "whatsapp": {
+      "success": false,
+      "status": "NOT_SENT",
+      "provider": "none",
+      "smsToCaller": false
+    },
+    "cancelledAt": "2026-08-30T01:27:58.449Z",
+    "calendarCancelled": false
+  },
+  {
+    "id": "BKG-1788053228657",
+    "tenantId": "TNT-001",
+    "clinicName": "Test Clinic",
+    "patientName": "Ravi",
+    "patientPhone": "+919148868413",
+    "treatment": "Checkup",
+    "treatmentFee": "",
+    "slotTime": "Tomorrow at 5 PM",
+    "doctorName": "Dr Test",
+    "doctorPhone": "+919845012345",
+    "status": "CONFIRMED",
+    "bookedAt": "2026-08-30T01:27:08.657Z",
+    "symptoms": "",
+    "audioUrl": "",
+    "calendarSynced": false,
+    "calendar": {
+      "provider": null,
+      "success": false,
+      "status": "NOT_SYNCED",
+      "bookingId": null,
+      "reason": "CAL_API_KEY or CAL_EVENT_TYPE_ID missing"
+    },
+    "whatsapp": {
+      "success": false,
+      "status": "NOT_SENT",
+      "provider": "none",
+      "smsToCaller": false
+    },
+    "previousSlotTime": "Tomorrow at 3 PM",
+    "rescheduledAt": "2026-08-30T01:27:09.478Z"
+  },
+  {
     "id": "BKG-4164",
     "tenantId": "TNT-002",
     "clinicName": "Prestige Nature Farmland & Estates",

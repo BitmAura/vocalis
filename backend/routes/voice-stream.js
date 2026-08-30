@@ -330,16 +330,21 @@ function generateMediaStreamTwiML(config) {
 
   const wsUrl = (process.env.VOICE_WS_URL || '').replace(/\/$/, '');
   const publicHttp = (require('../services/integrations').appBaseUrl() || '').replace(/\/$/, '');
-  const serverUrl = wsUrl || publicHttp.replace(/^https:/, 'wss:').replace(/^http:/, 'ws:');
+  let serverUrl = wsUrl || publicHttp.replace(/^https:/, 'wss:').replace(/^http:/, 'ws:');
 
   if (!serverUrl || serverUrl.includes('your-server')) {
     console.error('[Voice Stream] Set VOICE_WS_URL or PUBLIC_BASE_URL to a public https URL');
   }
 
+  let finalStreamUrl = serverUrl;
+  if (!finalStreamUrl.endsWith('/v1/stream')) {
+    finalStreamUrl = finalStreamUrl + '/v1/stream';
+  }
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Connect>
-    <Stream url="${serverUrl}/v1/stream">
+    <Stream url="${finalStreamUrl}">
       ${params}
     </Stream>
   </Connect>
