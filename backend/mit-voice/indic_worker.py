@@ -54,14 +54,50 @@ EDGE_VOICES = {
     "th": "th-TH-PremwadeeNeural",
 }
 
+PROSODY_CONFIG = {
+    "ta": {"rate": "+5%", "pitch": "+2Hz"},
+    "kn": {"rate": "+4%", "pitch": "+2Hz"},
+    "te": {"rate": "+4%", "pitch": "+2Hz"},
+    "hi": {"rate": "+5%", "pitch": "+2Hz"},
+    "ml": {"rate": "+3%", "pitch": "+1Hz"},
+    "mr": {"rate": "+4%", "pitch": "+2Hz"},
+    "gu": {"rate": "+4%", "pitch": "+2Hz"},
+    "bn": {"rate": "+3%", "pitch": "+1Hz"},
+    "pa": {"rate": "+4%", "pitch": "+2Hz"},
+    "ur": {"rate": "+3%", "pitch": "+1Hz"},
+    "en-IN": {"rate": "+4%", "pitch": "+2Hz"},
+    "en-GB": {"rate": "+2%", "pitch": "+1Hz"},
+    "en-US": {"rate": "+3%", "pitch": "+1Hz"},
+    "en-AU": {"rate": "+3%", "pitch": "+1Hz"},
+    "ar": {"rate": "+2%", "pitch": "+1Hz"},
+    "fr": {"rate": "+3%", "pitch": "+1Hz"},
+    "de": {"rate": "+2%", "pitch": "+1Hz"},
+    "es": {"rate": "+3%", "pitch": "+1Hz"},
+    "it": {"rate": "+3%", "pitch": "+1Hz"},
+    "pt": {"rate": "+3%", "pitch": "+1Hz"},
+    "ru": {"rate": "+3%", "pitch": "+1Hz"},
+    "ja": {"rate": "+4%", "pitch": "+2Hz"},
+    "ko": {"rate": "+4%", "pitch": "+2Hz"},
+    "zh": {"rate": "+4%", "pitch": "+2Hz"},
+    "id": {"rate": "+4%", "pitch": "+2Hz"},
+    "ms": {"rate": "+4%", "pitch": "+2Hz"},
+    "th": {"rate": "+4%", "pitch": "+2Hz"},
+}
+
 def synth_edge_neural(text, language, out_path):
     try:
         import asyncio
         import edge_tts
-        # Clean any surrogate characters
-        clean_text = text.encode('utf-8', 'replace').decode('utf-8', 'replace').replace('�', '')
+        clean_text = text.encode('utf-8', 'replace').decode('utf-8', 'replace').replace('', '')
         voice = EDGE_VOICES.get(language) or "en-GB-SoniaNeural"
-        communicate = edge_tts.Communicate(clean_text, voice)
+        prosody = PROSODY_CONFIG.get(language) or {"rate": "+3%", "pitch": "+1Hz"}
+        
+        communicate = edge_tts.Communicate(
+            clean_text, 
+            voice, 
+            rate=prosody["rate"], 
+            pitch=prosody["pitch"]
+        )
         asyncio.run(communicate.save(out_path))
         if os.path.isfile(out_path) and os.path.getsize(out_path) > 500:
             return True, None
