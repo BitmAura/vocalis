@@ -65,6 +65,7 @@ async function handleInboundCall(reqBody) {
   const toNumber = reqBody.To || '+19803723727';
   const callSid = reqBody.CallSid || 'CA_' + Date.now();
   const speechResult = reqBody.SpeechResult || reqBody.speechResult || null;
+  const scenario = reqBody.scenario || reqBody.Scenario || 'default';
 
   const tenant = resolveTenant(toNumber);
 
@@ -73,14 +74,15 @@ async function handleInboundCall(reqBody) {
     session = {
       history: [],
       tenant,
-      lang: tenant.language || 'en-GB',
-      callerName: '',
+      lang: scenario === 'kannada_patient' ? 'kn' : (tenant.language || 'en-GB'),
+      scenario: scenario,
+      callerName: scenario === 'kannada_patient' ? 'ರವಿ (Ravi)' : '',
       from: fromNumber,
       pendingAction: null,
       pendingBookingId: null
     };
     callHistories.set(callSid, session);
-    console.log(`\n📞 [Incoming Phone Call] CallSid: ${callSid} | From: ${fromNumber} | Business: ${tenant.businessName}`);
+    console.log(`\n📞 [Phone Call] CallSid: ${callSid} | Scenario: ${scenario} | From: ${fromNumber} | Business: ${tenant.businessName}`);
   }
 
   const vConfig = VOICE_MAP[session.lang] || VOICE_MAP['en-GB'];
@@ -103,13 +105,20 @@ async function handleInboundCall(reqBody) {
       });
     }
 
-    const greeting = tenant.industry === 'realestate'
-      ? (session.lang === 'kn'
+    let greeting = '';
+    if (session.scenario === 'kannada_patient') {
+      greeting = "ನಮಸ್ಕಾರ ಡಾಕ್ಟರ್! ನಾನು ಕುಮಾರ್ಸ್ ಮೈಕ್ರೋಸ್ಕೋಪಿಕ್ ಡೆಂಟಲ್ ಕೇರ್ ಗೆ ಕಾಲ್ ಮಾಡ್ತಿದ್ದೀನಿ. ನನಗೆ ಕೆಳಗಿನ ಹಲ್ಲಿನಲ್ಲಿ ತುಂಬಾ ನೋವಿದೆ, ರೂಟ್ ಕೆನಾಲ್ ಮಾಡಿಸೋಕೆ ಇವತ್ತು ಅಥವಾ ನಾಳೆ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಸಿಗುತ್ತಾ ಸರ್?";
+    } else if (tenant.industry === 'realestate') {
+      greeting = session.lang === 'kn'
         ? 'Namaskara! Prestige Managed Farmland ge swagata. Naanu Priya — hege help maadli?'
-        : 'Hello! Thank you for calling Prestige Managed Farmlands. My name is Priya, how can I help you today?')
-      : (['hi', 'en-IN'].includes(session.lang)
-        ? `Namaste! ${tenant.businessName} mein call karne ke liye dhanyavaad. Main ${tenant.personaName || 'Clara'} hoon. Kya aap appointment book karna chahenge?`
-        : `Good afternoon! Thank you for calling ${tenant.businessName}. My name is ${tenant.personaName || 'Clara'}. Are you looking to book an appointment today?`);
+        : 'Hello! Thank you for calling Prestige Managed Farmlands. My name is Priya, how can I help you today?';
+    } else if (session.lang === 'kn') {
+      greeting = `ನಮಸ್ಕಾರ! ${tenant.businessName} ಇಂದ ${tenant.personaName || 'ಕ್ಲಾರಾ'} ಮಾತಾಡ್ತಿದ್ದೀನಿ. ಹೇಳಿ, ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡ್ಲಿ?`;
+    } else if (['hi', 'en-IN'].includes(session.lang)) {
+      greeting = `नमस्ते! ${tenant.businessName} से ${tenant.personaName || 'क्लारा'} बात कर रही हूँ। बताइए, आज मैं आपकी क्या मदद कर सकती हूँ?`;
+    } else {
+      greeting = `Good afternoon! Thank you for calling ${tenant.businessName}. My name is ${tenant.personaName || 'Clara'}. How may I assist you today?`;
+    }
 
     session.history.push({ role: 'ai', text: greeting });
     return twimlSayGather(vConfig, greeting);
@@ -177,7 +186,8 @@ async function handleInboundCall(reqBody) {
     personaName: session.tenant.personaName || 'Clara',
     services: session.tenant.services || [],
     requestedSlot,
-    callerName: session.callerName
+    callerName: session.callerName,
+    scenario: session.scenario
   }, session.history);
 
   const reply = llmRes.reply || "Certainly, I have noted that down for you.";
