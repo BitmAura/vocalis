@@ -308,14 +308,14 @@ let callState = {
 
 const lifecycleGreetings = {
   dental: {
-    'en-GB': "Good afternoon! Thank you for calling Harley Street Smiles Dental. My name is Clara. How may I assist you with scheduling your appointment today?",
-    'en-US': "Hello! Thank you for calling Harley Street Smiles Dental. My name is Clara. How can I help you with your visit today?",
-    'en-IN': "Hello! Welcome to Harley Street Smiles Dental with Dr. Harley. My name is Clara. Would you like to book an appointment?",
-    'kn': "ನಮಸ್ಕಾರ! ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ಅವರ ಡೆಂಟಲ್ ಕ್ಲಿನಿಕ್‌ಗೆ ಸ್ವಾಗತ. ನಾನು ಕ್ಲಾರಾ. ನಿಮಗೆ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಬುಕ್ ಮಾಡಲಾ ಸರ್?",
-    'hi': "नमस्ते! डॉ. हार्ले के डेंटल क्लिनिक में आपका स्वागत है। मैं क्लारा हूँ। क्या मैं आपकी अपॉइंटमेंट बुक कर दूँ?",
-    'te': "నమస్కారం! డాక్టర్ హార్లే గారి డెంటల్ క్లినిక్‌కి స్వాగతం. నా పేరు క్లారా. మీకు అపాయిಂట్‌మెంట్ బుక్ చేయమంటారా అండీ?",
-    'ta': "வணக்கம்! டாக்டர் ஹார்லே அவர்களின் பல் மருத்துவமனைக்கு உங்களை வரவேற்கிறோம். நான் கிளாரா. உங்களுக்கு அப்பாயின்ட்மென்ட் முன்பதிவு செய்யவா சார்?",
-    'ar': "مرحباً بكم في عيادة الدكتور هارلي لطب الأسنان. أنا كلارا، كيف يمكنني مساعدتكم اليوم؟"
+    'en-GB': "Good afternoon! Kumar's Microscopic Dental Care, Clara speaking. How may I assist you today?",
+    'en-US': "Hello! Kumar's Microscopic Dental Care, Clara speaking. How can I help you today?",
+    'en-IN': "Hello! Kumar's Microscopic Dental Care, Clara speaking. How can I help you today?",
+    'kn': "ನಮಸ್ಕಾರ! ನಮಸ್ಕಾರ! ಕುಮಾರ್ಸ್ ಮೈಕ್ರೋಸ್ಕೋಪಿಕ್ ಡೆಂಟಲ್ ಕೇರ್ ಇಂದ ಕ್ಲಾರಾ ಮಾತಾಡ್ತಿದ್ದೀನಿ. ಹೇಳಿ, ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡ್ಲಿ?",
+    'hi': "नमस्ते! नमस्ते! कुमार्स माइक्रोस्कोपिक डेंटल केयर से क्लारा बात कर रही हूँ। बताइए, आज मैं आपकी क्या मदद कर सकती हूँ?",
+    'te': "నమస్కారం! డాక్టర్ ప్రేమ్ గారి డెంటల్ క్లినిక్‌కి స్వాగతం. నా పేరు క్లారా. మీకు అపాయిಂట్‌మెంట్ బుక్ చేయమంటారా అండీ?",
+    'ta': "வணக்கம்! வணக்கம்! குமார்ஸ் மைக்ரோஸ்கோபிக் டென்டல் கேர் நான் கிளாரா பேசுறேன். சொல்லுங்க, உங்களுக்கு எப்படி உதவ முடியும்?",
+    'ar': "مرحباً بكم في عيادة كومار لطب الأسنان المجهري. أنا كلارا، كيف يمكنني مساعدتكم اليوم؟"
   },
   realestate: {
     'kn': "ನಮಸ್ಕಾರ ಸರ್! ಪ್ರೆಸ್ಟೀಜ್ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಅಂಡ್ ಎಸ್ಟೇಟ್ಸ್‌ಗೆ ಸ್ವಾಗತ. ನೀವು ಇನ್‌ಸ್ಟಾಗ್ರಾಮ್ ಜಾಹೀರಾತು ನೋಡಿ ಕಾಲ್ ಮಾಡಿದ್ದೀರಾ? ನೀವು ಬಂಡವಾಳ ಹೂಡಿಕೆಗಾಗಿ ಅಥವಾ ಸ್ವಂತ ಫಾರ್ಮ್‌ಹೌಸ್‌ಗಾಗಿ ನೋಡ್ತಿದ್ದೀರಾ?",
@@ -450,7 +450,7 @@ function updateView() {
     'kn': 'ಕನ್ನಡದಲ್ಲಿ ಮಾತನಾಡಿ ಅಥವಾ ಟೈಪ್ ಮಾಡಿ... (ಉದಾ: ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಬೇಕು)',
     'te': 'తెలుగులో మాట్లాడండి లేదా టైప్ చేయండి... (ఉదా: అపాయింట్‌మెంట్ కావాలి)',
     'hi': 'हिंदी में बोलें या टाइप करें... (उदा: अपॉइंटमेंट चाहिए)',
-    'en-IN': 'Speak or type in Indian English (e.g. Need appointment with Dr. Harley)...',
+    'en-IN': 'Speak or type in Indian English (e.g. Need appointment with Dr. Prem)...',
     'en-GB': 'Speak or type your message here (e.g. book appointment, cleaning fee)...',
     'en-US': 'Speak or type your message here...',
     'ar': 'تحدث أو اكتب رسالتك هنا باللغة العربية...',
@@ -681,26 +681,26 @@ function getClientSideConversationalReply(text, lang, category) {
   callState.patientName = name;
 
   if (low.includes('pain') || low.includes('teeth') || low.includes('tooth') || low.includes('ನೋವು') || low.includes('दर्द') || low.includes('வலி') || low.includes('నొప్పి')) {
-    if (lang === 'kn') return "ಅಯ್ಯೋ " + name + " ಅವರೇ, ಹಲ್ಲು ನೋವಿದ್ದರೆ ಖಂಡಿತ ಇವತ್ತೇ ತುರ್ತು ಸ್ಲಾಟ್ ಕಾಯ್ದಿರಿಸುತ್ತೇವೆ. ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ಅವರೊಂದಿಗೆ ಇಂದು ಸಂಜೆ 4:00 ಗಂಟೆಗೆ ಸ್ಲಾಟ್ ಬುಕ್ ಮಾಡಲಾ?";
+    if (lang === 'kn') return "ಅಯ್ಯೋ " + name + " ಅವರೇ, ಹಲ್ಲು ನೋವಿದ್ದರೆ ಖಂಡಿತ ಇವತ್ತೇ ತುರ್ತು ಸ್ಲಾಟ್ ಕಾಯ್ದಿರಿಸುತ್ತೇವೆ. ಡಾಕ್ಟರ್ ಪ್ರೇಮ್ ಅವರೊಂದಿಗೆ ಇಂದು ಸಂಜೆ 4:00 ಗಂಟೆಗೆ ಸ್ಲಾಟ್ ಬುಕ್ ಮಾಡಲಾ?";
     if (lang === 'hi') return "अरे " + name + " जी, दांत में दर्द है तो हम आज ही शाम 4:00 बजे इमरजेंसी स्लॉट दे सकते हैं। क्या मैं यह स्लॉट बुक करूँ?";
-    if (lang === 'te') return "అయ్యో " + name + " గారు, పంటి నొప్పి చాలా బాధాకరం! ఈరోజు సాయంత్రం 4:00కి డాక్టర్ హార్లేతో ఎమర్జెన్సీ స్లాట్ బుక్ చేయనా?";
+    if (lang === 'te') return "అయ్యో " + name + " గారు, పంటి నొప్పి చాలా బాధాకరం! ఈరోజు సాయంత్రం 4:00కి డాక్టర్ ప్రేమ్తో ఎమర్జెన్సీ స్లాట్ బుక్ చేయనా?";
     if (lang === 'ta') return "அச்சச்சோ " + name + " அவர்களே, பல் வலி இருந்தால் இன்றே மாலை 4:00 மணிக்கு அவசர சிகிச்சை அளிக்கலாம். முன்பதிவு செய்யவா?";
-    return "I am so sorry to hear about your tooth pain, " + name + "! We keep daily emergency slots open and can see you today at 4:00 PM with Dr. Harley. Shall I lock that in for you right now?";
+    return "I am so sorry to hear about your tooth pain, " + name + "! We keep daily emergency slots open and can see you today at 4:00 PM with Dr. Prem. Shall I lock that in for you right now?";
   }
 
   if (low.includes('yes') || low.includes('confirm') || low.includes('book') || low.includes('tomorrow') || low.includes('ಹೌದು') || low.includes('ಖಚಿತ') || low.includes('हाँ') || low.includes('ஆம்') || low.includes('అవును')) {
-    if (lang === 'kn') return "ಖಂಡಿತ " + name + " ಅವರೇ! ನಾಳೆ ಮಧ್ಯಾಹ್ನ 12:30 ಕ್ಕೆ ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ಅವರೊಂದಿಗೆ ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಕನ್ಫರ್ಮ್ ಆಗಿದೆ. ನಿಮಗೆ ಎಸ್ಎಂಎಸ್ ಮತ್ತು ಡಾಕ್ಟರ್ ಅವರಿಗೆ ವಾಟ್ಸಾಪ್ ಕಳುಹಿಸಲಾಗಿದೆ.";
-    if (lang === 'hi') return "बिल्कुल " + name + " जी! कल दोपहर 12:30 बजे डॉ. हार्ले के साथ आपकी अपॉइंटमेंट कन्फर्म हो गई है। आपको एसएमएस भेज दिया गया है।";
-    if (lang === 'te') return "ఖచ్చితంగా " + name + " గారు! రేపు మధ్యాహ్నం 12:30 గంటలకు డాక్టర్ హార్లేతో మీ అపాయింట్‌మెంట్ ఖరారైంది.";
+    if (lang === 'kn') return "ಖಂಡಿತ " + name + " ಅವರೇ! ನಾಳೆ ಮಧ್ಯಾಹ್ನ 12:30 ಕ್ಕೆ ಡಾಕ್ಟರ್ ಪ್ರೇಮ್ ಅವರೊಂದಿಗೆ ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಕನ್ಫರ್ಮ್ ಆಗಿದೆ. ನಿಮಗೆ ಎಸ್ಎಂಎಸ್ ಮತ್ತು ಡಾಕ್ಟರ್ ಅವರಿಗೆ ವಾಟ್ಸಾಪ್ ಕಳುಹಿಸಲಾಗಿದೆ.";
+    if (lang === 'hi') return "बिल्कुल " + name + " जी! कल दोपहर 12:30 बजे डॉ. प्रेम के साथ आपकी अपॉइंटमेंट कन्फर्म हो गई है। आपको एसएमएस भेज दिया गया है।";
+    if (lang === 'te') return "ఖచ్చితంగా " + name + " గారు! రేపు మధ్యాహ్నం 12:30 గంటలకు డాక్టర్ ప్రేమ్తో మీ అపాయింట్‌మెంట్ ఖరారైంది.";
     if (lang === 'ta') return "நிச்சயமாக " + name + " அவர்களே! நாளை மதியம் 12:30 மணிக்கு டாக்டர் ஹಾರ್லேவுடன் உங்கள் அப்பாயின்ட்மென்ட் உறுதியானது.";
-    return "Certainly " + name + "! Your appointment with Dr. Harley is confirmed for tomorrow at 12:30 PM. I have sent an SMS confirmation to your mobile and notified the doctor on WhatsApp!";
+    return "Certainly " + name + "! Your appointment with Dr. Prem is confirmed for tomorrow at 12:30 PM. I have sent an SMS confirmation to your mobile and notified the doctor on WhatsApp!";
   }
 
   if (lang === 'kn') return "ನಮಸ್ಕಾರ " + name + " ಅವರೇ! ಹಾರ್ಲೀ ಸ್ಟ್ರೀಟ್ ಸ್ಮೈಲ್ಸ್ ಡೆಂಟಲ್‌ಗೆ ಸ್ವಾಗತ. ನಾನು ಶ್ಲಾರಾ, ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ?";
   if (lang === 'hi') return "नमस्ते " + name + " जी! हार्ले स्ट्रीट स्माइल्स में आपका स्वागत है। मैं क्लारा हूँ, बताइए मैं क्या मदद कर सकती हूँ?";
   if (lang === 'te') return "నమస్కారం " + name + " గారు! హార్లే స్ట్రీట్ స్మైల్స్ డెంటల్‌కి స్వాగతం. నేను క్లారా, మీకు ఎలా సహాయం చేయగలను?";
   if (lang === 'ta') return "வணக்கம் " + name + " அவர்களே! ஹார்லி ஸ்ட்ரீட் ஸ்மைல்ஸ் உங்களை வரவேற்கிறது. நான் கிளாரா, நான் என்ன உதவி செய்ய வேண்டும்?";
-  return "Hello " + name + "! Welcome to Harley Street Smiles Dental. My name is Clara. How may I best assist you with scheduling your appointment today?";
+  return "Hello " + name + "! Welcome to Kumar's Microscopic Dental Care. My name is Clara. How may I best assist you with scheduling your appointment today?";
 }
 
 // REALISTIC CONVERSATIONAL LIFECYCLE STATE MACHINE
@@ -867,7 +867,7 @@ function _oldFSMBlock_disabled() {
 
     // 1. FAREWELL & CALL WRAP-UP (covers all languages)
     if (low === 'bye' || low.includes('bye') || low.includes('goodbye') || low.includes('thank you') && (low.includes('that') || low.includes('all') || low.includes('everything')) || low.includes('talk later') || low.includes('have a good day') || low.includes('ಬಾಯ್') || low.includes('ಧನ್ಯವಾದ') || low.includes('बाय') || low.includes('धन्यवाद') || low.includes('போய் வருகிறேன்') || low.includes('நன்றி') || low.includes('వెళ్తా') || low.includes('ధన్యవాదాలు') || low.includes('شكرا')) {
-      if (currentLanguage === 'kn') reply = "ಧನ್ಯವಾದಗಳು ಸರ್! ನಿಮಗೆ ಶುಭ ದಿನವಾಗಲಿ. ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ನಿಮ್ಮನ್ನು ಭೇಟಿ ಮಾಡಲು ತುಂಬಾ ಖುಷಿಯಾಗಿದ್ದಾರೆ. ಬಾಯ್!";
+      if (currentLanguage === 'kn') reply = "ಧನ್ಯವಾದಗಳು ಸರ್! ನಿಮಗೆ ಶುಭ ದಿನವಾಗಲಿ. ಡಾಕ್ಟರ್ ಪ್ರೇಮ್ ನಿಮ್ಮನ್ನು ಭೇಟಿ ಮಾಡಲು ತುಂಬಾ ಖುಷಿಯಾಗಿದ್ದಾರೆ. ಬಾಯ್!";
       else if (currentLanguage === 'hi') reply = "कॉल करने के लिए बहुत-बहुत धन्यवाद! डॉक्टर साहब आपसे मिलने के लिए बेसब्री से इंतजार कर रहे हैं। आपका दिन शुभ हो। बाय!";
       else if (currentLanguage === 'ta') reply = "அழைத்ததற்கு மிக்க நன்றி சார்! நம் டாக்டர் உங்களை சந்திக்க ஆவலாக இருக்கிறார். நல்ல நாளாக அமையட்டும். போய் வாருங்கள்!";
       else if (currentLanguage === 'te') reply = "చాలా ధన్యవాదాలు సార్! డాక్టర్ గారు మీకోసం ఎదురు చూస్తున్నారు. మీ రోజు చాలా శుభప్రదంగా ఉండాలి. బై!";
@@ -884,11 +884,11 @@ function _oldFSMBlock_disabled() {
     }
     // 3. EMERGENCY / PAIN TRIAGE
     else if (low.includes('pain') || low.includes('emergency') || low.includes('toothache') || low.includes('died') || low.includes('heat') || low.includes('hot') || low.includes('leak') || low.includes('ನೋವು') || low.includes('दर्द') || low.includes('வலி')) {
-      if (currentLanguage === 'kn') reply = "ಅಯ್ಯೋ, ಹಲ್ಲು ನೋವಿದ್ದರೆ ಖಂಡಿತ ಇವತ್ತೇ ತುರ್ತು ಸ್ಲಾಟ್ ಕಾಯ್ದಿರಿಸುತ್ತೇವೆ. ಇವತ್ತು ಸಂಜೆ 4:00 ಗಂಟೆಗೆ ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ಲಭ್ಯವಿದ್ದಾರೆ. ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಮೊಬೈಲ್ ನಂಬರ್ ತಿಳಿಸಬಹುದಾ?";
+      if (currentLanguage === 'kn') reply = "ಅಯ್ಯೋ, ಹಲ್ಲು ನೋವಿದ್ದರೆ ಖಂಡಿತ ಇವತ್ತೇ ತುರ್ತು ಸ್ಲಾಟ್ ಕಾಯ್ದಿರಿಸುತ್ತೇವೆ. ಇವತ್ತು ಸಂಜೆ 4:00 ಗಂಟೆಗೆ ಡಾಕ್ಟರ್ ಪ್ರೇಮ್ ಲಭ್ಯವಿದ್ದಾರೆ. ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಮೊಬೈಲ್ ನಂಬರ್ ತಿಳಿಸಬಹುದಾ?";
       else if (currentLanguage === 'hi') reply = "अरे, अगर दांत में तेज दर्द है तो हम आज ही शाम 4:00 बजे इमरजेंसी स्लॉट दे सकते हैं। क्या मैं आपका नाम और फोन नंबर ले सकती हूँ?";
       else if (currentLanguage === 'te') reply = "అయ్యో సార్, పంటి నొప్పి చాలా కష్టంగా ఉంటుంది! ఈరోజు సాయంత్రం 4:00కి డాక్టర్ గారితో ఎమర్జెన్సీ స్లాట్ ఉంది. మీ పూర్తి పేరు మరియు మొబైల్ నంబర్ చెప్పగలరా?";
       else if (currentLanguage === 'ta') reply = "வலி இருந்தால் இன்றே மாலை 4:00 மணிக்கு அவசர சிகிச்சை அளிக்கலாம். உங்கள் பெயர் மற்றும் தொலைபேசி எண் தர முடியுமா?";
-      else reply = "I am so sorry to hear you are experiencing pain! We keep daily emergency slots open and can fit you in today at 4:00 PM with Dr. Harley. May I take your full name and mobile number to alert the doctor immediately?";
+      else reply = "I am so sorry to hear you are experiencing pain! We keep daily emergency slots open and can fit you in today at 4:00 PM with Dr. Prem. May I take your full name and mobile number to alert the doctor immediately?";
     }
     // REAL ESTATE & MANAGED FARMLAND AD ENGINE
     else if (currentCategory === 'realestate') {
@@ -912,39 +912,39 @@ function _oldFSMBlock_disabled() {
     // 4. NEW PATIENT / BOOKING INQUIRY (Stage 1 -> Stage 2 Matching)
     else if (low.includes('new') || low.includes('first time') || low.includes('clean') || low.includes('book') || low.includes('friday') || low.includes('appointment') || low.includes('ಹೊಸ') || low.includes('ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್') || low.includes('नया') || low.includes('अपॉइंटमेंट') || low.includes('புதிய')) {
       callState.patientType = 'new';
-      if (currentLanguage === 'kn') reply = "ತುಂಬಾ ಸಂತೋಷ! ಹೊಸ ಪೇಷೆಂಟ್‌ಗಳಿಗೆ ನಮ್ಮ ಕ್ಲಿನಿಕ್‌ಗೆ ಆತ್ಮೀಯ ಸ್ವಾಗತ. ಈ ಶುಕ್ರವಾರ ಮಧ್ಯಾಹ್ನ 2:30 ಕ್ಕೆ ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ಜೊತೆ ಸ್ಲಾಟ್ ಲಭ್ಯವಿದೆ. ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಕನ್ಫರ್ಮ್ ಮಾಡಲು ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು ತಿಳಿಸಬಹುದಾ?";
-      else if (currentLanguage === 'hi') reply = "बहुत बढ़िया! नए मरीजों का हमारे क्लिनिक में स्वागत है। इस शुक्रवार दोपहर 2:30 बजे डॉ. हार्ले उपलब्ध हैं। बुकिंग के लिए क्या मैं आपका पूरा नाम जान सकती हूँ?";
-      else if (currentLanguage === 'te') reply = "చాలా సంతోషం సార్! కొత్త పేషెంట్‌లను మేము ఆత్మీయంగా స్వాగతిస్తున్నాము. ఈ శుక్రవారం మధ్యాహ్నం 2:30కి డాక్టర్ హార్లే అందుబాటులో ఉన్నారు. అపాయింట్‌మెంట్ కన్ఫర్మ్ చేయడానికి మీ పూర్తి పేరు చెప్పగలరా?";
+      if (currentLanguage === 'kn') reply = "ತುಂಬಾ ಸಂತೋಷ! ಹೊಸ ಪೇಷೆಂಟ್‌ಗಳಿಗೆ ನಮ್ಮ ಕ್ಲಿನಿಕ್‌ಗೆ ಆತ್ಮೀಯ ಸ್ವಾಗತ. ಈ ಶುಕ್ರವಾರ ಮಧ್ಯಾಹ್ನ 2:30 ಕ್ಕೆ ಡಾಕ್ಟರ್ ಪ್ರೇಮ್ ಜೊತೆ ಸ್ಲಾಟ್ ಲಭ್ಯವಿದೆ. ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಕನ್ಫರ್ಮ್ ಮಾಡಲು ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು ತಿಳಿಸಬಹುದಾ?";
+      else if (currentLanguage === 'hi') reply = "बहुत बढ़िया! नए मरीजों का हमारे क्लिनिक में स्वागत है। इस शुक्रवार दोपहर 2:30 बजे डॉ. प्रेम उपलब्ध हैं। बुकिंग के लिए क्या मैं आपका पूरा नाम जान सकती हूँ?";
+      else if (currentLanguage === 'te') reply = "చాలా సంతోషం సార్! కొత్త పేషెంట్‌లను మేము ఆత్మీయంగా స్వాగతిస్తున్నాము. ఈ శుక్రవారం మధ్యాహ్నం 2:30కి డాక్టర్ ప్రేమ్ అందుబాటులో ఉన్నారు. అపాయింట్‌మెంట్ కన్ఫర్మ్ చేయడానికి మీ పూర్తి పేరు చెప్పగలరా?";
       else if (currentLanguage === 'ta') reply = "மகிழ்ச்சி! புதிய நோயாளிகளை அன்புடன் வரவேற்கிறோம். இந்த வெள்ளிக்கிழமை மதியம் 2:30 மணிக்கு டாக்டர் ஹார்லி கிடைக்கிறார். உங்கள் முழு பெயரை கூற முடியுமா?";
-      else reply = "Welcome to our practice! We would love to take care of your smile. We have an opening this Friday at 2:30 PM with Dr. Harley for a comprehensive hygiene cleaning. May I take your full name to reserve this slot for you?";
+      else reply = "Welcome to our practice! We would love to take care of your smile. We have an opening this Friday at 2:30 PM with Dr. Prem for a comprehensive hygiene cleaning. May I take your full name to reserve this slot for you?";
     }
     // 5. EXISTING PATIENT
     else if (low.includes('existing') || low.includes('again') || low.includes('been before') || low.includes('ಹಳೆಯ') || low.includes('पहले')) {
       callState.patientType = 'existing';
-      reply = "Welcome back! It is wonderful to hear from you again. Dr. Harley has an opening this Friday at 2:30 PM. May I have your name to pull up your patient chart?";
+      reply = "Welcome back! It is wonderful to hear from you again. Dr. Prem has an opening this Friday at 2:30 PM. May I have your name to pull up your patient chart?";
     }
     // 6. DETAILS CAPTURED -> SUMMARY READBACK, CLINIC ADVICE & WHATSAPP PROMISE (Stage 3 & 4 Handshake)
     else if (low.includes('maria') || low.includes('johnson') || low.includes('name is') || low.includes('yes') || low.includes('confirm') || low.includes('perfect') || low.includes('ಹೌದು') || low.includes('ಸರಿ') || low.includes('हाँ') || low.includes('ஆம்')) {
       callState.patientName = "Maria Johnson";
       if (currentLanguage === 'kn') {
-        reply = "ಧನ್ಯವಾದಗಳು ಮಾರಿಯಾ! ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಈ ಶುಕ್ರವಾರ ಮಧ್ಯಾಹ್ನ 2:30 ಕ್ಕೆ ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ಜೊತೆ ಖಚಿತವಾಗಿದೆ. ದಯವಿಟ್ಟು 10 ನಿಮಿಷ ಮುಂಚಿತವಾಗಿ ಬನ್ನಿ. ನಿಮ್ಮ ಮೊಬೈಲ್‌ಗೆ ಕನ್ಫರ್ಮೇಷನ್ ಎಸ್ಸೆಮ್ಮೆಸ್ ಕಳುಹಿಸಲಾಗಿದೆ ಮತ್ತು ಡಾಕ್ಟರ್‌ಗೆ ಪೂರ್ಣ ಸಂಭಾಷಣೆ ಸ್ಕ್ರಿಪ್ಟ್ ವಾಟ್ಸಾಪ್ ಮಾಡಲಾಗಿದೆ. ನಿಮಗೆ ಇನ್ನೇನಾದರೂ ಸಹಾಯ ಬೇಕೇ?";
+        reply = "ಧನ್ಯವಾದಗಳು ಮಾರಿಯಾ! ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಈ ಶುಕ್ರವಾರ ಮಧ್ಯಾಹ್ನ 2:30 ಕ್ಕೆ ಡಾಕ್ಟರ್ ಪ್ರೇಮ್ ಜೊತೆ ಖಚಿತವಾಗಿದೆ. ದಯವಿಟ್ಟು 10 ನಿಮಿಷ ಮುಂಚಿತವಾಗಿ ಬನ್ನಿ. ನಿಮ್ಮ ಮೊಬೈಲ್‌ಗೆ ಕನ್ಫರ್ಮೇಷನ್ ಎಸ್ಸೆಮ್ಮೆಸ್ ಕಳುಹಿಸಲಾಗಿದೆ ಮತ್ತು ಡಾಕ್ಟರ್‌ಗೆ ಪೂರ್ಣ ಸಂಭಾಷಣೆ ಸ್ಕ್ರಿಪ್ಟ್ ವಾಟ್ಸಾಪ್ ಮಾಡಲಾಗಿದೆ. ನಿಮಗೆ ಇನ್ನೇನಾದರೂ ಸಹಾಯ ಬೇಕೇ?";
       } else if (currentLanguage === 'hi') {
-        reply = "धन्यवाद मारिया जी! आपका अपॉइंटमेंट इस शुक्रवार दोपहर 2:30 बजे डॉ. हार्ले के साथ कन्फर्म हो गया है। कृपया 10 मिनट पहले पधारें। आपको एसएमएस और डॉक्टर को पूरी बातचीत का व्हाट्सएप भेज दिया गया है। क्या मैं आपकी कोई और मदद कर सकती हूँ?";
+        reply = "धन्यवाद मारिया जी! आपका अपॉइंटमेंट इस शुक्रवार दोपहर 2:30 बजे डॉ. प्रेम के साथ कन्फर्म हो गया है। कृपया 10 मिनट पहले पधारें। आपको एसएमएस और डॉक्टर को पूरी बातचीत का व्हाट्सएप भेज दिया गया है। क्या मैं आपकी कोई और मदद कर सकती हूँ?";
       } else if (currentLanguage === 'te') {
-        reply = "ధన్యవాదాలు! మీ అపాయింట్‌మెంట్ ఈ శుక్రవారం మధ్యాహ్నం 2:30కి డాక్టర్ హార్లే తో కన్ఫర్మ్ అయింది. దయచేసి 10 నిమిషాలు ముందుగా రండి. మీకు SMS ద్వారా కన్ఫర్మేషన్ పంపబడింది మరియు డాక్టర్ గారికి మీ వివరాలు WhatsApp చేయబడ్డాయి. మరేమైనా సహాయం కావాలా సార్?";
+        reply = "ధన్యవాదాలు! మీ అపాయింట్‌మెంట్ ఈ శుక్రవారం మధ్యాహ్నం 2:30కి డాక్టర్ ప్రేమ్ తో కన్ఫర్మ్ అయింది. దయచేసి 10 నిమిషాలు ముందుగా రండి. మీకు SMS ద్వారా కన్ఫర్మేషన్ పంపబడింది మరియు డాక్టర్ గారికి మీ వివరాలు WhatsApp చేయబడ్డాయి. మరేమైనా సహాయం కావాలా సార్?";
       } else if (currentLanguage === 'ta') {
         reply = "நன்றி! உங்கள் அப்பாயின்ட்மென்ட் இந்த வெள்ளிக்கிழமை மதியம் 2:30 மணிக்கு உறுதியானது. 10 நிமிடம் முன்பாக வாருங்கள். உங்களுக்கு SMS மற்றும் மருத்துவருக்கு WhatsApp அனுப்பப்பட்டது. வேறு ஏதேனும் உதவி தேவையா?";
       } else {
-        reply = "Splendid, Maria! I have you locked in for this Friday, August 28th at 2:30 PM with Dr. Harley for comprehensive dental hygiene. Please arrive about 10 minutes early to fill out your health intake form. I've sent an instant SMS confirmation to your mobile, and Dr. Harley has been notified on WhatsApp with your visit notes. Is there anything else I can assist you with today?";
+        reply = "Splendid, Maria! I have you locked in for this Friday, August 28th at 2:30 PM with Dr. Prem for comprehensive dental hygiene. Please arrive about 10 minutes early to fill out your health intake form. I've sent an instant SMS confirmation to your mobile, and Dr. Prem has been notified on WhatsApp with your visit notes. Is there anything else I can assist you with today?";
       }
     }
     // 7. LOCATION & HOURS
     else if (low.includes('where') || low.includes('location') || low.includes('address') || low.includes('hours') || low.includes('open') || low.includes('ವಿಳಾಸ') || low.includes('पता') || low.includes('முகவரி')) {
-      reply = "We are located at 14 Harley Street, Central London. We are open Monday to Saturday from 8:30 AM to 6:00 PM with validated parking right out front. Shall I book your visit?";
+      reply = "We are located at Kumar's Microscopic Dental Care, Indiranagar, Bangalore. We are open Monday to Saturday from 8:30 AM to 6:00 PM with validated parking right out front. Shall I book your visit?";
     }
     // DEFAULT COURTESY FALLBACK
     else {
-      reply = "I understand. I would be delighted to assist you with scheduling a visit or answering any questions. Would you like to check Dr. Harley's available times?";
+      reply = "I understand. I would be delighted to assist you with scheduling a visit or answering any questions. Would you like to check Dr. Prem's available times?";
     }
 
     chat.innerHTML += `
