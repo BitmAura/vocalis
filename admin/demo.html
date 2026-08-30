@@ -308,32 +308,84 @@ let callState = {
 
 const lifecycleGreetings = {
   dental: {
+    'kn': "ನಮಸ್ಕಾರ! ಕುಮಾರ್ಸ್ ಮೈಕ್ರೋಸ್ಕೋಪಿಕ್ ಡೆಂಟಲ್ ಕೇರ್ ಇಂದ ಕ್ಲಾರಾ ಮಾತಾಡ್ತಿದ್ದೀನಿ. ಹೇಳಿ, ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡ್ಲಿ?",
+    'hi': "नमस्ते! कुमार्स माइक्रोस्कोपिक डेंटल केयर से क्लारा बात कर रही हूँ। बताइए, आज मैं आपकी क्या मदद कर सकती हूँ?",
+    'te': "నమస్కారం! కుమార్ మైక్రోస్కోపిక్ డెంటల్ కేర్ నుంచి క్లారా మాట్లాడుతున్నాను. చెప్పండి, మీకు ఎలా సహాయపడగలను?",
+    'ta': "வணக்கம்! குமார்ஸ் மைக்ரோஸ்கோபிக் டென்டல் கேர் நான் கிளாரா பேசுறேன். சொல்லுங்க, உங்களுக்கு எப்படி உதவ முடியும்?",
+    'ml': "നമസ്കാരം! കുമാർസ് മൈക്രോസ്കോപ്പിക് ഡെന്റൽ കെയറിൽ നിന്ന് ക്ലാരയാണ്. പറയൂ, എങ്ങനെ സഹായിക്കണം?",
+    'mr': "नमस्कार! कुमार्ज मायक्रोस्कोपिक डेंटल केअरवरून क्लारा बोलत आहे. सांगा, मी आपली काय मदत करू शकते?",
+    'gu': "નમસ્તે! કુમાર્સ માઇક્રોસ્કોપિક ડેન્ટલ કેરમાંથી ક્લારા બોલું છું. કહો, હું તમારી શું મદદ કરી શકું?",
+    'bn': "নমস্কার! কুমারস মাইক্রোস্কোপিক ডেন্টাল কেয়ার থেকে ক্লারা বলছি। বলুন, কীভাবে সাহায্য করতে পারি?",
+    'pa': "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਕੁਮਾਰਸ ਮਾਈਕ੍ਰੋਸਕੋਪਿਕ ਡੈਂਟਲ ਕੇਅਰ ਤੋਂ ਕਲਾਰਾ ਬੋਲ ਰਹੀ ਹਾਂ। ਦੱਸੋ, ਮੈਂ ਕੀ ਮਦਦ ਕਰ ਸਕਦੀ ਹਾਂ?",
+    'en-IN': "Hello! Kumar's Microscopic Dental Care, Clara speaking. How can I help you today?",
     'en-GB': "Good afternoon! Kumar's Microscopic Dental Care, Clara speaking. How may I assist you today?",
     'en-US': "Hello! Kumar's Microscopic Dental Care, Clara speaking. How can I help you today?",
-    'en-IN': "Hello! Kumar's Microscopic Dental Care, Clara speaking. How can I help you today?",
-    'kn': "ನಮಸ್ಕಾರ! ನಮಸ್ಕಾರ! ಕುಮಾರ್ಸ್ ಮೈಕ್ರೋಸ್ಕೋಪಿಕ್ ಡೆಂಟಲ್ ಕೇರ್ ಇಂದ ಕ್ಲಾರಾ ಮಾತಾಡ್ತಿದ್ದೀನಿ. ಹೇಳಿ, ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡ್ಲಿ?",
-    'hi': "नमस्ते! नमस्ते! कुमार्स माइक्रोस्कोपिक डेंटल केयर से क्लारा बात कर रही हूँ। बताइए, आज मैं आपकी क्या मदद कर सकती हूँ?",
-    'te': "నమస్కారం! డాక్టర్ ప్రేమ్ గారి డెంటల్ క్లినిక్‌కి స్వాగతం. నా పేరు క్లారా. మీకు అపాయిಂట్‌మెంట్ బుక్ చేయమంటారా అండీ?",
-    'ta': "வணக்கம்! வணக்கம்! குமார்ஸ் மைக்ரோஸ்கோபிக் டென்டல் கேர் நான் கிளாரா பேசுறேன். சொல்லுங்க, உங்களுக்கு எப்படி உதவ முடியும்?",
-    'ar': "مرحباً بكم في عيادة كومار لطب الأسنان المجهري. أنا كلارا، كيف يمكنني مساعدتكم اليوم؟"
+    'ar': "مرحباً بكم في عيادة كومار لطب الأسنان المجهري. معكم كلارا، كيف يمكنني مساعدتكم اليوم؟",
+    'fr': "Bonjour! Clinique dentaire microscopique de Kumar. Ici Clara, comment puis-je vous aider aujourd'hui?"
   },
   realestate: {
-    'kn': "ನಮಸ್ಕಾರ ಸರ್! ಪ್ರೆಸ್ಟೀಜ್ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಅಂಡ್ ಎಸ್ಟೇಟ್ಸ್‌ಗೆ ಸ್ವಾಗತ. ನೀವು ಇನ್‌ಸ್ಟಾಗ್ರಾಮ್ ಜಾಹೀರಾತು ನೋಡಿ ಕಾಲ್ ಮಾಡಿದ್ದೀರಾ? ನೀವು ಬಂಡವಾಳ ಹೂಡಿಕೆಗಾಗಿ ಅಥವಾ ಸ್ವಂತ ಫಾರ್ಮ್‌ಹೌಸ್‌ಗಾಗಿ ನೋಡ್ತಿದ್ದೀರಾ?",
-    'hi': "नमस्ते सर! प्रेस्टीज मैनेज्ड फार्मलैंड में आपका स्वागत है। क्या आप निवेश के लिए या अपने फार्महाउस के लिए जमीन देख रहे हैं?",
-    'te': "నమస్కారం అండీ! ప్రెస్టీజ్ ఫార్మ్‌ల్యాండ్‌కి స్వాగతం. మీరు ఇన్వెస్ట్‌మెంట్ లేదా ఫార్మ్‌హౌస్ కోసం చూస్తున్నారా?",
-    'ta': "வணக்கம் சார்! பிரெஸ்டீஜ் பண்ணை நிலத்திற்கு வரவேற்கிறோம். நீங்கள் முதலீடு செய்ய பார்க்கிறீர்களா?",
-    'en-GB': "Good afternoon! Thank you for calling Prestige Managed Farmlands. Are you calling regarding our weekend estate tour from the Instagram ad?",
-    'en-US': "Hello! Thank you for calling Prestige Managed Farmlands. Are you exploring our 1-acre gated estate plots for investment or a personal getaway?"
+    'kn': "ನಮಸ್ಕಾರ! ಪ್ರೆಸ್ಟೀಜ್ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಇಂದ ಪ್ರಿಯಾ ಮಾತಾಡ್ತಿದ್ದೀನಿ. ಹೇಳಿ, ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಸೈಟ್ ವಿಸಿಟ್ ಅಥವಾ ಇನ್ವೆಸ್ಟ್‌ಮೆಂಟ್ ಬಗ್ಗೆ ತಿಳಿಸಿಕೊಡಲಾ?",
+    'hi': "नमस्ते! प्रेस्टीज मैनेज्ड फार्मलैंड से प्रिया बात कर रही हूँ। बताइए, साइट विजिट या इन्वेस्टमेंट के बारे में जानकारी चाहिए?",
+    'te': "నమస్కారం! ప్రెస్టీజ్ మేనేజ్డ్ ఫార్మ్‌ల్యాండ్ నుంచి ప్రియ మాట్లాడుతున్నాను. చెప్పండి, సైట్ విజిట్ లేదా ఇన్వెస్ట్‌మెంట్ వివరాలు కావాలా?",
+    'ta': "வணக்கம்! பிரெஸ்டீஜ் பண்ணை நிலத்திலிருந்து பிரியா பேசுகிறேன். சொல்லுங்கள், பண்ணை நிலம் அல்லது முதலீடு பற்றி தகவல் வேண்டுமா?",
+    'ml': "നമസ്കാരം! പ്രെസ്റ്റീജ് മാനേജ്ഡ് ഫാംലാൻഡിൽ നിന്ന് പ്രിയയാണ്. സൈറ്റ് സന്ദർശനത്തെക്കുറിച്ചോ നിക്ഷേപത്തെക്കുറിച്ചോ അറിയണോ?",
+    'mr': "नमस्कार! प्रेस्टीज मॅनेज्ड फार्मलँडवरून प्रिया बोलत आहे. सांगा, साइट व्हिजिट किंवा गुंतवणुकीबद्दल माहिती हवी आहे का?",
+    'gu': "નમસ્તે! પ્રેસ્ટિજ મેનેજ્ડ ફાર્મલેન્ડમાંથી પ્રિયા બોલું છું. કહો, સાઇટ વિઝિટ અથવા રોકાણ વિશે માહિતી જોઈએ છે?",
+    'bn': "নমস্কার! প্রেস্টিজ ম্যানেজড ফার্মল্যান্ড থেকে প্রিয়া বলছি। বলুন, সাইট ভিজিট বা বিনিয়োগ সম্পর্কে জানতে চান?",
+    'pa': "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਪ੍ਰੈਸਟੀਜ ਮੈਨੇਜਡ ਫਾਰਮਲੈਂਡ ਤੋਂ ਪ੍ਰਿਆ ਬੋਲ ਰਹੀ ਹਾਂ। ਦੱਸੋ, ਸਾਈਟ ਵਿਜ਼ਿਟ ਜਾਂ ਨਿਵੇਸ਼ ਬਾਰੇ ਜਾਣਕਾਰੀ ਚਾਹੀਦੀ ਹੈ?",
+    'en-IN': "Hello! Thank you for calling Prestige Managed Farmlands, Priya speaking. Are you looking to schedule a site tour this weekend?",
+    'en-GB': "Good afternoon! Thank you for calling Prestige Managed Farmlands, Priya speaking. How may I assist you with our estate plots today?",
+    'en-US': "Hello! Thank you for calling Prestige Managed Farmlands. How can I help you with our 1-acre estate plots today?",
+    'ar': "مرحباً بكم في مزارع بريستيج. معكم بريا، كيف يمكنني مساعدتكم اليوم؟",
+    'fr': "Bonjour! Prestige Managed Farmlands, ici Priya. Comment puis-je vous renseigner aujourd'hui?"
   },
   hvac: {
-    'en-US': "Thank you for calling Apex Heating & Air 24/7 service. This is Sarah. Are you having an emergency breakdown or looking to schedule a routine tune-up?",
-    'en-GB': "Thank you for calling Apex Heating & Air emergency dispatch. This is Sarah. Is this an urgent breakdown or routine maintenance?"
+    'kn': "ನಮಸ್ಕಾರ! ಅಪೆಕ್ಸ್ 24/7 ಎಸಿ & ಪ್ಲಂಬಿಂಗ್ ಸರ್ವಿಸ್ ಇಂದ ಸಾರಾ ಮಾತಾಡ್ತಿದ್ದೀನಿ. ಎಮರ್ಜೆನ್ಸಿ ರಿಪೇರಿ ಬೇಕಿತ್ತಾ ಅಥವಾ ರೆಗ್ಯುಲರ್ ಸರ್ವಿಸ್ ಬೇಕಿತ್ತಾ?",
+    'hi': "नमस्ते! एपेक्स 24/7 एसी और प्लंबिंग सर्विस से सारा बात कर रही हूँ। क्या कोई इमरजेंसी ब्रेकडाउन है या रूटीन सर्विस करवानी है?",
+    'te': "నమస్కారం! అపెక్స్ 24/7 ఎసి మరియు ప్లంబింగ్ సర్వీస్ నుంచి సారా మాట్లాడుతున్నాను. ఎమర్జెన్సీ రిపేర్ కావాలా లేదా రెగ్యులర్ సర్వీసా?",
+    'ta': "வணக்கம்! அபெக்ஸ் 24/7 ஏசி மற்றும் பிளம்பிங் சேவையிலிருந்து சாரா பேசுகிறேன். அவசர பழுதுபார்ப்பு தேவையா அல்லது வழக்கமான சர்வீஸா?",
+    'ml': "നമസ്കാരം! അപെക്സ് 24/7 എസി & പ്ലംബിംഗ് സർവീസിൽ നിന്ന് സാറയാണ്. അടിയന്തര റിപ്പയർ ആവശ്യമുണ്ടോ?",
+    'mr': "नमस्कार! एपेक्स 24/7 एसी आणि प्लंबिंग सेवेवरून सारा बोलत आहे. आपत्कालीन दुरुस्ती हवी आहे का नियमित सेवा?",
+    'gu': "નમસ્તે! એપેક્સ 24/7 એસી અને પ્લમ્બિંગ સર્વિસમાંથી સારા બોલું છું. ઇમરજન્સી રિપેરિંગ જોઈએ છે કે રૂટિન સર્વિસ?",
+    'bn': "নমস্কার! অ্যাপেক্স 24/7 এসি ও প্লাম্বিং সার্ভিস থেকে সারা বলছি। জরুরি মেরামত নাকি রুটিন সার্ভিস প্রয়োজন?",
+    'pa': "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਐਪੈਕਸ 24/7 ਏਸੀ ਅਤੇ ਪਲੰਬਿੰਗ ਸਰਵਿਸ ਤੋਂ ਸਾਰਾ ਬੋਲ ਰਹੀ ਹਾਂ। ਐਮਰਜੈਂਸੀ ਰਿਪੇਅਰ ਚਾਹੀਦੀ ਹੈ ਜਾਂ ਰੂਟੀਨ ਸਰਵਿਸ?",
+    'en-IN': "Hello! Thank you for calling Apex 24/7 HVAC & Plumbing. Do you need emergency technician dispatch or routine maintenance?",
+    'en-GB': "Good afternoon! Apex 24/7 HVAC Services, Sarah speaking. Do you need emergency technician dispatch or routine maintenance?",
+    'en-US': "Thank you for calling Apex Heating & Air 24/7 emergency dispatch. This is Sarah. Are you having an emergency breakdown or looking for routine service?",
+    'ar': "مرحباً بكم في خدمة أبيكس للتكييف والسباكة على مدار الساعة. معكم سارة، هل لديكم حالة طارئة؟",
+    'fr': "Bonjour! Apex HVAC Dépannage 24/7, ici Sarah. Avez-vous une urgence ou un entretien régulier?"
   },
   legal: {
-    'en-US': "Thank you for calling Johnson & Croft Injury Lawyers. My name is Sarah. Were you or a loved one injured in an accident?"
+    'kn': "ನಮಸ್ಕಾರ! ಜಾನ್ಸನ್ & ಕ್ರಾಫ್ಟ್ ಲೀಗಲ್ ಸರ್ವಿಸಸ್ ಇಂದ ಎಲೆನಾ ಮಾತಾಡ್ತಿದ್ದೀನಿ. ಹೇಳಿ, ಫ್ರೀ ಅಟಾರ್ನಿ ಕನ್ಸಲ್ಟೇಶನ್ ಬಗ್ಗೆ ತಿಳಿಸಿಕೊಡಲಾ?",
+    'hi': "नमस्ते! जॉनसन एंड क्रॉफ्ट लीगल से एलेना बात कर रही हूँ। बताइए, क्या आपको फ्री लीगल कंसल्टेशन चाहिए?",
+    'te': "నమస్కారం! జాన్సన్ & క్రాఫ్ట్ లీగల్ నుంచి ఎలెనా మాట్లాడుతున్నాను. చెప్పండి, ఉచిత అటార్నీ సంప్రదింపుల గురించి చెప్పమంటారా?",
+    'ta': "வணக்கம்! ஜான்சன் & கிராஃப்ட் சட்ட சேவையிலிருந்து எலினா பேசுகிறேன். சொல்லுங்கள், இலவச சட்ட ஆலோசனை தேவையா?",
+    'ml': "നമസ്കാരം! ജോൺസൺ & ക്രോഫ്റ്റ് ലീഗലിൽ നിന്ന് എലീനയാണ്. സൗജന്യ നിയമോപദേശം ആവശ്യമുണ്ടോ?",
+    'mr': "नमस्कार! जॉन्सन अँड क्रॉफ्ट लीगलवरून एलेना बोलत आहे. सांगा, मोफत कायदेशीर सल्ला हवा आहे का?",
+    'gu': "નમસ્તે! જોહ્ન્સન એન્ડ ક્રોફ્ટ લીગલમાંથી એલેના બોલું છું. કહો, ફ્રી લીગલ કન્સલ્ટેશન જોઈએ છે?",
+    'bn': "নমস্কার! জনসন অ্যান্ড ক্রফ্ট লিগ্যাল থেকে এলেনা বলছি। বলুন, বিনামূল্যে আইনি পরামর্শ চান?",
+    'pa': "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਜਾਨਸਨ ਐਂਡ ਕ੍ਰੌਫਟ ਲੀਗਲ ਤੋਂ ਅਲੇਨਾ ਬੋਲ ਰਹੀ ਹਾਂ। ਦੱਸੋ, ਮੁਫਤ ਕਾਨੂੰਨੀ ਸਲਾਹ ਚਾਹੀਦੀ ਹੈ?",
+    'en-IN': "Hello! Thank you for calling Johnson & Croft Law. Elena speaking. Are you looking to schedule a free confidential consultation?",
+    'en-GB': "Good afternoon! Johnson & Croft Legal, Elena speaking. How may I assist you with your legal inquiry today?",
+    'en-US': "Thank you for calling Johnson & Croft Injury Lawyers. My name is Elena. Are you looking to schedule a free confidential consultation?",
+    'ar': "مرحباً بكم في مكتب جونسون آند كروفت للمحاماة. معكم إيلينا، كيف يمكنني مساعدتكم في استشارتكم القانونية؟",
+    'fr': "Bonjour! Cabinet Johnson & Croft, ici Elena. Souhaitez-vous une consultation juridique gratuite?"
   },
   restaurant: {
-    'en-US': "Buonasera! Thank you for calling Gourmet Haven Ristorante. My name is Marco. Would you like to reserve a table for tonight or an upcoming date?"
+    'kn': "ನಮಸ್ಕಾರ! ಗೌರ್ಮೆಟ್ ಹ್ಯಾವನ್ ರೆಸ್ಟೋರೆಂಟ್ ಇಂದ ಮಾರ್ಕೊ ಮಾತಾಡ್ತಿದ್ದೀನಿ. ಹೇಳಿ, ಇವತ್ತು ರಾತ್ರಿಗೆ ಅಥವಾ ಮುಂದಿನ ದಿನಗಳಿಗೆ ಟೇಬಲ್ ರಿಸರ್ವ್ ಮಾಡಬೇಕಿತ್ತಾ?",
+    'hi': "नमस्ते! गॉरमेट हेवन रेस्टोरेंट से मार्को बात कर रहा हूँ। बताइए, क्या आज रात के लिए या आने वाले दिनों के लिए टेबल बुक करनी है?",
+    'te': "నమస్కారం! గోర్మెట్ హెవెన్ రెస్టారెంట్ నుంచి మార్కో మాట్లాడుతున్నాను. చెప్పండి, ఈరోజు రాత్రికి టేబుల్ రిజర్వ్ చేయమంటారా?",
+    'ta': "வணக்கம்! கோர்மெட் ஹேவன் உணவகத்திலிருந்து மார்கோ பேசுகிறேன். சொல்லுங்கள், இன்றிரவுக்கு மேஜை முன்பதிவு செய்ய வேண்டுமா?",
+    'ml': "നമസ്കാരം! ഗോർമെറ്റ് ഹാവൻ റെസ്റ്റോറന്റിൽ നിന്ന് മാർക്കോയാണ്. ഇന്ന് രാത്രിയിലേക്ക് ടೇബിൾ റിസർവ് ചെയ്യണോ?",
+    'mr': "नमस्कार! गॉरमेट हेव्हन रेस्टॉरंटवरून मार्को बोलत आहे. सांगा, आज रात्रीसाठी टेबल बुक करायचे आहे का?",
+    'gu': "નમસ્તે! ગોર્મેટ હેવન રેસ્ટોરન્ટમાંથી માર્કો બોલું છું. કહો, આજે રાત માટે ટેબલ બુક કરવું છે?",
+    'bn': "নমস্কার! গুরমে হেভেন রেস্তোরাঁ থেকে মার্কো বলছি। বলুন, আজ রাতের জন্য টেবিল বুক করতে চান?",
+    'pa': "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਗੌਰਮੇਟ ਹੈਵਨ ਰੈਸਟੋਰੈਂਟ ਤੋਂ ਮਾਰਕੋ ਬੋਲ ਰਿਹਾ ਹਾਂ। ਦੱਸੋ, ਅੱਜ ਰਾਤ ਲਈ ਟੇਬਲ ਬੁੱਕ ਕਰਨਾ ਹੈ?",
+    'en-IN': "Hello! Welcome to Gourmet Haven Restaurant, Marco speaking. Would you like to reserve a table for tonight or an upcoming date?",
+    'en-GB': "Good afternoon! Gourmet Haven Fine Dining, Marco speaking. Would you like to reserve a table?",
+    'en-US': "Buonasera! Thank you for calling Gourmet Haven Ristorante. My name is Marco. Would you like to reserve a table for tonight or an upcoming date?",
+    'ar': "أهلاً وسهلاً بكم في مطعم جورميه هافن. معكم ماركو، هل ترغبون في حجز طاولة الليلة؟",
+    'fr': "Bonsoir! Restaurant Gourmet Haven, ici Marco. Souhaitez-vous réserver une table pour ce soir?"
   }
 };
 
@@ -391,7 +443,7 @@ const CATEGORY_PROMPTS = {
       "ನಾಳೆ ಸಂಜೆ 5:30 ಕ್ಕೆ ಬುಕ್ ಮಾಡಿ. ಧನ್ಯವಾದಗಳು, ಬಾಯ್!"
     ],
     te: [
-      "నాకు పంటి నొప్పి ఎక్కువగా ఉంది, రూಟ್ కెనాల్ చేయించుకోవాలి",
+      "నాకు పంటి నొప్పి ఎక్కువగా ఉంది, రూట్ కెనాల్ చేయించుకోవాలి",
       "డాక్టర్ ప్రేమ్ గారి మైక్రోస్కోపిక్ ట్రీట్మెంట్ ఫీజు ఎంత?",
       "క్లినిక్ ఎక్కడుంది? పార్కింగ్ సదుపాయం ఉందా?",
       "రేపు సాయంత్రం 5:30కి బుక్ చేయండి. ధన్యవాదాలు!"
@@ -416,18 +468,96 @@ const CATEGORY_PROMPTS = {
     ]
   },
   realestate: {
-    kn: ["ಹೌದು, ನಾನು 1 ೆಕರೆ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಇನ್ವೆಸ್ಟ್‌ಮೆಂಟ್‌ಗಾಗಿ ನೋಡ್ತಿದ್ದೀನಿ", "ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಬೆಲೆ ೆಷ್ಟು ಮತ್ತು ಕ್ಲಬ್‌ಹೌಸ್ ಸೌಲಭ್ಯವಿದೆಯಾ?", "ಶನಿವಾರ 10 ಗಂಟೆಗೆ ಬುಕ್ ಮಾಡಿ. ನನ್ನ ಹೆಸರು ರಾಜೇಶ್", "ಧನ್ಯವಾದಗಳು, ಬಾಯ್!"],
-    hi: ["हाँ, मैं 1 एकड़ मैनेज्ड फार्मलैंड इन्वेस्टमेंट के लिए देख रहा हूँ", "फार्मलैंड की कीमत और रिटर्न क्या है?", "इस शनिवार साइट विजिट के लिए बुक करें, मेरा नाम राहुल है", "धन्यवाद!"],
-    default: ["I am interested in the 1-acre managed farmland estate from the ad", "What is the starting price per quarter-acre and expected ROI?", "Can we schedule a private site visit this Saturday at 10 AM? Name is David", "Thank you, goodbye!"]
+    kn: [
+      "ಹೌದು, ನಾನು 1 ಎಕರೆ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಇನ್ವೆಸ್ಟ್‌ಮೆಂಟ್‌ಗಾಗಿ ನೋಡ್ತಿದ್ದೀನಿ",
+      "ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಬೆಲೆ ಎಷ್ಟು ಮತ್ತು ಕ್ಲಬ್‌ಹೌಸ್ ಸೌಲಭ್ಯವಿದೆಯಾ?",
+      "ಶನಿವಾರ 10 ಗಂಟೆಗೆ ಸೈಟ್ ವಿಸಿಟ್ ಬುಕ್ ಮಾಡಿ. ನನ್ನ ಹೆಸರು ರಾಜೇಶ್",
+      "ಧನ್ಯವಾದಗಳು, ಬಾಯ್!"
+    ],
+    te: [
+      "నేను 1 ఎకరం ఫార్మ్‌ల్యాండ్ ఇన్వెస్ట్‌మెంట్ కోసం చూస్తున్నాను",
+      "ప్రారంభ ధర ఎంత మరియు క్లబ్‌హౌస్ సదుపాయాలు ఉన్నాయా?",
+      "ఈ శనివారం ఉదయం 10 గంటలకు సైట్ విజిట్ బుక్ చేయండి",
+      "ధన్యవాదాలు, బై!"
+    ],
+    hi: [
+      "हाँ, मैं 1 एकड़ मैनेज्ड फार्मलैंड इन्वेस्टमेंट के लिए देख रहा हूँ",
+      "फार्मलैंड की शुरुआती कीमत और सुविधाएं क्या हैं?",
+      "इस शनिवार सुबह 10:00 बजे साइट विजिट बुक कर दीजिए",
+      "धन्यवाद, बाय!"
+    ],
+    ta: [
+      "நான் 1 ஏக்கர் பண்ணை நில முதலீட்டிற்கு பார்க்கிறேன்",
+      "விலை மற்றும் கிளப்ஹவுஸ் வசதிகள் என்ன?",
+      "இந்த சனிக்கிழமை காலை 10 மணிக்கு பார்வையிட முன்பதிவு செய்யவும்",
+      "மிக்க நன்றி!"
+    ],
+    default: [
+      "I am interested in the 1-acre managed farmland estate from the ad",
+      "What is the starting price per quarter-acre and clubhouse amenities?",
+      "Can we schedule a private site visit this Saturday at 10 AM? Name is Rajesh",
+      "Thank you so much, goodbye!"
+    ]
   },
   hvac: {
-    default: ["My AC stopped working completely, it is 95 degrees inside, how fast can someone come?", "Is the $79 diagnostic fee waived if I approve the repair?", "I have a water leak in my kitchen, is that something you handle?", "What is the 24/7 emergency dispatch number? Name is James", "Thank you!"]
+    kn: [
+      "ನಮ್ಮ ಎಸಿ ಸಂಪೂರ್ಣ ಕೆಟ್ಟುಹೋಗಿದೆ, ಇವತ್ತೇ ಟೆಕ್ನಿಷಿಯನ್ ಕಳಿಸಿಕೊಡಬಹುದಾ?",
+      "ರೆಗ್ಯುಲರ್ ಎಸಿ ಸರ್ವಿಸ್ ಮತ್ತು ಗ್ಯಾಸ್ ಫಿಲ್ಲಿಂಗ್ ಚಾರ್ಜ್ ಎಷ್ಟು?",
+      "ಇಂದು ಮಧ್ಯಾಹ್ನ 2:00 ಗಂಟೆಗೆ ಬುಕ್ ಮಾಡಿ. ನನ್ನ ಹೆಸರು ರಮೇಶ್",
+      "ಧನ್ಯವಾದಗಳು!"
+    ],
+    hi: [
+      "हमारा एसी बिल्कुल ठंडा नहीं कर रहा, क्या आज टेक्नीशियन भेज सकते हैं?",
+      "विजिटिंग चार्ज और रिपेयरिंग फीस कितनी है?",
+      "आज दोपहर 2:00 बजे का स्लॉट बुक कर दीजिए। नाम रमेश है",
+      "धन्यवाद!"
+    ],
+    default: [
+      "My AC stopped cooling completely, can you dispatch a technician today?",
+      "What is your diagnostic inspection fee and routine tune-up rate?",
+      "Please schedule an emergency visit for today at 2 PM. Name is Ramesh",
+      "Thank you, goodbye!"
+    ]
   },
   legal: {
-    default: ["I was hit by a delivery truck yesterday and broke my arm, do I need a lawyer?", "Do I have to pay anything upfront for legal representation?", "How long does a personal injury case typically take?", "I want to schedule a free consultation, my name is Michael", "Thank you, goodbye!"]
+    kn: [
+      "ನನಗೆ ಆಕ್ಸಿಡೆಂಟ್ ಇಂಜುರಿ ಕೇಸ್ ಬಗ್ಗೆ ಫ್ರೀ ಲೀಗಲ್ ಕನ್ಸಲ್ಟೇಶನ್ ಬೇಕಿತ್ತು",
+      "ಕೋರ್ಟ್ ಫೀಸ್ ಅಥವಾ ಮುಂಗಡ ಶುಲ್ಕ ನೀಡಬೇಕಾ?",
+      "ನಾಳೆ ಬೆಳಿಗ್ಗೆ 11 ಗಂಟೆಗೆ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಫಿಕ್ಸ್ ಮಾಡಿ. ಹೆಸರು ಸುರೇಶ್",
+      "ಧನ್ಯವಾದಗಳು!"
+    ],
+    hi: [
+      "मुझे एक्सीडेंट क्लेम के लिए फ्री लीगल एडवाइस चाहिए",
+      "क्या केस के लिए पहले कोई फीस देनी होती है?",
+      "कल सुबह 11:00 बजे का अपॉइंटमेंट बुक कर दीजिए। नाम सुरेश है",
+      "धन्यवाद!"
+    ],
+    default: [
+      "I was involved in an accident and need a free confidential consultation",
+      "Do you charge any upfront legal fees or work on contingency?",
+      "Please schedule a consultation for tomorrow at 11 AM. Name is Suresh",
+      "Thank you, goodbye!"
+    ]
   },
   restaurant: {
-    default: ["I would like to reserve a table for 4 this Friday at 8 PM", "Two of our guests are strictly vegan, can the chef accommodate that?", "Do you have a private dining room for a birthday celebration?", "I need to cancel my reservation for tomorrow night", "Thank you so much, goodbye!"]
+    kn: [
+      "ಈ ಶುಕ್ರವಾರ ರಾತ್ರಿ 8:00 ಗಂಟೆಗೆ 4 ಜನರಿಗೆ ಟೇಬಲ್ ರಿಸರ್ವ್ ಮಾಡಬೇಕಿತ್ತು",
+      "ವೆಜಿಟೇರಿಯನ್ ಮತ್ತು ಜೈನ್ ಫುಡ್ ಆಪ್ಷನ್ಸ್ ಲಭ್ಯವಿದೆಯಾ?",
+      "ಫ್ಯಾಮಿಲಿ ಬರ್ತ್‌ಡೇ ಪಾರ್ಟಿಗೆ ಪ್ರೈವೇಟ್ ಡೈನಿಂಗ್ ಏರಿಯಾ ಇದೆಯಾ?",
+      "ಬುಕಿಂಗ್ ಕನ್ಫರ್ಮ್ ಮಾಡಿ. ನನ್ನ ಹೆಸರು ಪ್ರಶಾಂತ್. ಧನ್ಯವಾದಗಳು!"
+    ],
+    hi: [
+      "इस शुक्रवार रात 8:00 बजे 4 लोगों के लिए टेबल बुक करनी है",
+      "क्या शुद्ध शाकाहारी और जैन भोजन उपलब्ध है?",
+      "फैमिली बर्थडे पार्टी के लिए प्राइवेट डाइनिंग स्पेस है?",
+      "बुकिंग कन्फर्म कर दीजिए। नाम प्रशांत है। धन्यवाद!"
+    ],
+    default: [
+      "I would like to reserve a table for 4 this Friday at 8:00 PM",
+      "Do you offer pure vegetarian and vegan menu options?",
+      "Do you have a private dining room for a family celebration?",
+      "Please confirm the reservation for Prashanth. Thank you!"
+    ]
   }
 };
 
