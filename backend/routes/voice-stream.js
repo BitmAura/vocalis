@@ -285,9 +285,6 @@ function attachMediaStreamServer(httpServer) {
 
           session.audioBuffer.push(chunk);
 
-          const energy = mulawEnergy(chunk);
-          const isVoice = energy > 6;
-
           if (isVoice) {
             session.speechChunks++;
             session.silenceChunks = 0;
@@ -379,3 +376,4 @@ function generateMediaStreamTwiML(config) {
 }
 
 module.exports = { attachMediaStreamServer, generateMediaStreamTwiML, activeSessions };
+
