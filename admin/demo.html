@@ -193,7 +193,7 @@
         <div class="chat-window">
           <div class="card-header">
             <div>
-              <div class="card-title" id="chatTitle">Harley Street Smiles Dental (Clara)</div>
+              <div class="card-title" id="chatTitle">Kumar's Microscopic Dental Care (Dr. Prem)</div>
               <div class="card-subtitle" id="chatSubtitle">Category 1: Dental Appointment Booking · Two-Way Conversational Intelligence</div>
             </div>
             <button class="btn btn-ghost btn-sm" onclick="clearChat()">Reset Call</button>
@@ -222,13 +222,13 @@ let currentCategory = 'dental';
 
 const CATEGORY_CONFIG = {
   dental: {
-    tenantId: 'TNT-001',
-    bizName: 'Harley Street Smiles Dental',
-    ownerName: 'Dr. Harley',
-    city: 'Central London',
+    tenantId: 'TNT-PREM',
+    bizName: "Kumar's Microscopic Dental Care",
+    ownerName: 'Dr. Prem',
+    city: 'Bangalore (Indiranagar)',
     personaName: 'Clara',
-    label: 'Harley Street Smiles Dental (Clara)',
-    subtitle: 'Category 1: Dental Appointment Booking · Two-Way Conversational Intelligence'
+    label: "Kumar's Microscopic Dental Care (Dr. Prem)",
+    subtitle: 'Category 1: Microscopic Dental & Root Canal · Two-Way Conversational Intelligence'
   },
   realestate: {
     tenantId: 'TNT-002',
@@ -384,11 +384,36 @@ function resetCallState() {
 
 const CATEGORY_PROMPTS = {
   dental: {
-    kn: ["ನಾನು ಹೊಸ ಪೇಷೆಂಟ್, ಶುಕ್ರವಾರ ಹಲ್ಲಿನ ಕ್ಲೀನಿಂಗ್ ಮಾಡಿಸಬೇಕು", "ಹಲ್ಲಿನ ಚೆಕಪ್ ಮತ್ತು ಕ್ಲೀನಿಂಗ್ ಶುಲ್ಕ ೆಷ್ಟು?", "ತುಂಬಾ ಹಲ್ಲು ನೋವಿದೆ, ಇವತ್ತೇ ತುರ್ತು ಸ್ಲಾಟ್ ಬೇಕು", "ಧನ್ಯವಾದಗಳು, ಬಾಯ್!"],
-    te: ["నేను కొత్త పేషెంట్‌ని, శుక్రవారం దంతాల క్లీనింగ్ కావాలి", "క్లీనింగ్ మరియు చెక్ఆప్ ఖర్చు ఎంత?", "విపరీతమైన పంటి నొప్పిగా ఉంది, ఈరోజే డాక్టర్‌ని కలవాలి", "ధన్యవాదాలు!"],
-    hi: ["मैं नया पेशेंट हूँ, दांतों की सफाई करवानी है", "दांतों की सफाई की फीस कितनी है?", "बहुत तेज दांत दर्द है, आज ही दिखाना है", "धन्यवाद!"],
-    ta: ["நான் புதிய நோயாளி, பல் சுத்தம் செய்ய வேண்டும்", "கட்டணம் எவ்வளவு?", "கடுமையான பல் வலி, இன்றே மருத்துவர் பார்க்க முடியுமா?", "மிக்க நன்றி!"],
-    default: ["I am a new patient, looking to book a routine cleaning for Friday afternoon", "How much is your dental cleaning and checkup fee?", "I have severe throbbing pain on my lower molar, can I come in today?", "That is everything, thank you so much, goodbye!"]
+    kn: [
+      "ನನಗೆ ಕೆಳಗಿನ ಹಲ್ಲಿನಲ್ಲಿ ತುಂಬಾ ನೋವಿದೆ, ರೂಟ್ ಕೆನಾಲ್ ಮಾಡಿಸಬೇಕಿತ್ತು",
+      "ಡಾಕ್ಟರ್ ಪ್ರೇಮ್ ಅವರ ಮೈಕ್ರೋಸ್ಕೋಪಿಕ್ ರೂಟ್ ಕೆನಾಲ್ ಫೀಸ್ ಎಷ್ಟು?",
+      "ಕ್ಲಿನಿಕ್ ಎಲ್ಲಿದೆ? ಪಾರ್ಕಿಂಗ್ ಸೌಲಭ್ಯವಿದೆಯಾ?",
+      "ನಾಳೆ ಸಂಜೆ 5:30 ಕ್ಕೆ ಬುಕ್ ಮಾಡಿ. ಧನ್ಯವಾದಗಳು, ಬಾಯ್!"
+    ],
+    te: [
+      "నాకు పంటి నొప్పి ఎక్కువగా ఉంది, రూಟ್ కెనాల్ చేయించుకోవాలి",
+      "డాక్టర్ ప్రేమ్ గారి మైక్రోస్కోపిక్ ట్రీట్మెంట్ ఫీజు ఎంత?",
+      "క్లినిక్ ఎక్కడుంది? పార్కింగ్ సదుపాయం ఉందా?",
+      "రేపు సాయంత్రం 5:30కి బుక్ చేయండి. ధన్యవాదాలు!"
+    ],
+    hi: [
+      "दांत में बहुत तेज दर्द है, क्या रूट कैनाल करना पड़ेगा?",
+      "डॉ. प्रेम के माइक्रोस्कोपिक रूट कैनाल की फीस कितनी है?",
+      "क्लिनिक का पता और टाइमिंग क्या है?",
+      "कल शाम 5:30 बजे का स्लॉट बुक कर दीजिए। धन्यवाद!"
+    ],
+    ta: [
+      "எனக்கு கடுமையான பல் வலி, ரூட் கெனால் செய்ய வேண்டுமா?",
+      "டாக்டர் பிரேம் அவர்களின் கட்டணம் எவ்வளவு?",
+      "கிளினிக் எங்குள்ளது? பார்க்கிங் வசதி உள்ளதா?",
+      "நாளை மாலை 5:30 மணிக்கு பதிவு செய்யுங்கள். நன்றி!"
+    ],
+    default: [
+      "I have severe toothache on my lower molar, do I need a root canal?",
+      "What is the fee for Dr. Prem's single-sitting microscopic root canal?",
+      "Where is the clinic located in Indiranagar and is valet parking available?",
+      "Please lock in tomorrow at 5:30 PM with Dr. Prem. Thank you!"
+    ]
   },
   realestate: {
     kn: ["ಹೌದು, ನಾನು 1 ೆಕರೆ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಇನ್ವೆಸ್ಟ್‌ಮೆಂಟ್‌ಗಾಗಿ ನೋಡ್ತಿದ್ದೀನಿ", "ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಬೆಲೆ ೆಷ್ಟು ಮತ್ತು ಕ್ಲಬ್‌ಹೌಸ್ ಸೌಲಭ್ಯವಿದೆಯಾ?", "ಶನಿವಾರ 10 ಗಂಟೆಗೆ ಬುಕ್ ಮಾಡಿ. ನನ್ನ ಹೆಸರು ರಾಜೇಶ್", "ಧನ್ಯವಾದಗಳು, ಬಾಯ್!"],
