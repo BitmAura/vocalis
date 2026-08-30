@@ -938,16 +938,16 @@ function toggleVoiceCall() {
     btn.classList.add('active');
     txt.innerText = 'Call Live (Listening...)';
     const greeting = {
-      'en-GB': "Hi, you're through to reception. How can I help?",
-      'en-US': "Hi, you've reached reception. How can I help?",
-      'en-IN': 'Hi, reception here. How can I help?',
-      fr: "Allo, bienvenue. Je vous ecoute.",
-      ar: 'هلا، تفضل.',
-      hi: 'नमस्ते, बोलिए?',
-      kn: 'ನಮಸ್ಕಾರ, ಹೇಳಿ?',
-      te: 'హాయ్, చెప్పండి?',
-      ta: 'வணக்கம், சொல்லுங்க?'
-    }[currentLanguage] || "Hi, how can I help?";
+      'en-GB': "Hello! Kumar's Microscopic Dental Care, Clara speaking. How may I assist you today?",
+      'en-US': "Hello! Kumar's Microscopic Dental Care, Clara speaking. How can I help you today?",
+      'en-IN': "Hello! Kumar's Microscopic Dental Care, Clara speaking. How can I help you today?",
+      fr: "Bonjour! Clinique dentaire de Kumar. Ici Clara, comment puis-je vous aider?",
+      ar: 'مرحباً بكم في عيادة كومار لطب الأسنان. معكم كلارا، كيف يمكنني مساعدتكم؟',
+      hi: 'नमस्ते! कुमार्स माइक्रोस्कोपिक डेंटल केयर से क्लारा बात कर रही हूँ। बताइए, मैं क्या मदद कर सकती हूँ?',
+      kn: 'ನಮಸ್ಕಾರ! ಕುಮಾರ್ಸ್ ಮೈಕ್ರೋಸ್ಕೋಪಿಕ್ ಡೆಂಟಲ್ ಕೇರ್ ಇಂದ ಕ್ಲಾರಾ ಮಾತಾಡ್ತಿದ್ದೀನಿ. ಹೇಳಿ, ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡ್ಲಿ?',
+      te: 'నమస్కారం! కుమార్ మైక్రోస్కోపిక్ డెంటల్ కేర్ నుంచి క్లారా మాట్లాడుతున్నాను. చెప్పండి, మీకు ఎలా సహాయపడగలను?',
+      ta: 'வணக்கம்! குமார்ஸ் மைக்ரோஸ்கோபிக் டென்டல் கேர் நான் கிளாரா பேசுறேன். சொல்லுங்க, உங்களுக்கு எப்படி உதவ முடியும்?'
+    }[currentLanguage] || "Hello! Kumar's Microscopic Dental Care, Clara speaking. How may I help you?";
     speak(greeting);
   } else {
     isCalling = false;
