@@ -90,13 +90,16 @@ async function handleInboundCall(reqBody) {
     if (useMediaStream()) {
       console.log('[Telephony] Routing to Media Stream (USE_MEDIA_STREAM / VOICE_WS_URL)');
       return generateMediaStreamTwiML({
+        tenantId: tenant.id,
         industry: tenant.industry,
         language: session.lang,
         bizName: tenant.businessName,
         ownerName: tenant.ownerName,
         personaName: tenant.personaName || 'Clara',
         city: tenant.city || 'Central London',
-        doctorPhone: tenant.doctorWhatsApp || tenant.doctorPhone || ''
+        doctorPhone: tenant.doctorWhatsApp || tenant.doctorPhone || '',
+        callerPhone: fromNumber,
+        toNumber: toNumber
       });
     }
 

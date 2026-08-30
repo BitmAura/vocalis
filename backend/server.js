@@ -127,6 +127,21 @@ async function requestHandler(req, res) {
     return;
   }
 
+  // Health check (Oracle uptime / tunnel verify)
+  if (req.method === 'GET' && (parsedUrl === '/api/health' || parsedUrl === '/v1/health')) {
+    const cfg = configured();
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      ok: true,
+      uptimeSec: Math.round(process.uptime()),
+      vercel: !!process.env.VERCEL,
+      mediaStream: cfg.mediaStream,
+      voiceWsUrl: cfg.voiceWsUrl,
+      integrations: cfg
+    }));
+    return;
+  }
+
   // API Route: Twilio Recording Status Callback
   if (req.method === 'POST' && parsedUrl === '/v1/telephony/recording') {
     let body = ''; let sz = 0;
@@ -640,10 +655,14 @@ module.exports = requestHandler;
 if (require.main === module && !process.env.VERCEL) {
   const { attachMediaStreamServer } = require('./routes/voice-stream');
   const server = http.createServer(requestHandler);
-  server.listen(PORT, () => {
-    console.log(`Vocalis listening http://localhost:${PORT}`);
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`Vocalis listening http://0.0.0.0:${PORT}`);
     console.log('Admin: http://localhost:' + PORT + '/index.html');
+    console.log('Demo: http://localhost:' + PORT + '/demo.html');
     console.log('Inbound TwiML: POST /v1/telephony/inbound');
+    console.log('Media Stream WSS: /v1/stream');
+    console.log('USE_MEDIA_STREAM=' + (process.env.USE_MEDIA_STREAM || 'false'));
+    console.log('VOICE_WS_URL=' + (process.env.VOICE_WS_URL || '(derive from PUBLIC_BASE_URL)'));
     console.log('Phone: ' + (process.env.TWILIO_PHONE_NUMBER || 'not set'));
     attachMediaStreamServer(server);
   });

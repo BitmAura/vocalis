@@ -90,6 +90,53 @@ class TTSEngine {
     return null;
   }
 
+  /** Mulaw 8kHz for Twilio Media Streams realtime voice */
+  async synthesizeMulaw8k(text, language) {
+    const { wavOrPcmToMulaw8k } = require('./twilio-audio');
+    const spoken = prepareSpeechText(text, language);
+
+    if (this.googleKey) {
+      const voice = GOOGLE_TTS_VOICES[language] || GOOGLE_TTS_VOICES['en-IN'] || GOOGLE_TTS_VOICES['en-GB'];
+      const body = JSON.stringify({
+        input: { text: spoken },
+        voice: { languageCode: voice.languageCode, name: voice.name, ssmlGender: voice.ssmlGender },
+        audioConfig: { audioEncoding: 'MULAW', sampleRateHertz: 8000, speakingRate: 0.98, pitch: 0.0 }
+      });
+      const mulaw = await new Promise((resolve) => {
+        const req = https.request({
+          hostname: 'texttospeech.googleapis.com',
+          path: `/v1/text:synthesize?key=${this.googleKey}`,
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body) }
+        }, (res) => {
+          let data = '';
+          res.on('data', (c) => { data += c; });
+          res.on('end', () => {
+            try {
+              const p = JSON.parse(data);
+              resolve(p.audioContent ? Buffer.from(p.audioContent, 'base64') : null);
+            } catch (e) { resolve(null); }
+          });
+        });
+        req.on('error', () => resolve(null));
+        req.setTimeout(8000, () => { req.destroy(); resolve(null); });
+        req.write(body);
+        req.end();
+      });
+      if (mulaw && mulaw.length > 160) return mulaw;
+    }
+
+    try {
+      const wav = await mitVoice.synthesizeWav(spoken, language);
+      const mulaw = wavOrPcmToMulaw8k(wav);
+      if (mulaw && mulaw.length > 160) return mulaw;
+    } catch (e) {
+      console.warn('[TTS Stream] mit-voice:', e.message);
+    }
+
+    return null;
+  }
+
   async _elevenLabsTTS(text, language) {
     const voice = ELEVENLABS_VOICES[language];
     if (!voice || !voice.voiceId) return null;
