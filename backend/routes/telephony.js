@@ -289,4 +289,48 @@ function escapeXml(unsafe) {
   });
 }
 
-module.exports = { handleInboundCall, useMediaStream };
+
+async function triggerOutboundCall(toPhone, scenario = 'kannada_patient') {
+  const { request } = require('../services/https-request');
+  const sid = process.env.TWILIO_ACCOUNT_SID;
+  const token = process.env.TWILIO_AUTH_TOKEN;
+  const fromNumber = process.env.TWILIO_PHONE_NUMBER || '+19803723727';
+  const baseUrl = (process.env.PUBLIC_BASE_URL || 'https://exterior-maternity-murphy-society.trycloudflare.com').replace(/\/$/, '');
+  
+  if (!sid || !token || !toPhone) {
+    throw new Error('Missing Twilio credentials or destination phone number');
+  }
+
+  const auth = Buffer.from(sid + ':' + token).toString('base64');
+  const data = new URLSearchParams({
+    To: toPhone,
+    From: fromNumber,
+    Url: baseUrl + '/v1/telephony/inbound?scenario=' + encodeURIComponent(scenario),
+    Method: 'POST'
+  }).toString();
+
+  const res = await request({
+    hostname: 'api.twilio.com',
+    path: '/2010-04-01/Accounts/' + sid + '/Calls.json',
+    method: 'POST',
+    headers: {
+      Authorization: 'Basic ' + auth,
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': Buffer.byteLength(data)
+    },
+    body: data
+  });
+
+  return {
+    success: res.status >= 200 && res.status < 300,
+    httpStatus: res.status,
+    data: res.body ? JSON.parse(res.body) : null
+  };
+}
+
+module.exports = {
+  handleInboundCall,
+  triggerOutboundCall,
+  resolveTenant
+};
+
