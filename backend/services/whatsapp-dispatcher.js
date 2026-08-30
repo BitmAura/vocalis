@@ -164,7 +164,7 @@ class WhatsAppDispatcher {
     let smsOk = false;
     // 1. Send SMS to Patient / Caller
     if (patientPhone && !String(patientPhone).includes('Unknown')) {
-      const patientMsg = '✅ VOCALIS CONFIRMATION: Your appointment with ' + (clinicName || 'Harley Street Smiles Dental') + ' is confirmed for ' + (slotTime || 'tomorrow at 12:30 PM') + '. See you soon!';
+      const patientMsg = '✅ VOCALIS CONFIRMATION: Your appointment with ' + (clinicName || 'Kumar's Microscopic Dental Care') + ' is confirmed for ' + (slotTime || 'tomorrow at 12:30 PM') + '. See you soon!';
       smsOk = await this.sendSMS(patientPhone, patientMsg);
       console.log('[SMS to Caller]:', patientPhone, smsOk ? 'SENT' : 'FAILED');
     }

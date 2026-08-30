@@ -44,17 +44,17 @@ class TenantStore {
     const defaults = [
       {
         id: 'TNT-001',
-        businessName: 'Harley Street Smiles Dental',
+        businessName: 'Kumar's Microscopic Dental Care',
         industry: 'dental',
         currency: 'GBP',
         currencySymbol: '£',
-        ownerName: 'Dr. Harley',
+        ownerName: 'Dr. Prem',
         personaName: 'Clara',
         language: 'en-GB',
         phone: '+44 20 7946 0912',
         doctorWhatsApp: '+44 7911 123456',
         city: 'Central London',
-        address: '14 Harley Street, London W1G 9PQ',
+        address: 'Kumar's Microscopic Dental Care, Indiranagar, Bangalore',
         workingHours: 'Mon-Sat: 8:30 AM - 6:00 PM',
         emergencyAvailable: true,
         services: [
@@ -67,7 +67,7 @@ class TenantStore {
           { question: 'Do you accept private insurance like Bupa, AXA, or Aviva?', answer: 'Yes, we accept all major UK private health insurances including Bupa, AXA Health, Aviva, and Vitality. We provide itemized receipts for instant direct claim reimbursement.' },
           { question: 'Is there parking available nearby?', answer: 'Yes, validated Q-Park parking is available directly across from our clinic on Cavendish Square.' },
           { question: 'Are you wheelchair accessible?', answer: 'Yes, our clinic has ground floor step-free access and an elevator.' },
-          { question: 'What happens if I need root canal or emergency tooth extraction?', answer: 'Dr. Harley specializes in pain-free emergency root canal therapy and same-day extractions with local sedation.' }
+          { question: 'What happens if I need root canal or emergency tooth extraction?', answer: 'Dr. Prem specializes in pain-free emergency root canal therapy and same-day extractions with local sedation.' }
         ]
       },
       {
@@ -209,8 +209,8 @@ class TenantStore {
     }
     return {
       id: 'TNT-001',
-      businessName: 'Harley Street Smiles Dental',
-      ownerName: 'Dr. Harley',
+      businessName: 'Kumar's Microscopic Dental Care',
+      ownerName: 'Dr. Prem',
       industry: 'dental',
       personaName: 'Clara',
       language: 'en-GB',

@@ -24,93 +24,93 @@ const LANGUAGE_CONFIGS = {
   'kn': {
     name: 'Kannada + Kanglish (ಕನ್ನಡ)',
     instruction: `Speak like a warm Bangalore/Karnataka clinic receptionist in natural Kanglish.
-- Mix spoken Kannada (ಕನ್ನಡ) with English words naturally used: slot, appointment, confirm, Sunday, PM, WhatsApp, Dr. Harley.
+- Mix spoken Kannada (ಕನ್ನಡ) with English words naturally used: slot, appointment, confirm, Sunday, PM, WhatsApp, Dr. Prem.
 - Honorifics: "ಅವರೇ" (Avare), "ಸರ್ / ಮೇಡಂ".
-- Example: "ಖಂಡಿತ ಪ್ರದೀಪ್ ಅವರೇ! ನಾಳೆ ಮಧ್ಯಾಹ್ನ 12:30 PM ಗೆ Dr. Harley ಅವರ ಜೊತೆ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ confirm ಮಾಡಲಾ?"
+- Example: "ಖಂಡಿತ ಪ್ರದೀಪ್ ಅವರೇ! ನಾಳೆ ಮಧ್ಯಾಹ್ನ 12:30 PM ಗೆ Dr. Prem ಅವರ ಜೊತೆ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ confirm ಮಾಡಲಾ?"
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'ಖಂಡಿತ ಪ್ರದೀಪ್ ಅವರೇ! ನಾಳೆ ಮಧ್ಯಾಹ್ನ 12:30 PM ಗೆ Dr. Harley ಅವರ ಜೊತೆ ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ confirm ಆಗಿದೆ. SMS ಮತ್ತು WhatsApp ಕಳುಹಿಸಲಾಗಿದೆ.'
+    confirmExample: 'ಖಂಡಿತ ಪ್ರದೀಪ್ ಅವರೇ! ನಾಳೆ ಮಧ್ಯಾಹ್ನ 12:30 PM ಗೆ Dr. Prem ಅವರ ಜೊತೆ ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ confirm ಆಗಿದೆ. SMS ಮತ್ತು WhatsApp ಕಳುಹಿಸಲಾಗಿದೆ.'
   },
   'te': {
     name: 'Telugu + Tenglish (తెలుగు)',
     instruction: `Speak like a warm Hyderabad/AP clinic receptionist in natural Tenglish.
-- Mix spoken Telugu (తెలుగు) with English: slot, appointment, confirm, evening, WhatsApp, Dr. Harley.
+- Mix spoken Telugu (తెలుగు) with English: slot, appointment, confirm, evening, WhatsApp, Dr. Prem.
 - Honorifics: "గారు" (Garu), "సార్ / మేడమ్".
-- Example: "ఖచ్చితంగా ప్రదీప్ గారు! రేపు ఈవినింగ్ 6:00 PM కి Dr. Harley గారితో అపాయింట్‌మెంట్ confirm చేయనా?"
+- Example: "ఖచ్చితంగా ప్రదీప్ గారు! రేపు ఈవినింగ్ 6:00 PM కి Dr. Prem గారితో అపాయింట్‌మెంట్ confirm చేయనా?"
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'ఖచ్చితంగా ప్రదీప్ గారు! రేపు మధ్యాహ్నం 12:30 PM కి Dr. Harley గారితో మీ అపాయింట్‌మెంట్ confirm అయింది. SMS మరియు WhatsApp పంపించాము.'
+    confirmExample: 'ఖచ్చితంగా ప్రదీప్ గారు! రేపు మధ్యాహ్నం 12:30 PM కి Dr. Prem గారితో మీ అపాయింట్‌మెంట్ confirm అయింది. SMS మరియు WhatsApp పంపించాము.'
   },
   'ta': {
     name: 'Tamil + Tanglish (தமிழ்)',
     instruction: `Speak like a warm Chennai/Tamil Nadu clinic receptionist in natural Tanglish.
-- Mix spoken Tamil (தமிழ்) with English: slot, appointment, confirm, evening, WhatsApp, Dr. Harley.
+- Mix spoken Tamil (தமிழ்) with English: slot, appointment, confirm, evening, WhatsApp, Dr. Prem.
 - Honorifics: "அவர்களே" (Avargale), "சார் / மேடம்".
-- Example: "நிச்சயமாக பிரதீப் சார்! நாளைக்கு ஈவினிங் 6:00 PM க்கு Dr. Harley கிட்ட slot confirm பண்ணிடட்டுமா?"
+- Example: "நிச்சயமாக பிரதீப் சார்! நாளைக்கு ஈவினிங் 6:00 PM க்கு Dr. Prem கிட்ட slot confirm பண்ணிடட்டுமா?"
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'நிச்சயமாக பிரதீப் சார்! நாளைக்கு மதியம் 12:30 PM க்கு Dr. Harley உடன் உங்கள் appointment confirm ஆகியுள்ளது. SMS மற்றும் WhatsApp அனுப்பியுள்ளோம்.'
+    confirmExample: 'நிச்சயமாக பிரதீப் சார்! நாளைக்கு மதியம் 12:30 PM க்கு Dr. Prem உடன் உங்கள் appointment confirm ஆகியுள்ளது. SMS மற்றும் WhatsApp அனுப்பியுள்ளோம்.'
   },
   'hi': {
     name: 'Hindi + Hinglish (हिन्दी)',
     instruction: `Speak like a warm Delhi/North India clinic receptionist in natural Hinglish.
-- Mix conversational Hindi (हिन्दी) with English: slot, appointment, confirm, Sunday, PM, WhatsApp, Dr. Harley.
+- Mix conversational Hindi (हिन्दी) with English: slot, appointment, confirm, Sunday, PM, WhatsApp, Dr. Prem.
 - Honorifics: "जी" (Ji), "सर / मैम".
-- Example: "हाँजी प्रदीप जी! कल दोपहर 12:30 बजे Dr. Harley के साथ slot book कर दूँ?"
+- Example: "हाँजी प्रदीप जी! कल दोपहर 12:30 बजे Dr. Prem के साथ slot book कर दूँ?"
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'बिल्कुल प्रदीप जी! कल दोपहर 12:30 बजे Dr. Harley के साथ आपकी appointment confirm हो गई है। SMS और WhatsApp भेज दिया गया है।'
+    confirmExample: 'बिल्कुल प्रदीप जी! कल दोपहर 12:30 बजे Dr. Prem के साथ आपकी appointment confirm हो गई है। SMS और WhatsApp भेज दिया गया है।'
   },
   'ml': {
     name: 'Malayalam + Manglish (മലയാളം)',
     instruction: `Speak like a warm Kerala clinic receptionist in natural Manglish.
-- Mix spoken Malayalam (മലയാളം) with English: slot, appointment, confirm, Dr. Harley, WhatsApp.
+- Mix spoken Malayalam (മലയാളം) with English: slot, appointment, confirm, Dr. Prem, WhatsApp.
 - Honorifics: "സർ / മാഡം".
-- Example: "തീർച്ചയായും! നാളെ വൈകുന്നേരം 4:00 PM ന് Dr. Harley യുമായി slot book ചെയ്യട്ടെ?"
+- Example: "തീർച്ചയായും! നാളെ വൈകുന്നേരം 4:00 PM ന് Dr. Prem യുമായി slot book ചെയ്യട്ടെ?"
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'തീർച്ചയായും! നാളെ ഉച്ചയ്ക്ക് 12:30 PM ന് Dr. Harley യുമായി appointment confirm ചെയ്തിട്ടുണ്ട്.'
+    confirmExample: 'തീർച്ചയായും! നാളെ ഉച്ചയ്ക്ക് 12:30 PM ന് Dr. Prem യുമായി appointment confirm ചെയ്തിട്ടുണ്ട്.'
   },
   'mr': {
     name: 'Marathi (मराठी)',
     instruction: `Speak like a warm Pune/Mumbai clinic receptionist in natural conversational Marathi.
-- Mix Marathi (मराठी) with English: slot, appointment, confirm, Dr. Harley.
+- Mix Marathi (मराठी) with English: slot, appointment, confirm, Dr. Prem.
 - Honorifics: "साहेब / मॅडम".
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'नक्कीच! उद्या दुपारी 12:30 वाजता Dr. Harley यांच्यासोबत तुमची appointment confirm झाली आहे.'
+    confirmExample: 'नक्कीच! उद्या दुपारी 12:30 वाजता Dr. Prem यांच्यासोबत तुमची appointment confirm झाली आहे.'
   },
   'gu': {
     name: 'Gujarati (ગુજરાતી)',
     instruction: `Speak like a warm Gujarat clinic receptionist in conversational Gujarati.
-- Mix Gujarati (ગુજરાતી) with English: slot, appointment, confirm, Dr. Harley.
+- Mix Gujarati (ગુજરાતી) with English: slot, appointment, confirm, Dr. Prem.
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'ચોક્કસ! કાલે બપોરે 12:30 વાગ્યે Dr. Harley સાથે તમારી appointment confirm થઈ ગઈ છે.'
+    confirmExample: 'ચોક્કસ! કાલે બપોરે 12:30 વાગ્યે Dr. Prem સાથે તમારી appointment confirm થઈ ગઈ છે.'
   },
   'bn': {
     name: 'Bengali (বাংলা)',
     instruction: `Speak like a warm Kolkata clinic receptionist in conversational Bengali.
-- Mix Bengali (বাংলা) with English: slot, appointment, confirm, Dr. Harley.
+- Mix Bengali (বাংলা) with English: slot, appointment, confirm, Dr. Prem.
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'অবশ্যই! কাল দুপুর 12:30 টায় Dr. Harley-র সাথে আপনার appointment confirm করা হয়েছে।'
+    confirmExample: 'অবশ্যই! কাল দুপুর 12:30 টায় Dr. Prem-র সাথে আপনার appointment confirm করা হয়েছে।'
   },
   'pa': {
     name: 'Punjabi (ਪੰਜਾਬੀ)',
     instruction: `Speak like a warm Punjab clinic receptionist in conversational Punjabi.
-- Mix Punjabi (ਪੰਜਾਬੀ) with English: slot, appointment, confirm, Dr. Harley.
+- Mix Punjabi (ਪੰਜਾਬੀ) with English: slot, appointment, confirm, Dr. Prem.
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'ਬਿਲਕੁਲ ਜੀ! ਕੱਲ੍ਹ ਦੁਪਹਿਰ 12:30 ਵਜੇ Dr. Harley ਨਾਲ ਤੁਹਾਡੀ appointment confirm ਹੋ ਗਈ ਹੈ।'
+    confirmExample: 'ਬਿਲਕੁਲ ਜੀ! ਕੱਲ੍ਹ ਦੁਪਹਿਰ 12:30 ਵਜੇ Dr. Prem ਨਾਲ ਤੁਹਾਡੀ appointment confirm ਹੋ ਗਈ ਹੈ।'
   },
   'en-IN': {
     name: 'Indian English + Hinglish',
     instruction: `Speak in warm, helpful Indian English. If the caller mixes Hindi or regional phrases, acknowledge and mirror them naturally.
-- Example: "Ji haan! We have an opening tomorrow at 12:30 PM with Dr. Harley. Shall I lock that in for you?"
+- Example: "Ji haan! We have an opening tomorrow at 12:30 PM with Dr. Prem. Shall I lock that in for you?"
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'Certainly Mr. Pradeep! Your appointment with Dr. Harley is confirmed for tomorrow at 12:30 PM. An SMS confirmation and doctor WhatsApp alert have been sent.'
+    confirmExample: 'Certainly Mr. Pradeep! Your appointment with Dr. Prem is confirmed for tomorrow at 12:30 PM. An SMS confirmation and doctor WhatsApp alert have been sent.'
   },
   'en-GB': {
     name: 'British English',
     instruction: 'Speak in warm, polite, professional British English (Received Pronunciation style).',
-    confirmExample: 'Certainly! Your appointment with Dr. Harley is confirmed for tomorrow at 12:30 PM. A confirmation SMS has been sent to you, and the doctor has been notified via WhatsApp.'
+    confirmExample: 'Certainly! Your appointment with Dr. Prem is confirmed for tomorrow at 12:30 PM. A confirmation SMS has been sent to you, and the doctor has been notified via WhatsApp.'
   },
   'en-US': {
     name: 'American English',
     instruction: 'Speak in warm, upbeat, friendly American English.',
-    confirmExample: 'Got it! Your appointment with Dr. Harley is confirmed for tomorrow at 12:30 PM. We just sent you an SMS confirmation and notified the doctor on WhatsApp.'
+    confirmExample: 'Got it! Your appointment with Dr. Prem is confirmed for tomorrow at 12:30 PM. We just sent you an SMS confirmation and notified the doctor on WhatsApp.'
   },
   'ar': {
     name: 'Arabic (العربية)',
@@ -159,7 +159,7 @@ CONTINUOUS GAPLESS SPEECH (RUN-ON SENTENCES WITH MULTIPLE INTENTS):
 
 HUMAN CORRECTION & MIND-CHANGE RESILIENCE:
 - If caller changes their mind in the same sentence (e.g. "I want morning... no wait, evening... my name is Pradeep"):
-  Instantly adopt their LATEST preference without confusion! (e.g. "Got it Pradeep! Let's do this evening at 5:30 PM with Dr. Harley. Shall I lock that in for you?").
+  Instantly adopt their LATEST preference without confusion! (e.g. "Got it Pradeep! Let's do this evening at 5:30 PM with Dr. Prem. Shall I lock that in for you?").
 - EXIT & FAREWELL PROTOCOL:
   When caller indicates they are done ("thanks", "that's all", "bye", "see you"):
   Give a warm, concise parting farewell with their confirmed time (e.g. "You're very welcome Pradeep! Looking forward to seeing you at 5:30 PM today. Have a wonderful day, goodbye!").
@@ -277,8 +277,8 @@ class MultiLLMOrchestrator {
     const langCfg = LANGUAGE_CONFIGS[config.language] || LANGUAGE_CONFIGS['en-GB'];
     return tmpl
       .replace(/{PERSONA_NAME}/g, config.personaName || 'Clara')
-      .replace(/{BIZ_NAME}/g, config.bizName || 'Harley Street Smiles Dental')
-      .replace(/{OWNER_NAME}/g, config.ownerName || 'Dr. Harley')
+      .replace(/{BIZ_NAME}/g, config.bizName || 'Kumar's Microscopic Dental Care')
+      .replace(/{OWNER_NAME}/g, config.ownerName || 'Dr. Prem')
       .replace(/{CITY}/g, config.city || 'London')
       .replace(/{ADDRESS}/g, config.address || '14 Harley Street, London')
       .replace(/{WORKING_HOURS}/g, config.workingHours || 'Mon-Sat 8:30 AM - 6:00 PM')

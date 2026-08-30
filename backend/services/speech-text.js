@@ -10,7 +10,8 @@ const PHONETIC_MAP = {
     AM: 'காலை',
     PM: 'மதியம்',
     Dr: 'டாக்டர்',
-    Harley: 'ஹார்லி',
+    Prem: 'பிரேம்',
+    Harley: 'பிரேம்',
     Doctor: 'டாக்டர்',
     slot: 'ஸ்லாட்',
     appointment: 'அப்பாயின்ட்மென்ட்',
@@ -24,7 +25,8 @@ const PHONETIC_MAP = {
     AM: 'ఉదయం',
     PM: 'మధ్యాహ్నం',
     Dr: 'డాక్టర్',
-    Harley: 'హార్లే',
+    Prem: 'ప్రేమ్',
+    Harley: 'ప్రేమ్',
     Doctor: 'డాక్టర్',
     slot: 'స్లాట్',
     appointment: 'అపాయింట్‌మెంట్',
@@ -38,7 +40,8 @@ const PHONETIC_MAP = {
     AM: 'ಬೆಳಿಗ್ಗೆ',
     PM: 'ಮಧ್ಯಾಹ್ನ',
     Dr: 'ಡಾಕ್ಟರ್',
-    Harley: 'ಹಾರ್ಲೆ',
+    Prem: 'ಪ್ರೇಮ್',
+    Harley: 'ಪ್ರೇಮ್',
     Doctor: 'ಡಾಕ್ಟರ್',
     slot: 'ಸ್ಲಾಟ್',
     appointment: 'ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್',
@@ -52,7 +55,8 @@ const PHONETIC_MAP = {
     AM: 'सुबह',
     PM: 'दोपहर',
     Dr: 'डॉक्टर',
-    Harley: 'हार्ले',
+    Prem: 'प्रेम',
+    Harley: 'प्रेम',
     Doctor: 'डॉक्टर',
     slot: 'स्लॉट',
     appointment: 'अपॉइंटमेंट',
@@ -66,7 +70,8 @@ const PHONETIC_MAP = {
     AM: 'രാവിലെ',
     PM: 'ഉച്ചയ്ക്ക്',
     Dr: 'ഡോക്ടർ',
-    Harley: 'ഹാർലി',
+    Prem: 'പ്രേം',
+    Harley: 'പ്രേം',
     Doctor: 'ഡോക്ടർ',
     slot: 'സ്ലോട്ട്',
     appointment: 'അപ്പോയിന്റ്മെന്റ്',
@@ -78,7 +83,8 @@ const PHONETIC_MAP = {
     AM: 'सकाळी',
     PM: 'दुपारी',
     Dr: 'डॉक्टर',
-    Harley: 'हार्ले',
+    Prem: 'प्रेम',
+    Harley: 'प्रेम',
     Doctor: 'डॉक्टर',
     slot: 'स्लॉट',
     appointment: 'अपॉइंटमेंट',
@@ -90,7 +96,8 @@ const PHONETIC_MAP = {
     AM: 'સવારે',
     PM: 'બપોરે',
     Dr: 'ડૉક્ટર',
-    Harley: 'હાર્લે',
+    Prem: 'પ્રેમ',
+    Harley: 'પ્રેમ',
     Doctor: 'ડૉક્ટર',
     slot: 'સ્લોટ',
     appointment: 'અપોઇન્ટમેન્ટ',
@@ -102,7 +109,8 @@ const PHONETIC_MAP = {
     AM: 'সকাল',
     PM: 'দুপুর',
     Dr: 'ডক্টর',
-    Harley: 'হার্লে',
+    Prem: 'প্রেম',
+    Harley: 'প্রেম',
     Doctor: 'ডক্টর',
     slot: 'স্লট',
     appointment: 'অ্যাপয়েন্টমেন্ট',
@@ -114,7 +122,8 @@ const PHONETIC_MAP = {
     AM: 'ਸਵੇਰੇ',
     PM: 'ਦੁਪਹਿਰ',
     Dr: 'ਡਾਕਟਰ',
-    Harley: 'ਹਾਰਲੇ',
+    Prem: 'ਪ੍ਰੇਮ',
+    Harley: 'ਪ੍ਰੇਮ',
     Doctor: 'ਡਾਕਟਰ',
     slot: 'ਸਲਾਟ',
     appointment: 'ਅਪਾਇੰਟਮੈਂਟ',
@@ -124,7 +133,8 @@ const PHONETIC_MAP = {
     WhatsApp: 'واتساب',
     SMS: 'إس إم إس',
     Dr: 'الدكتور',
-    Harley: 'هارلي'
+    Prem: 'بريم',
+    Harley: 'بريم'
   }
 };
 
@@ -147,7 +157,6 @@ function prepareSpeechText(text, language) {
   
   out = out.replace(/[—–]/g, ', ');
   out = out.replace(/[’]/g, "'");
-  // Clean double spaces
   out = out.replace(/\s+/g, ' ');
   return out.trim();
 }
