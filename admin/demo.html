@@ -242,6 +242,8 @@ function getCurrentConfig() {
 let conversationHistory = [];
 let callStartedAt = Date.now();
 let llmMode = false; // auto-detected on first successful LLM call
+let chatSession = { pendingAction: null, pendingBookingId: null };
+const DEMO_CALLER_PHONE = '+919148868413';
 
 let currentLanguage = 'en-GB';
 let currentLanguageLabel = 'UK English';
@@ -702,11 +704,14 @@ async function sendMessage() {
           city,
           personaName: cfg.personaName,
           history: conversationHistory.slice(-16),
-          durationSeconds: Math.round((Date.now() - callStartedAt) / 1000)
+          durationSeconds: Math.round((Date.now() - callStartedAt) / 1000),
+          callerPhone: DEMO_CALLER_PHONE,
+          session: chatSession
         })
       });
       if (resp.ok) {
         data = await resp.json();
+        if (data.session) chatSession = data.session;
         reply = data.reply || '';
         source = data.source || 'server_llm';
       }

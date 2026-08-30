@@ -1,7 +1,4 @@
-/**
- * Deterministic multilingual dialog (fallback when LLM is off / fails).
- * Languages: kn, hi, te, ta, ar, fr, en-GB, en-US, en-IN
- */
+const { isUrgentBooking } = require('./emergency-gate');
 
 const NAME_CHARS =
   '[A-Za-z\\u0C80-\\u0CFF\\u0900-\\u097F\\u0C00-\\u0C7F\\u0B80-\\u0BFF\\u0600-\\u06FF]';
@@ -388,7 +385,7 @@ function routeAndGenerateReply(message, config, history) {
     });
   }
 
-  if (isEmergency(low)) {
+  if (isUrgentBooking(message) || isUrgentBooking(low)) {
     return pick(lang, {
       kn: 'ಕ್ಷಮಿಸಿ. ಹೆಸರು ಹೇಳಿ, ಇವತ್ತೇ ನೋಡ್ತೀವಿ.',
       hi: 'माफ़ कीजिए. नाम बताइए, आज ही देखते हैं.',
@@ -642,21 +639,7 @@ function isDoctorInquiry(low) {
 }
 
 function isEmergency(low) {
-  return (
-    low.includes('pain') ||
-    low.includes('emergency') ||
-    low.includes('toothache') ||
-    low.includes('urgent') ||
-    low.includes('ನೋವು') ||
-    low.includes('ತುರ್ತು') ||
-    low.includes('दर्द') ||
-    low.includes('வலி') ||
-    low.includes('నొప్పి') ||
-    low.includes('ألم') ||
-    low.includes('طوارئ') ||
-    low.includes('douleur') ||
-    low.includes('urgence')
-  );
+  return isUrgentBooking(low);
 }
 
 function parseRequestedSlot(message, history) {

@@ -6,6 +6,8 @@ const tenantStore = require('../services/tenant-store');
 const bookingEngine = require('../services/booking-engine');
 const callLogsStore = require('../services/call-logs-store');
 const dialog = require('../services/dialog-engine');
+const emergencyGate = require('../services/emergency-gate');
+const bookingLifecycle = require('../services/booking-lifecycle');
 
 function primaryOffer(tenant) {
   const svc = tenant.services && tenant.services[0];
@@ -34,6 +36,19 @@ async function handleChat(req, res, body) {
     return;
   }
 
+  if (emergencyGate.isMedicalEmergency(message)) {
+    const activeLang = dialog.resolveLanguage(message, language || 'en-IN');
+    const reply = emergencyGate.emergencyResponse(activeLang);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      reply,
+      language: activeLang,
+      source: 'emergency_gate',
+      emergency: true
+    }));
+    return;
+  }
+
   const tenant = tenantStore.getTenantById(tenantId || industry || 'TNT-001');
   const activeLang = dialog.resolveLanguage(message, language || tenant.language || 'en-GB');
   const kbAnswer = tenantStore.queryKnowledgeBase(tenant.id, message);
@@ -58,6 +73,33 @@ async function handleChat(req, res, body) {
   };
 
   const skipLlm = false;
+
+  const chatSession = data.session || { pendingAction: null, pendingBookingId: null };
+  const lifecycle = await bookingLifecycle.processBookingLifecycle({
+    message,
+    lang: activeLang,
+    tenantId: tenant.id,
+    patientPhone: reqCallerPhone || data.callerPhone || '',
+    clinicName: config.bizName,
+    doctorPhone: tenant.doctorWhatsApp || tenant.doctorPhone || '',
+    requestedSlot,
+    history: history || [],
+    session: chatSession
+  });
+
+  if (lifecycle.handled) {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      reply: lifecycle.reply,
+      language: activeLang,
+      source: 'booking_lifecycle',
+      action: lifecycle.action,
+      booking: lifecycle.booking || null,
+      session: chatSession
+    }));
+    return;
+  }
+
   const localTurn = dialog.processTurn({
     message,
     language: activeLang,
@@ -77,7 +119,18 @@ async function handleChat(req, res, body) {
     : await llm.chat(message, config, history || []);
   let reply = result.reply || localTurn.reply;
 
+  const llmAction = await bookingLifecycle.executeFromLlmReply({
+    reply,
+    lang: activeLang,
+    tenantId: tenant.id,
+    patientPhone: reqCallerPhone || data.callerPhone || '',
+    clinicName: config.bizName,
+    doctorPhone: tenant.doctorWhatsApp || tenant.doctorPhone || '',
+    requestedSlot: localTurn.requestedSlot || requestedSlot
+  });
+
   let bookingCreated = null;
+  let bookingUpdated = llmAction.executed ? llmAction.booking : null;
   const isConfirmed = dialog.isConfirmedBookingReply(reply);
   const offer = primaryOffer(tenant);
 
@@ -130,7 +183,9 @@ async function handleChat(req, res, body) {
     callerName: localTurn.callerName || callerName,
     requestedSlot: localTurn.requestedSlot || requestedSlot,
     kbMatch: !!kbAnswer,
-    booking: bookingCreated?.booking || null
+    booking: bookingCreated?.booking || bookingUpdated || null,
+    session: chatSession,
+    action: llmAction.executed ? llmAction.action : null
   }));
   } catch (fatalErr) {
     console.error('[Chat Handler Error]:', fatalErr.message);

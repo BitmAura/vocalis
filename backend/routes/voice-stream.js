@@ -19,6 +19,7 @@ const sttEngine = require('../services/stt-engine');
 const ttsEngine = require('../services/tts-engine');
 const WhatsAppDispatcher = require('../services/whatsapp-dispatcher');
 const dialog = require('../services/dialog-engine');
+const emergencyGate = require('../services/emergency-gate');
 
 // Active call sessions: streamSid -> session state
 const activeSessions = new Map();
@@ -69,6 +70,14 @@ class CallSession {
         return { reply: null, action: 'forward' };
       }
       return { reply: "I'm sorry, I didn't quite catch that. Could you say that again?", action: 'speak' };
+    }
+
+    if (emergencyGate.isMedicalEmergency(transcript)) {
+      const lang = dialog.resolveLanguage(transcript, this.tenant.language);
+      const msg = emergencyGate.emergencyResponse(lang);
+      this.history.push({ role: 'user', text: transcript });
+      this.history.push({ role: 'ai', text: msg });
+      return { reply: msg, action: 'hangup', language: lang };
     }
 
     this.failedTurns = 0;
@@ -194,9 +203,20 @@ function attachMediaStreamServer(httpServer) {
               const { reply, action } = await session.processTranscript(sttResult.transcript);
               
               if (action === 'forward') {
-                // Forward to human after 3 failed turns
                 ws.send(JSON.stringify({ event: 'stop', streamSid: session.streamSid }));
                 console.log(`[Call Session] Forwarding call ${session.callSid} to human`);
+              } else if (action === 'hangup') {
+                if (reply) {
+                  const audioBuffer = await ttsEngine.synthesize(reply, session.tenant.language);
+                  if (audioBuffer) {
+                    ws.send(JSON.stringify({
+                      event: 'media',
+                      streamSid: session.streamSid,
+                      media: { payload: audioBuffer.toString('base64') }
+                    }));
+                  }
+                }
+                ws.send(JSON.stringify({ event: 'stop', streamSid: session.streamSid }));
               } else if (reply) {
                 const audioBuffer = await ttsEngine.synthesize(reply, session.tenant.language);
                 if (audioBuffer) {
@@ -252,8 +272,9 @@ function generateMediaStreamTwiML(config) {
     doctorPhone: config.doctorPhone || ''
   }).map(([k, v]) => `<Parameter name="${k}" value="${v}"/>`).join('');
 
+  const wsUrl = (process.env.VOICE_WS_URL || '').replace(/\/$/, '');
   const publicHttp = (require('../services/integrations').appBaseUrl() || process.env.PUBLIC_SERVER_URL || '').replace(/\/$/, '');
-  const serverUrl = publicHttp.replace(/^https:/, 'wss:').replace(/^http:/, 'ws:') || 'wss://your-server.com';
+  const serverUrl = wsUrl || publicHttp.replace(/^https:/, 'wss:').replace(/^http:/, 'ws:') || 'wss://your-server.com';
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <Response>

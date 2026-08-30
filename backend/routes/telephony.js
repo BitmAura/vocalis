@@ -7,6 +7,10 @@ const dialog = require('../services/dialog-engine');
 const llm = require('../services/llm-engine');
 const tenantStore = require('../services/tenant-store');
 const bookingEngine = require('../services/booking-engine');
+const emergencyGate = require('../services/emergency-gate');
+const bookingLifecycle = require('../services/booking-lifecycle');
+const { generateMediaStreamTwiML } = require('../routes/voice-stream');
+const { appBaseUrl } = require('../services/integrations');
 
 const callHistories = new Map(); // CallSid -> { history, tenant, lang, callerName }
 
@@ -21,15 +25,14 @@ const VOICE_MAP = {
   'ar':    { voice: 'Google.ar-XA-Wavenet-A', lang: 'ar-XA', prosodyRate: '1.00', prosodyPitch: '+0%' }
 };
 
-async function handleInboundCall(reqBody) {
-  const fromNumber = reqBody.From || '+Unknown';
-  const toNumber = reqBody.To || '+19803723727';
-  const callSid = reqBody.CallSid || 'CA_' + Date.now();
-  const speechResult = reqBody.SpeechResult || reqBody.speechResult || null;
+function useMediaStream() {
+  if (process.env.VERCEL && !process.env.VOICE_WS_URL) return false;
+  return process.env.USE_MEDIA_STREAM === 'true' || process.env.USE_MEDIA_STREAM === '1' || !!process.env.VOICE_WS_URL;
+}
 
-  // Resolve tenant: 1. By direct matched phone number, 2. By active test routing from Admin Dashboard
+function resolveTenant(toNumber) {
   const tenants = tenantStore.getAllTenants();
-  let tenant = tenants.find(t => t.phone && t.phone.replace(/\D/g,'') === toNumber.replace(/\D/g,''));
+  let tenant = tenants.find(t => t.phone && t.phone.replace(/\D/g,'') === String(toNumber || '').replace(/\D/g,''));
   if (!tenant) {
     const activeId = tenantStore.getActiveTestTenantId();
     tenant = tenantStore.getTenantById(activeId) || tenants[0];
@@ -45,6 +48,25 @@ async function handleInboundCall(reqBody) {
       doctorPhone: '+44 7911 123456'
     };
   }
+  return tenant;
+}
+
+function twimlEmergency(vConfig, lang) {
+  const msg = emergencyGate.emergencyResponse(lang);
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Say voice="${vConfig.voice}" language="${vConfig.lang}">${escapeXml(msg)}</Say>
+  <Hangup />
+</Response>`;
+}
+
+async function handleInboundCall(reqBody) {
+  const fromNumber = reqBody.From || '+Unknown';
+  const toNumber = reqBody.To || '+19803723727';
+  const callSid = reqBody.CallSid || 'CA_' + Date.now();
+  const speechResult = reqBody.SpeechResult || reqBody.speechResult || null;
+
+  const tenant = resolveTenant(toNumber);
 
   let session = callHistories.get(callSid);
   if (!session) {
@@ -53,7 +75,9 @@ async function handleInboundCall(reqBody) {
       tenant,
       lang: tenant.language || 'en-GB',
       callerName: '',
-      from: fromNumber
+      from: fromNumber,
+      pendingAction: null,
+      pendingBookingId: null
     };
     callHistories.set(callSid, session);
     console.log(`\n📞 [Incoming Phone Call] CallSid: ${callSid} | From: ${fromNumber} | Business: ${tenant.businessName}`);
@@ -61,15 +85,40 @@ async function handleInboundCall(reqBody) {
 
   const vConfig = VOICE_MAP[session.lang] || VOICE_MAP['en-GB'];
 
-  // TURN 1: Initial Greeting
+  // TURN 1: Initial — optionally route to Media Stream (Oracle / realtime voice)
   if (!speechResult) {
+    if (useMediaStream()) {
+      console.log('[Telephony] Routing to Media Stream (USE_MEDIA_STREAM / VOICE_WS_URL)');
+      return generateMediaStreamTwiML({
+        industry: tenant.industry,
+        language: session.lang,
+        bizName: tenant.businessName,
+        ownerName: tenant.ownerName,
+        personaName: tenant.personaName || 'Clara',
+        city: tenant.city || 'Central London',
+        doctorPhone: tenant.doctorWhatsApp || tenant.doctorPhone || ''
+      });
+    }
+
     const greeting = tenant.industry === 'realestate'
-      ? (session.lang === 'kn' ? 'ನಮಸ್ಕಾರ! ಪ್ರೆಸ್ಟೀಜ್ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್‌ಗೆ ಸ್ವಾಗತ. ನನ್ನ ಹೆಸರು ಪ್ರಿಯಾ, ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ?' : 'Hello! Thank you for calling Prestige Managed Farmlands. My name is Priya, how can I help you today?')
-      : `Good afternoon! Thank you for calling ${tenant.businessName}. My name is ${tenant.personaName || 'Clara'}. Are you looking to book an appointment today?`;
+      ? (session.lang === 'kn'
+        ? 'Namaskara! Prestige Managed Farmland ge swagata. Naanu Priya — hege help maadli?'
+        : 'Hello! Thank you for calling Prestige Managed Farmlands. My name is Priya, how can I help you today?')
+      : (['hi', 'en-IN'].includes(session.lang)
+        ? `Namaste! ${tenant.businessName} mein call karne ke liye dhanyavaad. Main ${tenant.personaName || 'Clara'} hoon. Kya aap appointment book karna chahenge?`
+        : `Good afternoon! Thank you for calling ${tenant.businessName}. My name is ${tenant.personaName || 'Clara'}. Are you looking to book an appointment today?`);
 
     session.history.push({ role: 'ai', text: greeting });
-
     return twimlSayGather(vConfig, greeting);
+  }
+
+  // Medical emergency — deterministic gate BEFORE LLM
+  if (emergencyGate.isMedicalEmergency(speechResult)) {
+    console.log(`🚨 [Medical Emergency Detected] CallSid: ${callSid} | Caller: ${fromNumber}`);
+    session.history.push({ role: 'user', text: speechResult });
+    session.history.push({ role: 'ai', text: emergencyGate.emergencyResponse(session.lang) });
+    callHistories.delete(callSid);
+    return twimlEmergency(VOICE_MAP[session.lang] || vConfig, session.lang);
   }
 
   // SUBSEQUENT TURNS: Process Caller Speech
@@ -84,6 +133,33 @@ async function handleInboundCall(reqBody) {
   if (extractedName && !session.callerName) session.callerName = extractedName;
 
   const requestedSlot = dialog.parseRequestedSlot(speechResult, session.history);
+
+  // Cancel / reschedule — before LLM
+  const lifecycle = await bookingLifecycle.processBookingLifecycle({
+    message: speechResult,
+    lang: session.lang,
+    tenantId: session.tenant.id,
+    patientPhone: fromNumber,
+    clinicName: session.tenant.businessName,
+    doctorPhone: session.tenant.doctorWhatsApp || session.tenant.doctorPhone,
+    requestedSlot,
+    history: session.history,
+    session
+  });
+
+  if (lifecycle.handled) {
+    console.log(`📋 [Booking lifecycle] ${lifecycle.action}: "${lifecycle.reply}"`);
+    session.history.push({ role: 'ai', text: lifecycle.reply });
+    if (lifecycle.hangup) {
+      callHistories.delete(callSid);
+      return `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Say voice="${turnVConfig.voice}" language="${turnVConfig.lang}">${escapeXml(lifecycle.reply)}</Say>
+  <Hangup />
+</Response>`;
+    }
+    return twimlSayGather(turnVConfig, lifecycle.reply);
+  }
 
   // Generate LLM Reply
   const llmRes = await llm.chat(speechResult, {
@@ -105,11 +181,30 @@ async function handleInboundCall(reqBody) {
   console.log(`🤖 AI (${session.tenant.businessName}): "${reply}"`);
   session.history.push({ role: 'ai', text: reply });
 
+  // Backup: LLM confirmed cancel/reschedule in natural language
+  const llmAction = await bookingLifecycle.executeFromLlmReply({
+    reply,
+    lang: session.lang,
+    tenantId: session.tenant.id,
+    patientPhone: fromNumber,
+    clinicName: session.tenant.businessName,
+    doctorPhone: session.tenant.doctorWhatsApp || session.tenant.doctorPhone,
+    requestedSlot
+  });
+  if (llmAction.executed && (llmAction.action === 'cancelled' || llmAction.action === 'rescheduled')) {
+    callHistories.delete(callSid);
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Say voice="${turnVConfig.voice}" language="${turnVConfig.lang}">${escapeXml(reply)}</Say>
+  <Hangup />
+</Response>`;
+  }
+
   const isConfirmed = dialog.isConfirmedBookingReply(reply);
 
   // Trigger Booking & SMS/WhatsApp Notification if Confirmed
-  if (isConfirmed || dialog.isConfirmedBookingReply(reply)) {
-    const finalName = session.callerName || extractedName || 'Pradeep Kumar';
+  if (isConfirmed) {
+    const finalName = session.callerName || extractedName || 'Caller';
     const finalSlot = requestedSlot || 'Tomorrow at 12:30 PM';
 
     console.log(`🎉 [Booking Confirmed via Phone Call] ${finalName} @ ${finalSlot}`);
@@ -120,7 +215,7 @@ async function handleInboundCall(reqBody) {
         clinicName: session.tenant.businessName,
         patientName: finalName,
         patientPhone: fromNumber,
-        treatment: session.tenant.industry === 'realestate' ? 'Weekend Farmland Site Visit' : 'Dental Consultation & Cleaning',
+        treatment: session.tenant.industry === 'realestate' ? 'Weekend Farmland Site Visit' : 'Consultation',
         slotTime: finalSlot,
         doctorName: session.tenant.ownerName || 'Dr. Harley',
         doctorPhone: session.tenant.doctorWhatsApp || session.tenant.doctorPhone || '+919845012345',
@@ -130,7 +225,6 @@ async function handleInboundCall(reqBody) {
       console.error('[Booking Save Error]:', e.message);
     }
 
-    // Cleanly close session and hang up phone
     callHistories.delete(callSid);
     const farewellClosing = reply + ' I have sent an SMS confirmation to your mobile. Thank you for calling ' + session.tenant.businessName + '. Have a wonderful day! Goodbye.';
     
@@ -143,7 +237,7 @@ async function handleInboundCall(reqBody) {
 
   // Check if farewell / closing
   const low = speechResult.toLowerCase();
-  const isFarewell = low.includes('bye') || low.includes('thank you, goodbye') || low.includes('ಧನ್ಯವಾದಗಳು, ಬಾಯ್') || low.includes('thanks bye');
+  const isFarewell = low.includes('bye') || low.includes('thank you, goodbye') || low.includes('dhanyavaad') || low.includes('thanks bye');
 
   if (isFarewell) {
     callHistories.delete(callSid);
@@ -154,12 +248,11 @@ async function handleInboundCall(reqBody) {
 </Response>`;
   }
 
-  // Continue Conversation
   return twimlSayGather(turnVConfig, reply);
 }
 
 function inboundActionUrl() {
-  const base = (require('../services/integrations').appBaseUrl() || '').replace(/\/$/, '');
+  const base = (appBaseUrl() || '').replace(/\/$/, '');
   return (base || '') + '/v1/telephony/inbound';
 }
 
@@ -193,4 +286,4 @@ function escapeXml(unsafe) {
   });
 }
 
-module.exports = { handleInboundCall };
+module.exports = { handleInboundCall, useMediaStream };

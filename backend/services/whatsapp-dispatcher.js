@@ -217,6 +217,42 @@ class WhatsAppDispatcher {
     };
   }
 
+  async sendBookingChangeAlert({ type, doctorPhone, patientName, patientPhone, slotTime, previousSlotTime, clinicName, language }) {
+    const clinic = clinicName || 'Clinic';
+    let patientMsg = '';
+    let ownerMsg = '';
+
+    if (type === 'cancel') {
+      patientMsg = '❌ VOCALIS: Your appointment with ' + clinic + ' on ' + (slotTime || '') + ' has been CANCELLED.';
+      ownerMsg = '🔔 VOCALIS CANCEL: ' + (patientName || 'Patient') + ' (' + (patientPhone || '') + ') cancelled their ' + (slotTime || '') + ' appointment.';
+    } else {
+      patientMsg = '✅ VOCALIS: Your appointment with ' + clinic + ' has been MOVED from ' + (previousSlotTime || '') + ' to ' + (slotTime || '') + '.';
+      ownerMsg = '🔔 VOCALIS RESCHEDULE: ' + (patientName || 'Patient') + ' (' + (patientPhone || '') + ') moved from ' + (previousSlotTime || '') + ' to ' + (slotTime || '') + '.';
+    }
+
+    let smsToCaller = false;
+    if (patientPhone && !String(patientPhone).includes('Unknown')) {
+      smsToCaller = await this.sendSMS(patientPhone, patientMsg);
+    }
+
+    let ownerSmsOk = false;
+    if (doctorPhone && !String(doctorPhone).includes('Unknown')) {
+      ownerSmsOk = await this.sendSMS(doctorPhone, ownerMsg);
+    }
+
+    const wa = doctorPhone ? await this.sendWhatsApp(doctorPhone, ownerMsg) : { success: false, provider: 'none' };
+
+    return {
+      success: smsToCaller || ownerSmsOk || wa.success,
+      status: (smsToCaller || wa.success) ? 'SENT' : 'NOT_SENT',
+      smsToCaller,
+      smsToOwner: ownerSmsOk,
+      whatsapp: wa,
+      patientMessage: patientMsg,
+      language: language || ''
+    };
+  }
+
   static sendConfirmedBookingAlert(doctorPhone, bookingDetails) {
     return new WhatsAppDispatcher().sendConfirmedBookingAlert(doctorPhone, bookingDetails);
   }
