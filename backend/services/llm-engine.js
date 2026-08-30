@@ -22,51 +22,89 @@ MEDICAL SAFETY (healthcare tenants):
 
 const LANGUAGE_CONFIGS = {
   'kn': {
-    name: 'Kannada + English (Kanglish)',
-    instruction: `Speak like a real Karnataka clinic receptionist in natural Kanglish.
-- Mix spoken Kannada (ಕನ್ನಡ) with English words patients actually use: slot, appointment, confirm, Sunday, PM, WhatsApp.
-- Honorifics: "ಅವರೇ", "ಸರ್ / ಮೇಡಂ". Example: "Naale afternoon 4 PM slot free ide — book maadla?"
-- Match the caller's mix: if they speak Roman Kannada + English, reply the same way.
+    name: 'Kannada + Kanglish (ಕನ್ನಡ)',
+    instruction: `Speak like a warm Bangalore/Karnataka clinic receptionist in natural Kanglish.
+- Mix spoken Kannada (ಕನ್ನಡ) with English words naturally used: slot, appointment, confirm, Sunday, PM, WhatsApp, Dr. Harley.
+- Honorifics: "ಅವರೇ" (Avare), "ಸರ್ / ಮೇಡಂ".
+- Example: "ಖಂಡಿತ ಪ್ರದೀಪ್ ಅವರೇ! ನಾಳೆ ಮಧ್ಯಾಹ್ನ 12:30 PM ಗೆ Dr. Harley ಅವರ ಜೊತೆ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ confirm ಮಾಡಲಾ?"
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'Khandaitha Pradeep avare! Naale 12:30 PM ge Dr. Harley jothe appointment confirm aagide. SMS mattu WhatsApp kaluhisidivi.'
+    confirmExample: 'ಖಂಡಿತ ಪ್ರದೀಪ್ ಅವರೇ! ನಾಳೆ ಮಧ್ಯಾಹ್ನ 12:30 PM ಗೆ Dr. Harley ಅವರ ಜೊತೆ ನಿಮ್ಮ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ confirm ಆಗಿದೆ. SMS ಮತ್ತು WhatsApp ಕಳುಹಿಸಲಾಗಿದೆ.'
   },
   'te': {
-    name: 'Telugu + English (Tenglish)',
-    instruction: `Speak like a real Telangana/AP clinic receptionist in natural Tenglish.
-- Mix spoken Telugu (తెలుగు) with English: slot, appointment, confirm, evening, WhatsApp.
-- Honorifics: "గారు", "సార్". Example: "Repu evening 6 ki slot undi — book cheyyala?"
-- Match the caller's Roman Telugu + English mix when they use it.
+    name: 'Telugu + Tenglish (తెలుగు)',
+    instruction: `Speak like a warm Hyderabad/AP clinic receptionist in natural Tenglish.
+- Mix spoken Telugu (తెలుగు) with English: slot, appointment, confirm, evening, WhatsApp, Dr. Harley.
+- Honorifics: "గారు" (Garu), "సార్ / మేడమ్".
+- Example: "ఖచ్చితంగా ప్రదీప్ గారు! రేపు ఈవినింగ్ 6:00 PM కి Dr. Harley గారితో అపాయింట్‌మెంట్ confirm చేయనా?"
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'Kachitanga Pradeep garu! Repu 12:30 PM ki Dr. Harley tho appointment confirm ayyindi. SMS mariyu WhatsApp pampinchaam.'
+    confirmExample: 'ఖచ్చితంగా ప్రదీప్ గారు! రేపు మధ్యాహ్నం 12:30 PM కి Dr. Harley గారితో మీ అపాయింట్‌మెంట్ confirm అయింది. SMS మరియు WhatsApp పంపించాము.'
   },
   'ta': {
-    name: 'Tamil + English (Tanglish)',
-    instruction: `Speak like a real Tamil Nadu clinic receptionist in natural Tanglish.
-- Mix spoken Tamil (தமிழ்) with English: slot, appointment, confirm, morning, WhatsApp.
-- Honorifics: "அவர்களே", "சார் / மேடம்". Example: "Naalaiku evening 6 manikku slot irukku — book pannalaama?"
-- Match the caller's Tanglish when they code-switch.
+    name: 'Tamil + Tanglish (தமிழ்)',
+    instruction: `Speak like a warm Chennai/Tamil Nadu clinic receptionist in natural Tanglish.
+- Mix spoken Tamil (தமிழ்) with English: slot, appointment, confirm, evening, WhatsApp, Dr. Harley.
+- Honorifics: "அவர்களே" (Avargale), "சார் / மேடம்".
+- Example: "நிச்சயமாக பிரதீப் சார்! நாளைக்கு ஈவினிங் 6:00 PM க்கு Dr. Harley கிட்ட slot confirm பண்ணிடட்டுமா?"
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'Nichayamaaga Pradeep avargale! Naalaiku 12:30 PM ku Dr. Harley udan appointment confirm aayiduchu. SMS um WhatsApp um anuppirom.'
+    confirmExample: 'நிச்சயமாக பிரதீப் சார்! நாளைக்கு மதியம் 12:30 PM க்கு Dr. Harley உடன் உங்கள் appointment confirm ஆகியுள்ளது. SMS மற்றும் WhatsApp அனுப்பியுள்ளோம்.'
   },
   'hi': {
-    name: 'Hindi + English (Hinglish)',
-    instruction: `Speak like a real North India clinic receptionist in natural Hinglish.
-- Mix conversational Hindi (हिन्दी) with English: slot, appointment, confirm, Sunday, PM, WhatsApp.
-- Honorifics: "जी", "सर / मैम". Example: "Kal 4 baje ka slot free hai — book kar doon?"
-- If caller writes in Roman Hindi, reply in the same natural Hinglish.
+    name: 'Hindi + Hinglish (हिन्दी)',
+    instruction: `Speak like a warm Delhi/North India clinic receptionist in natural Hinglish.
+- Mix conversational Hindi (हिन्दी) with English: slot, appointment, confirm, Sunday, PM, WhatsApp, Dr. Harley.
+- Honorifics: "जी" (Ji), "सर / मैम".
+- Example: "हाँजी प्रदीप जी! कल दोपहर 12:30 बजे Dr. Harley के साथ slot book कर दूँ?"
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'Bilkul Pradeep ji! Kal dopahar 12:30 baje Dr. Harley ke saath aapki appointment confirm ho gayi. SMS aur WhatsApp bhej diya.'
+    confirmExample: 'बिल्कुल प्रदीप जी! कल दोपहर 12:30 बजे Dr. Harley के साथ आपकी appointment confirm हो गई है। SMS और WhatsApp भेज दिया गया है।'
+  },
+  'ml': {
+    name: 'Malayalam + Manglish (മലയാളം)',
+    instruction: `Speak like a warm Kerala clinic receptionist in natural Manglish.
+- Mix spoken Malayalam (മലയാളം) with English: slot, appointment, confirm, Dr. Harley, WhatsApp.
+- Honorifics: "സർ / മാഡം".
+- Example: "തീർച്ചയായും! നാളെ വൈകുന്നേരം 4:00 PM ന് Dr. Harley യുമായി slot book ചെയ്യട്ടെ?"
+${CODE_SWITCH_RULE}`,
+    confirmExample: 'തീർച്ചയായും! നാളെ ഉച്ചയ്ക്ക് 12:30 PM ന് Dr. Harley യുമായി appointment confirm ചെയ്തിട്ടുണ്ട്.'
+  },
+  'mr': {
+    name: 'Marathi (मराठी)',
+    instruction: `Speak like a warm Pune/Mumbai clinic receptionist in natural conversational Marathi.
+- Mix Marathi (मराठी) with English: slot, appointment, confirm, Dr. Harley.
+- Honorifics: "साहेब / मॅडम".
+${CODE_SWITCH_RULE}`,
+    confirmExample: 'नक्कीच! उद्या दुपारी 12:30 वाजता Dr. Harley यांच्यासोबत तुमची appointment confirm झाली आहे.'
+  },
+  'gu': {
+    name: 'Gujarati (ગુજરાતી)',
+    instruction: `Speak like a warm Gujarat clinic receptionist in conversational Gujarati.
+- Mix Gujarati (ગુજરાતી) with English: slot, appointment, confirm, Dr. Harley.
+${CODE_SWITCH_RULE}`,
+    confirmExample: 'ચોક્કસ! કાલે બપોરે 12:30 વાગ્યે Dr. Harley સાથે તમારી appointment confirm થઈ ગઈ છે.'
+  },
+  'bn': {
+    name: 'Bengali (বাংলা)',
+    instruction: `Speak like a warm Kolkata clinic receptionist in conversational Bengali.
+- Mix Bengali (বাংলা) with English: slot, appointment, confirm, Dr. Harley.
+${CODE_SWITCH_RULE}`,
+    confirmExample: 'অবশ্যই! কাল দুপুর 12:30 টায় Dr. Harley-র সাথে আপনার appointment confirm করা হয়েছে।'
+  },
+  'pa': {
+    name: 'Punjabi (ਪੰਜਾਬੀ)',
+    instruction: `Speak like a warm Punjab clinic receptionist in conversational Punjabi.
+- Mix Punjabi (ਪੰਜਾਬੀ) with English: slot, appointment, confirm, Dr. Harley.
+${CODE_SWITCH_RULE}`,
+    confirmExample: 'ਬਿਲਕੁਲ ਜੀ! ਕੱਲ੍ਹ ਦੁਪਹਿਰ 12:30 ਵਜੇ Dr. Harley ਨਾਲ ਤੁਹਾਡੀ appointment confirm ਹੋ ਗਈ ਹੈ।'
   },
   'en-IN': {
     name: 'Indian English + Hinglish',
-    instruction: `Speak in warm Indian English. If the caller mixes Hindi/regional words (Hinglish), mirror that mix naturally.
-- Example caller: "Sunday ko open rehte ho kya?" → "Ji haan, Sunday 10 se 2 baje tak open hai. Kuch aur help karoon?"
+    instruction: `Speak in warm, helpful Indian English. If the caller mixes Hindi or regional phrases, acknowledge and mirror them naturally.
+- Example: "Ji haan! We have an opening tomorrow at 12:30 PM with Dr. Harley. Shall I lock that in for you?"
 ${CODE_SWITCH_RULE}`,
-    confirmExample: 'Certainly Mr. Pradeep! Kal 12:30 PM pe Dr. Harley ke saath appointment confirm ho gayi. SMS aur WhatsApp bhej diya hai.'
+    confirmExample: 'Certainly Mr. Pradeep! Your appointment with Dr. Harley is confirmed for tomorrow at 12:30 PM. An SMS confirmation and doctor WhatsApp alert have been sent.'
   },
   'en-GB': {
     name: 'British English',
-    instruction: 'Speak in warm, polite, professional British English (RP accent style).',
+    instruction: 'Speak in warm, polite, professional British English (Received Pronunciation style).',
     confirmExample: 'Certainly! Your appointment with Dr. Harley is confirmed for tomorrow at 12:30 PM. A confirmation SMS has been sent to you, and the doctor has been notified via WhatsApp.'
   },
   'en-US': {
@@ -77,12 +115,12 @@ ${CODE_SWITCH_RULE}`,
   'ar': {
     name: 'Arabic (العربية)',
     instruction: 'Speak in polite, professional Gulf / UAE Arabic.',
-    confirmExample: 'بالتأكيد! تم تأكيد موعدك غداً الساعة 12:30 ظهراً مع الطبيب، وتم إرسال رسالة نصية لتأكيد الحجز.'
+    confirmExample: 'بالتأكيد! تم تأكيد موعدك غداً الساعة 12:30 ظهراً مع الدكتور هارلي، وتم إرسال رسالة نصية لتأكيد الحجز.'
   },
   'fr': {
     name: 'French (Français)',
     instruction: 'Speak in warm, polite, professional French.',
-    confirmExample: 'Certainement! Votre rendez-vous est confirmé pour demain à 12h30. Une confirmation vous a été envoyée par SMS.'
+    confirmExample: 'Certainement! Votre rendez-vous est confirmé pour demain à 12h30 avec le Dr Harley.'
   }
 };
 

@@ -29,11 +29,29 @@ EDGE_VOICES = {
     "te": "te-IN-ShrutiNeural",
     "ta": "ta-IN-PallaviNeural",
     "hi": "hi-IN-SwaraNeural",
+    "ml": "ml-IN-SobhanaNeural",
+    "mr": "mr-IN-AarohiNeural",
+    "gu": "gu-IN-DhwaniNeural",
+    "bn": "bn-IN-TanishaaNeural",
+    "pa": "pa-IN-OjasNeural",
+    "ur": "ur-IN-GulNeural",
+    "en-IN": "en-IN-NeerjaNeural",
     "en-GB": "en-GB-SoniaNeural",
     "en-US": "en-US-JennyNeural",
-    "en-IN": "en-IN-NeerjaNeural",
+    "en-AU": "en-AU-NatashaNeural",
     "ar": "ar-AE-FatimaNeural",
     "fr": "fr-FR-DeniseNeural",
+    "de": "de-DE-KatjaNeural",
+    "es": "es-ES-ElviraNeural",
+    "it": "it-IT-ElsaNeural",
+    "pt": "pt-BR-FranciscaNeural",
+    "ru": "ru-RU-SvetlanaNeural",
+    "ja": "ja-JP-NanamiNeural",
+    "ko": "ko-KR-SunHiNeural",
+    "zh": "zh-CN-XiaoxiaoNeural",
+    "id": "id-ID-GadisNeural",
+    "ms": "ms-MY-YasminNeural",
+    "th": "th-TH-PremwadeeNeural",
 }
 
 def synth_edge_neural(text, language, out_path):
@@ -247,3 +265,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
