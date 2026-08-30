@@ -178,7 +178,7 @@ async function requestHandler(req, res) {
           treatment: "Dental Hygiene & Polish",
           treatmentFee: "Ã‚Â£140",
           slotTime: "Friday, 28 Aug at 2:30 PM",
-          clinicName: "Harley Street Smiles Dental",
+          clinicName: "Kumar's Microscopic Dental Care",
           conversationScript: "Patient booked Friday 2:30 PM slot for teeth cleaning; mentioned mild tooth sensitivity.",
           audioUrl: "https://app.vocalis.ai/recordings/demo_rec.mp3"
         }

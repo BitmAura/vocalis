@@ -46,22 +46,22 @@ class TenantStore {
         id: 'TNT-001',
         businessName: 'Kumar's Microscopic Dental Care',
         industry: 'dental',
-        currency: 'GBP',
-        currencySymbol: '£',
+        currency: 'INR',
+        currencySymbol: '₹',
         ownerName: 'Dr. Prem',
         personaName: 'Clara',
         language: 'en-GB',
-        phone: '+44 20 7946 0912',
-        doctorWhatsApp: '+44 7911 123456',
-        city: 'Central London',
+        phone: '+19803723727',
+        doctorWhatsApp: '+919148868413',
+        city: 'Bangalore',
         address: 'Kumar's Microscopic Dental Care, Indiranagar, Bangalore',
         workingHours: 'Mon-Sat: 8:30 AM - 6:00 PM',
         emergencyAvailable: true,
         services: [
-          { name: 'Comprehensive Hygiene & Polish', fee: '£140', durationMin: 45 },
-          { name: 'Routine Dental Examination', fee: '£95', durationMin: 30 },
-          { name: 'Emergency Toothache Triage', fee: '£120', durationMin: 30 },
-          { name: 'Invisalign Consultation', fee: 'Free (£0)', durationMin: 30 }
+          { name: 'Comprehensive Hygiene & Polish', fee: '₹140', durationMin: 45 },
+          { name: 'Routine Dental Examination', fee: '₹95', durationMin: 30 },
+          { name: 'Emergency Toothache Triage', fee: '₹120', durationMin: 30 },
+          { name: 'Invisalign Consultation', fee: 'Free (₹0)', durationMin: 30 }
         ],
         knowledgeBase: [
           { question: 'Do you accept private insurance like Bupa, AXA, or Aviva?', answer: 'Yes, we accept all major UK private health insurances including Bupa, AXA Health, Aviva, and Vitality. We provide itemized receipts for instant direct claim reimbursement.' },
@@ -150,8 +150,8 @@ class TenantStore {
         id: 'TNT-005',
         businessName: 'Gourmet Haven Italian Ristorante',
         industry: 'restaurant',
-        currency: 'GBP',
-        currencySymbol: '£',
+        currency: 'INR',
+        currencySymbol: '₹',
         ownerName: 'Chef Marco',
         personaName: 'Marco',
         language: 'en-GB',
@@ -163,7 +163,7 @@ class TenantStore {
         emergencyAvailable: false,
         services: [
           { name: 'Dining Table Reservation', fee: 'Complimentary', durationMin: 120 },
-          { name: 'Chef Tasting Menu (5-Course)', fee: '£85 per person', durationMin: 120 }
+          { name: 'Chef Tasting Menu (5-Course)', fee: '₹85 per person', durationMin: 120 }
         ],
         knowledgeBase: [
           { question: 'Do you offer gluten-free and vegan pasta options?', answer: 'Yes! We make fresh homemade gluten-free pasta and have a dedicated vegan Italian menu curated by Chef Marco.' },
@@ -214,9 +214,9 @@ class TenantStore {
       industry: 'dental',
       personaName: 'Clara',
       language: 'en-GB',
-      doctorPhone: '+44 7911 123456',
+      doctorPhone: '+919148868413',
       city: 'London',
-      services: [{ name: 'Comprehensive Hygiene', fee: '£140', durationMin: 45 }]
+      services: [{ name: 'Comprehensive Hygiene', fee: '₹140', durationMin: 45 }]
     };
   }
 

@@ -62,7 +62,7 @@ async function handleChat(req, res, body) {
     bizName: bizName || tenant.businessName,
     ownerName: ownerName || tenant.ownerName,
     city: city || tenant.city,
-    address: tenant.address || '14 Harley Street, Central London',
+    address: tenant.address || 'Kumar\'s Microscopic Dental Care, Indiranagar, Bangalore',
     workingHours: tenant.workingHours || 'Mon-Sat: 8:30 AM - 6:00 PM',
     phone: tenant.phone || '+44 20 7946 0912',
     personaName: personaName || tenant.personaName,
@@ -195,7 +195,7 @@ async function handleChat(req, res, body) {
         reply: "Hello! Welcome to our reception. I would be delighted to assist you with booking your visit. How may I help you today?",
         source: 'resilient_guard',
         language: 'en-GB',
-        tenant: 'Harley Street Smiles Dental'
+        tenant: 'Kumar's Microscopic Dental Care'
       }));
     }
   }

@@ -40,8 +40,8 @@ function resolveTenant(toNumber) {
   if (!tenant) {
     tenant = {
       id: 'TNT-001',
-      businessName: 'Harley Street Smiles Dental',
-      ownerName: 'Dr. Harley',
+      businessName: "Kumar's Microscopic Dental Care",
+      ownerName: 'Dr. Prem',
       industry: 'dental',
       personaName: 'Clara',
       language: 'en-GB',
@@ -172,7 +172,7 @@ async function handleInboundCall(reqBody) {
     bizName: session.tenant.businessName,
     ownerName: session.tenant.ownerName,
     city: session.tenant.city || 'Central London',
-    address: session.tenant.address || '14 Harley Street, London',
+    address: session.tenant.address || 'Kumar\'s Microscopic Dental Care, Indiranagar, Bangalore',
     workingHours: session.tenant.workingHours || 'Mon-Sat: 8:30 AM - 6:00 PM',
     personaName: session.tenant.personaName || 'Clara',
     services: session.tenant.services || [],
@@ -220,7 +220,7 @@ async function handleInboundCall(reqBody) {
         patientPhone: fromNumber,
         treatment: session.tenant.industry === 'realestate' ? 'Weekend Farmland Site Visit' : 'Consultation',
         slotTime: finalSlot,
-        doctorName: session.tenant.ownerName || 'Dr. Harley',
+        doctorName: session.tenant.ownerName || 'Dr. Prem',
         doctorPhone: session.tenant.doctorWhatsApp || session.tenant.doctorPhone || '+919845012345',
         transcript: session.history
       });
