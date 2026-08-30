@@ -57,13 +57,20 @@ class CallSession {
 
   async speakReply(ws, reply, lang) {
     if (!reply) return;
-    const mulaw = await ttsEngine.synthesizeMulaw8k(reply, lang || this.tenant.language);
-    if (mulaw) {
-      this.isSpeaking = true;
-      sendMulawStream(ws, this.streamSid, mulaw, { clearFirst: true });
-      setTimeout(() => { this.isSpeaking = false; }, Math.min(15000, Math.ceil(mulaw.length / 160) * 20 + 200));
-    } else {
-      console.warn('[Voice Stream] No mulaw audio for reply — check GOOGLE_TTS_API_KEY or mit-voice');
+    try {
+      const mulaw = await ttsEngine.synthesizeMulaw8k(reply, lang || this.tenant.language);
+      if (mulaw && mulaw.length > 160) {
+        this.isSpeaking = true;
+        this.interruptEnergyCount = 0;
+        sendMulawStream(ws, this.streamSid, mulaw, { clearFirst: true });
+        const durationMs = Math.ceil(mulaw.length / 160) * 20;
+        setTimeout(() => { 
+          if (this.isSpeaking) this.isSpeaking = false; 
+        }, Math.min(15000, durationMs + 150));
+      }
+    } catch(err) {
+      console.error('[Voice Stream speakReply error]:', err.message);
+      this.isSpeaking = false;
     }
   }
 
@@ -253,9 +260,29 @@ function attachMediaStreamServer(httpServer) {
         }
 
         case 'media': {
-          if (!session || session.isSpeaking || session.isProcessing) break;
+          if (!session) break;
 
           const chunk = Buffer.from(data.media.payload, 'base64');
+          const energy = mulawEnergy(chunk);
+          const isVoice = energy > 8;
+
+          // ⚡ FULL DUPLEX BARGE-IN: If caller speaks while AI is speaking, cut audio instantly
+          if (session.isSpeaking && isVoice) {
+            session.interruptEnergyCount = (session.interruptEnergyCount || 0) + 1;
+            if (session.interruptEnergyCount >= 3) {
+              console.log('[Voice Stream] ⚡ Caller Barge-In detected — cutting AI audio playback');
+              session.isSpeaking = false;
+              session.interruptEnergyCount = 0;
+              try {
+                ws.send(JSON.stringify({ event: 'clear', streamSid: session.streamSid }));
+              } catch(e) {}
+            }
+          } else {
+            session.interruptEnergyCount = 0;
+          }
+
+          if (session.isSpeaking || session.isProcessing) break;
+
           session.audioBuffer.push(chunk);
 
           const energy = mulawEnergy(chunk);
