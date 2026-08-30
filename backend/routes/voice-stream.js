@@ -44,15 +44,22 @@ class CallSession {
 
   greetingText() {
     const t = this.tenant;
-    if (t.industry === 'realestate') {
-      return this.tenant.language === 'kn'
-        ? 'Namaskara! Prestige Managed Farmland ge swagata. Naanu Priya — hege help maadli?'
-        : 'Hello! Thank you for calling Prestige Managed Farmlands. My name is Priya, how can I help you?';
+    const biz = t.bizName || t.businessName || "Kumar's Microscopic Dental Care";
+    const name = t.personaName || 'Clara';
+    
+    if (t.language === 'kn') {
+      return `ನಮಸ್ಕಾರ! ${biz} ಇಂದ ${name} ಮಾತಾಡ್ತಿದ್ದೀನಿ. ಹೇಳಿ, ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡ್ಲಿ?`;
     }
-    if (['hi', 'en-IN'].includes(t.language)) {
-      return `Namaste! ${t.bizName} mein call karne ke liye dhanyavaad. Main ${t.personaName || 'Clara'} hoon. Kya aap appointment book, cancel ya reschedule karna chahenge?`;
+    if (t.language === 'hi') {
+      return `नमस्ते! ${biz} से ${name} बात कर रही हूँ। बताइए, आज मैं आपकी क्या मदद कर सकती हूँ?`;
     }
-    return `Good afternoon! Thank you for calling ${t.bizName}. My name is ${t.personaName || 'Clara'}. Would you like to book, cancel, or reschedule an appointment?`;
+    if (t.language === 'te') {
+      return `నమస్కారం! ${biz} నుంచి ${name} మాట్లాడుతున్నాను. చెప్పండి, మీకు ఎలా సహాయపడగలను?`;
+    }
+    if (t.language === 'ta') {
+      return `வணக்கம்! ${biz} நான் ${name} பேசுறேன். சொல்லுங்க, உங்களுக்கு எப்படி உதவ முடியும்?`;
+    }
+    return `Hello! Thank you for calling ${biz}, ${name} speaking. How may I assist you today?`;
   }
 
   async speakReply(ws, reply, lang) {
