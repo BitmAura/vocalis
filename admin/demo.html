@@ -275,13 +275,14 @@ let callState = {
 
 const lifecycleGreetings = {
   dental: {
-    'en-GB': "Good afternoon! Thank you for calling Harley Street Smiles Dental. My name is Clara. Are you a new patient or visiting us again?",
-    'en-US': "Hello! Thank you for calling Summit Dental Care. My name is Sarah. Are you calling as a new patient or an existing patient?",
-    'kn': "ನಮಸ್ಕಾರ! ಹಾರ್ಲೆ ಸ್ಮೈಲ್ಸ್ ಡೆಂಟಲ್ ಕ್ಲಿನಿಕ್‌ಗೆ ಸ್ವಾಗತ. ನನ್ನ ಹೆಸರು ಮಾಯಾ. ನೀವು ನಮ್ಮ ಕ್ಲಿನಿಕ್‌ಗೆ ಹೊಸಬರೇ ಅಥವಾ ಮೊದಲೇ ಭೇಟಿ ನೀಡಿದ್ದೀರಾ?",
-    'hi': "नमस्ते! स्माइल्स डेंटल क्लिनिक में आपका स्वागत है। मैं माया हूँ। क्या आप पहली बार आ रहे हैं या पहले भी आ चुके हैं?",
-    'te': "నమస్కారం! స్మైల్స్ డెಂಟల్ క్లినిక్‌కి స్వాగతం. నా పేరు ప్రియ. మీరు మా క్లినిక్‌కి కొత్తవారా లేదా ఇదివరకే వచ్చారా?",
-    'ta': "வணக்கம்! ஸ்மைல்ஸ் பல் மருத்துவமனைக்கு வரவேற்கிறோம். நான் பிரியா. நீங்கள் புதிய நோயாளியா அல்லது ஏற்கனவே வந்தவரா?",
-    'ar': "مرحباً بكم في عيادة سمايلز لطب الأسنان. اسمي ليلى. هل أنت مريض جديد أم زرتنا من قبل؟"
+    'en-GB': "Good afternoon! Thank you for calling Harley Street Smiles Dental. My name is Clara. How may I assist you with scheduling your appointment today?",
+    'en-US': "Hello! Thank you for calling Harley Street Smiles Dental. My name is Clara. How can I help you with your visit today?",
+    'en-IN': "Hello! Welcome to Harley Street Smiles Dental with Dr. Harley. My name is Clara. Would you like to book an appointment?",
+    'kn': "ನಮಸ್ಕಾರ! ಡಾಕ್ಟರ್ ಹಾರ್ಲೆ ಅವರ ಡೆಂಟಲ್ ಕ್ಲಿನಿಕ್‌ಗೆ ಸ್ವಾಗತ. ನಾನು ಕ್ಲಾರಾ. ನಿಮಗೆ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಬುಕ್ ಮಾಡಲಾ ಸರ್?",
+    'hi': "नमस्ते! डॉ. हार्ले के डेंटल क्लिनिक में आपका स्वागत है। मैं क्लारा हूँ। क्या मैं आपकी अपॉइंटमेंट बुक कर दूँ?",
+    'te': "నమస్కారం! డాక్టర్ హార్లే గారి డెంటల్ క్లినిక్‌కి స్వాగతం. నా పేరు క్లారా. మీకు అపాయిಂట్‌మెంట్ బుక్ చేయమంటారా అండీ?",
+    'ta': "வணக்கம்! டாக்டர் ஹார்லே அவர்களின் பல் மருத்துவமனைக்கு உங்களை வரவேற்கிறோம். நான் கிளாரா. உங்களுக்கு அப்பாயின்ட்மென்ட் முன்பதிவு செய்யவா சார்?",
+    'ar': "مرحباً بكم في عيادة الدكتور هارلي لطب الأسنان. أنا كلارا، كيف يمكنني مساعدتكم اليوم؟"
   },
   realestate: {
     'kn': "ನಮಸ್ಕಾರ ಸರ್! ಪ್ರೆಸ್ಟೀಜ್ ಮ್ಯಾನೇಜ್ಡ್ ಫಾರ್ಮ್‌ಲ್ಯಾಂಡ್ ಅಂಡ್ ಎಸ್ಟೇಟ್ಸ್‌ಗೆ ಸ್ವಾಗತ. ನೀವು ಇನ್‌ಸ್ಟಾಗ್ರಾಮ್ ಜಾಹೀರಾತು ನೋಡಿ ಕಾಲ್ ಮಾಡಿದ್ದೀರಾ? ನೀವು ಬಂಡವಾಳ ಹೂಡಿಕೆಗಾಗಿ ಅಥವಾ ಸ್ವಂತ ಫಾರ್ಮ್‌ಹೌಸ್‌ಗಾಗಿ ನೋಡ್ತಿದ್ದೀರಾ?",
@@ -1004,11 +1005,15 @@ async function speak(text) {
   // Clean text from markdown syntax
   const clean = text.replace(/[*_#`]/g, '').trim();
 
-  // Try High-Fidelity Server Neural Speech Stream (/v1/tts)
+  // Try High-Fidelity Neural Speech Stream (Vocalis Engine)
   try {
-    const audioUrl = '/v1/tts?text=' + encodeURIComponent(clean) + '&lang=' + currentLanguage;
+    // Primary: local /v1/tts. Secondary: Cloudflare Oracle Neural Stream
+    const oracleTunnel = 'https://exterior-maternity-murphy-society.trycloudflare.com';
+    const ttsBase = (window.location.hostname.includes('vercel.app')) ? oracleTunnel : '';
+    const audioUrl = ttsBase + '/v1/tts?text=' + encodeURIComponent(clean) + '&lang=' + currentLanguage;
+    
     const audio = new Audio(audioUrl);
-    audio.playbackRate = 1.05; // Human conversational pacing with natural breathing pauses
+    audio.playbackRate = 1.03;
     currentAudioPlayer = audio;
 
     if (sphere) sphere.classList.add('active');
