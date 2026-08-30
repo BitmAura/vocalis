@@ -1,7 +1,8 @@
 FROM node:20-alpine
 
-# Install system dependencies for audio streaming and codecs
-RUN apk add --no-cache ffmpeg curl ca-certificates
+# Install system dependencies, python3 and edge-tts
+RUN apk add --no-cache ffmpeg curl ca-certificates python3 py3-pip && \
+    python3 -m pip install --no-cache-dir --break-system-packages edge-tts
 
 WORKDIR /app
 
@@ -17,6 +18,7 @@ RUN mkdir -p /app/backend/data /app/models /app/recordings
 
 ENV PORT=3300
 ENV NODE_ENV=production
+ENV PYTHON=python3
 
 EXPOSE 3300
 

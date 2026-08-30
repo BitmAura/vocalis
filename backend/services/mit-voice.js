@@ -18,15 +18,7 @@ let workerDead = false;
 
 function startWorker() {
   if (proc || workerDead || process.env.VERCEL) return;
-  let bin = process.env.PYTHON;
-  if (!bin) {
-    if (process.platform === 'win32') {
-      bin = 'py';
-    } else {
-      const venvPy = '/home/ubuntu/vocalis_env/bin/python3';
-      bin = fs.existsSync(venvPy) ? venvPy : 'python3';
-    }
-  }
+  let bin = process.env.PYTHON || (process.platform === 'win32' ? 'py' : 'python3');
   const args = bin === 'py' ? ['-3', '-u', WORKER] : ['-u', WORKER];
   try {
     proc = spawn(bin, args, { stdio: ['pipe', 'pipe', 'pipe'], env: { ...process.env, PYTHONIOENCODING: 'utf-8' } });

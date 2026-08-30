@@ -97,16 +97,49 @@
       </div>
 
       <!-- Languages -->
-      <div class="lang-badge-bar">
+      <div class="lang-badge-bar" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px">
         <button class="lang-btn active" id="lang-en-gb" onclick="switchLang('en-GB','UK English')">🇬🇧 UK English</button>
-        <button class="lang-btn" id="lang-en-us" onclick="switchLang('en-US','US English')">🇺🇸 US English</button>
-        <button class="lang-btn" id="lang-kn" onclick="switchLang('kn','Kannada')">🇮🇳 Kannada (ಕನ್ನಡ)</button>
+        <button class="lang-btn" id="lang-kn" onclick="switchLang('kn','Kannada (ಕನ್ನಡ)')">🇮🇳 Kannada (ಕನ್ನಡ)</button>
+        <button class="lang-btn" id="lang-ta" onclick="switchLang('ta','Tamil (தமிழ்)')">🇮🇳 Tamil (தமிழ்)</button>
+        <button class="lang-btn" id="lang-te" onclick="switchLang('te','Telugu (తెలుగు)')">🇮🇳 Telugu (తెలుగు)</button>
+        <button class="lang-btn" id="lang-hi" onclick="switchLang('hi','Hindi (हिन्दी)')">🇮🇳 Hindi (हिन्दी)</button>
+        <button class="lang-btn" id="lang-ml" onclick="switchLang('ml','Malayalam (മലയാളം)')">🇮🇳 Malayalam (മലയാളം)</button>
         <button class="lang-btn" id="lang-en-in" onclick="switchLang('en-IN','Indian English')">🇮🇳 Indian English</button>
-        <button class="lang-btn" id="lang-hi" onclick="switchLang('hi','Hindi')">🇮🇳 Hindi (हिन्दी)</button>
-        <button class="lang-btn" id="lang-te" onclick="switchLang('te','Telugu')">🇮🇳 Telugu (తెలుగు)</button>
-        <button class="lang-btn" id="lang-ta" onclick="switchLang('ta','Tamil')">🇮🇳 Tamil (தமிழ்)</button>
-        <button class="lang-btn" id="lang-ar" onclick="switchLang('ar','Arabic UAE')">🇦🇪 Arabic UAE / Dubai</button>
-        <button class="lang-btn" id="lang-fr" onclick="switchLang('fr','French France')">🇫🇷 French (France)</button>
+        <button class="lang-btn" id="lang-en-us" onclick="switchLang('en-US','US English')">🇺🇸 US English</button>
+        <button class="lang-btn" id="lang-ar" onclick="switchLang('ar','Arabic UAE')">🇦🇪 Arabic (العربية)</button>
+        
+        <div style="margin-left:auto;display:flex;align-items:center;gap:6px">
+          <label style="font-size:11px;font-weight:700;color:var(--text-secondary);white-space:nowrap">🌐 All 29 Languages:</label>
+          <select id="allLangSelect" class="form-control" style="font-size:11.5px;padding:4px 8px;width:auto;cursor:pointer;background:white;border:1.5px solid var(--border-color);border-radius:6px" onchange="onSelectAllLang(this.value)">
+            <option value="kn">🇮🇳 Kannada (ಕನ್ನಡ - Kanglish)</option>
+            <option value="ta">🇮🇳 Tamil (தமிழ் - Tanglish)</option>
+            <option value="te">🇮🇳 Telugu (తెలుగు - Tenglish)</option>
+            <option value="hi">🇮🇳 Hindi (हिन्दी - Hinglish)</option>
+            <option value="ml">🇮🇳 Malayalam (മലയാളം - Manglish)</option>
+            <option value="mr">🇮🇳 Marathi (मराठी)</option>
+            <option value="gu">🇮🇳 Gujarati (ગુજરાતી)</option>
+            <option value="bn">🇮🇳 Bengali (বাংলা)</option>
+            <option value="pa">🇮🇳 Punjabi (ਪੰਜਾਬੀ)</option>
+            <option value="ur">🇮🇳 Urdu (اردو)</option>
+            <option value="en-IN">🇮🇳 Indian English</option>
+            <option value="en-GB" selected>🇬🇧 UK British English</option>
+            <option value="en-US">🇺🇸 US American English</option>
+            <option value="en-AU">🇦🇺 Australian English</option>
+            <option value="ar">🇦🇪 UAE / Gulf Arabic (العربية)</option>
+            <option value="fr">🇫🇷 French (Français)</option>
+            <option value="de">🇩🇪 German (Deutsch)</option>
+            <option value="es">🇪🇸 Spanish (Español)</option>
+            <option value="it">🇮🇹 Italian (Italiano)</option>
+            <option value="pt">🇵🇹 Portuguese (Português)</option>
+            <option value="ru">🇷🇺 Russian (Русский)</option>
+            <option value="ja">🇯🇵 Japanese (日本語)</option>
+            <option value="ko">🇰🇷 Korean (한국어)</option>
+            <option value="zh">🇨🇳 Mandarin Chinese (中文)</option>
+            <option value="id">🇮🇩 Indonesian (Bahasa Indonesia)</option>
+            <option value="ms">🇲🇾 Malay (Bahasa Melayu)</option>
+            <option value="th">🇹🇭 Thai (ไทย)</option>
+          </select>
+        </div>
       </div>
 
       <div class="demo-container">
@@ -315,6 +348,13 @@ function switchCategory(cat) {
   if (subtitleEl) subtitleEl.textContent = cfg.subtitle;
   resetCallState();
   updateView();
+}
+
+
+function onSelectAllLang(val) {
+  const select = document.getElementById('allLangSelect');
+  const label = select.options[select.selectedIndex].text;
+  switchLang(val, label);
 }
 
 function switchLang(lang, label) {
